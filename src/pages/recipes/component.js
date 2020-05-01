@@ -7,6 +7,7 @@ import List from '../../common/components/list'
 function Recipes({recipes, fetchRecipes}) {
   useEffect(() => {
     fetchRecipes()
+    // eslint-disable-next-line
   }, [])
 
   return (
