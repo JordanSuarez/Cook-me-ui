@@ -1,0 +1,103 @@
+{
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true
+  },
+  "extends": ["airbnb", "prettier", "prettier/react"],
+  "parser": "./node_modules/babel-eslint/lib/index",
+  "parserOptions": {
+    "allowImportExportEverywhere": false,
+    "codeFrame": true,
+    "ecmaFeatures": {
+      "arrowFunctions": true,
+      "classes": true,
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "modules": true
+    },
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "plugins": ["compat", "sort-imports-es6-autofix", "prettier"],
+  "rules": {
+    "compat/compat": "error",
+    "import/no-extraneous-dependencies": "off",
+    "import/order": [
+      "error",
+      {
+        "groups": ["external", ["builtin", "sibling", "parent", "index", "internal"]],
+        "newlines-between": "always-and-inside-groups"
+      }
+    ],
+    "linebreak-style": ["error", "unix"],
+    "lines-around-comment": [
+      "error",
+      {
+        "beforeBlockComment": true
+      }
+    ],
+    "padding-line-between-statements": [
+      "error",
+      {
+        "blankLine": "always",
+        "prev": ["const"],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": ["const"],
+        "next": ["const"]
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": "return"
+      }
+    ],
+    "no-underscore-dangle": ["off"],
+    "prettier/prettier": "error",
+    "react/destructuring-assignment": [1, "always"],
+    "react/forbid-foreign-prop-types": 2,
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "react/jsx-sort-default-props": 2,
+    "react/no-unused-prop-types": [
+      "off",
+      {
+        "skipShapeProps": true
+      }
+    ],
+    "react/prefer-stateless-function": ["off"],
+    "react/sort-prop-types": 2,
+    "sort-imports-es6-autofix/sort-imports-es6": [
+      "error",
+      {
+        "ignoreCase": true,
+        "ignoreMemberSort": false,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "spaced-comment": ["off"],
+    "jsx-a11y/label-has-for": ["off"],
+    "jsx-a11y/label-has-associated-control": [ 2, {
+      "labelAttributes": ["label"],
+      "controlComponents": ["Form.Input", "Input", "Rating", "TextArea", "Form.Select", "Dropdown", "DatePicker"],
+      "depth": 3
+    }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js"],
+        "paths": ["src"]
+      }
+    }
+  }
+}
