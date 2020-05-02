@@ -39,8 +39,8 @@
     "commit": "git-cz",
     "format": "prettier --config .prettierrc --write './**/*.js'",
     "lint": "eslint .",
-    "lint:debug": "yarn lint --debug",
-    "lint:fix": "yarn lint --fix"
+    "lint:debug": "npm run lint --debug",
+    "lint:fix": "npm run lint --fix"
   },
   "eslintConfig": {
     "extends": "react-app"

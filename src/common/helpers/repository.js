@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const options = {
   headers: {
-    Authorization: process.env.TOKEN,
+    Authorization: process.env.REACT_APP_TOKEN,
   },
 }
 const callApi = (url, method) => axios[method](url, options).then((response) => response)
