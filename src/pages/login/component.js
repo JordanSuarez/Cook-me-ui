@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Grid, Typography} from '@material-ui/core'
 
@@ -8,13 +8,24 @@ import TextField from '@material-ui/core/TextField'
 
 import {classes as classesProps} from 'common/props'
 
-import FormSection from 'common/components/formSection'
-
 import Layout from 'common/components/layout'
 
-function Login({classes}) {
-  function submit() {}
-  const {handleData, handleSubmit, values} = FormSection(submit)
+const Login = () => {
+  const classes = classesProps
+  const [login, setLogin] = useState('')
+  const [password, setPassword] = useState('')
+  const [helperText, setHelperText] = useState('')
+  const [error, setError] = useState(false)
+
+  const handleLogin = () => {
+    if (login === 'test' && password === 'test') {
+      setError(false)
+      setHelperText('Login Successfully')
+    } else {
+      setError(true)
+      setHelperText('Incorrect username or password')
+    }
+  }
 
   return (
     <Layout>
@@ -24,7 +35,7 @@ function Login({classes}) {
         </Typography>
       </Grid>
       <div title="Login">
-        <TextField required id="login" label="Login" variant="outlined" value={values.login} onChange={handleData} />
+        <TextField required id="login" label="Login" variant="outlined" error={error} onChange={(e) => setLogin(e.target.value)} />
         <TextField
           required
           id="password"
@@ -32,10 +43,10 @@ function Login({classes}) {
           type="password"
           variant="outlined"
           autoComplete="current-password"
-          value={values.password}
-          onChange={handleData}
+          helperText={helperText}
+          onChange={(e) => setPassword(e.target.value)}
         />
-        <Button variant="contained" onClick={handleSubmit}>
+        <Button variant="contained" onClick={handleLogin}>
           SUBMIT
         </Button>
       </div>
