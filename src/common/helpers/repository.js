@@ -1,13 +1,29 @@
 import axios from 'axios'
 
-const options = {
-  headers: {
-    Authorization: process.env.REACT_APP_TOKEN,
-  },
-}
-const callApi = (url, method) => axios[method](url, options).then((response) => response)
+import {getUrl} from './urlHandler'
+import {LOGIN} from '../constants/resources_type'
+import {POST} from '../constants/methods'
+import {USERS} from '../constants/resources'
 
+/**
+ *
+ * @param url
+ * @param method
+ * @param options
+ * @returns {Q.Promise<any> | * | void | PromiseLike<any>}
+ */
+const callApi = (url, method, options) => axios[method](url, options).then((response) => response)
+
+/**
+ *
+ * @param url
+ * @param method
+ * @returns {Q.Promise<any> | * | void | PromiseLike<any>}
+ */
 export const getResources = (url, method) => callApi(url, method)
 
-// TODO handle post for login, creation...
-export const post = () => {}
+/**
+ * Login Handler
+ * @param data
+ */
+export const handleLogin = (data) => callApi(getUrl(USERS, POST, LOGIN), POST, data)
