@@ -1,55 +1,65 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-import {Grid, Typography} from '@material-ui/core'
+import {Avatar, Button, Grid, Paper, Typography} from '@material-ui/core'
 
-import Button from '@material-ui/core/Button'
+import LoginIcon from '@material-ui/icons/LockOutlined'
 
-import TextField from '@material-ui/core/TextField'
+import {TextField} from 'mui-rff'
+
+import {Form} from 'react-final-form'
 
 import {classes as classesProps} from 'common/props'
-
+import {handleLogin} from '../../common/helpers/repository'
 import Layout from 'common/components/layout'
 
-const Login = () => {
-  const classes = classesProps
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
-  const [helperText, setHelperText] = useState('')
-  const [error, setError] = useState(false)
-
-  const handleLogin = () => {
-    if (login === 'test' && password === 'test') {
-      setError(false)
-      setHelperText('Login Successfully')
-    } else {
-      setError(true)
-      setHelperText('Incorrect username or password')
-    }
+function Login({classes}) {
+  function onSubmit(values) {
+    handleLogin(values)
   }
 
   return (
     <Layout>
-      <Grid item xs={12} sm={6}>
-        <Typography variant="h1" component="h2" className={classes.title}>
-          LOGIN SMARTPHONE
-        </Typography>
+      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
+        <div className={classes.paper}>
+          <Avatar className={classes.icon}>
+            <LoginIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Login
+          </Typography>
+          <Form
+            onSubmit={onSubmit}
+            render={({handleSubmit}) => (
+              <form onSubmit={handleSubmit} noValidate>
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Username"
+                  name="username"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  variant="outlined"
+                  margin="normal"
+                  required
+                  fullWidth
+                  label="Password"
+                  name="password"
+                  autoComplete="current-password"
+                  type="password"
+                />
+                <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                  Login
+                </Button>
+              </form>
+            )}
+          />
+        </div>
       </Grid>
-      <div title="Login">
-        <TextField required id="login" label="Login" variant="outlined" error={error} onChange={(e) => setLogin(e.target.value)} />
-        <TextField
-          required
-          id="password"
-          label="Password"
-          type="password"
-          variant="outlined"
-          autoComplete="current-password"
-          helperText={helperText}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button variant="contained" onClick={handleLogin}>
-          SUBMIT
-        </Button>
-      </div>
     </Layout>
   )
 }
