@@ -7,11 +7,9 @@ import {classes as classesProps} from '../../props'
 
 function Layout({children, classes}) {
   return (
-    <div className={classes.container}>
-      <Grid container spacing={3}>
-        {children}
-      </Grid>
-    </div>
+    <Grid container spacing={3} className={classes.root}>
+      {children}
+    </Grid>
   )
 }
 

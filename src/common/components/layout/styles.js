@@ -1,5 +1,6 @@
-export default (theme) => ({
-  container: {
-    background: theme.palette.secondary.dark,
+export default ({palette}) => ({
+  root: {
+    background: palette.secondary.medium,
+    height: '100vh',
   },
 })
