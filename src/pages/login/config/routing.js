@@ -1,7 +1,9 @@
+import {getLoginRoute} from 'common/routing/routesResolver'
 import Login from '../index'
 
 export default {
   id: 'loginPage',
-  path: '/login',
+  path: getLoginRoute(),
   component: Login,
+  requireAuthentication: false,
 }

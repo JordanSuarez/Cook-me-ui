@@ -1,6 +1,7 @@
 export default ({palette, spacing}) => ({
   root: {
     height: '100vh',
+    overflow: 'visible',
   },
   title: {
     color: palette.primary.main,

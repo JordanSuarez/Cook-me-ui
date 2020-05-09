@@ -12,6 +12,7 @@ function Recipes({recipes, fetchRecipes}) {
 
   return (
     <div>
+      LISTE RECIPES
       <List items={recipes} />
     </div>
   )

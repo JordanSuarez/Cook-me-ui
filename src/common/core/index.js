@@ -10,14 +10,16 @@ import initStore from '../redux/store'
 import Router from '../routing/router'
 import theme from '../theme'
 
-const Core = () => (
-  <MuiThemeProvider theme={theme}>
-    <CssBaseline />
-    <Provider store={initStore()}>
-      <Router routes={routes} />
-    </Provider>
-  </MuiThemeProvider>
-)
+const Core = () => {
+  return (
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
+      <Provider store={initStore()}>
+        <Router routes={routes} />
+      </Provider>
+    </MuiThemeProvider>
+  )
+}
 
 Core.propTypes = {
   middlewares: arrayOf(func),

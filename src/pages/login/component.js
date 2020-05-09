@@ -1,6 +1,7 @@
 import React from 'react'
 
 import {Avatar, Button, Grid, Paper, Typography} from '@material-ui/core'
+import {useHistory} from 'react-router-dom'
 
 import LoginIcon from '@material-ui/icons/LockOutlined'
 
@@ -9,12 +10,15 @@ import {TextField} from 'mui-rff'
 import {Form} from 'react-final-form'
 
 import {classes as classesProps} from 'common/props'
+import {getHomeRoute} from '../../common/routing/routesResolver'
 import {handleLogin} from '../../common/helpers/repository'
 import Layout from 'common/components/layout'
 
 function Login({classes}) {
+  const history = useHistory()
+
   function onSubmit(values) {
-    handleLogin(values)
+    handleLogin(values).then((logged) => (logged ? history.push(getHomeRoute()) : null))
   }
 
   return (
@@ -31,7 +35,7 @@ function Login({classes}) {
           <Form
             onSubmit={onSubmit}
             render={({handleSubmit}) => (
-              <form onSubmit={handleSubmit} noValidate>
+              <form onSubmit={handleSubmit} noValidate className={classes.form}>
                 <TextField
                   variant="outlined"
                   margin="normal"
