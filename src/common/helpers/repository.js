@@ -13,15 +13,7 @@ import {USERS} from '../constants/resources'
  * @param options
  * @returns {Q.Promise<any> | * | void | PromiseLike<any>}
  */
-const callApi = (url, method, options) => axios[method](url, {...options, ...getAuthorization()}).then((response) => response)
-
-/**
- *
- * @param url
- * @param method
- * @returns {Q.Promise<any> | * | void | PromiseLike<any>}
- */
-export const getResources = (url, method) => callApi(url, method)
+export const callApi = (url, method, options = {}) => axios[method](url, {...options, ...getAuthorization()}).then((response) => response)
 
 /**
  * Login Handler
