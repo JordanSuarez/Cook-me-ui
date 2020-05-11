@@ -12,7 +12,7 @@ function Starters({starters, fetchStarters}) {
 
   return (
     <div>
-      LISTE STARTERS
+      Starters List
       <List items={starters} />
     </div>
   )
