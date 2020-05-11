@@ -1,31 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
-import {any, arrayOf, func} from 'prop-types'
-
-import List from '../../common/components/list'
-
-function Dish({dish, fetchDish}) {
-  useEffect(() => {
-    fetchDish()
-    // eslint-disable-next-line
-  }, [])
-
-  return (
-    <div>
-      Dish List
-      <List items={dish} />
-    </div>
-  )
+function Dish() {
+  return <div>Dish List</div>
 }
 
-Dish.propTypes = {
-  dish: arrayOf(any),
-  fetchDish: func,
-}
+Dish.propTypes = {}
 
-Dish.defaultProps = {
-  dish: [],
-  fetchDish: Function.prototype,
-}
+Dish.defaultProps = {}
 
 export default Dish

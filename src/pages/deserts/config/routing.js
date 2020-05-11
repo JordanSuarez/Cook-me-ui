@@ -1,4 +1,4 @@
-import {getDesertsRoute} from '../../../common/routing/routesResolver'
+import {getDesertsRoute} from 'common/routing/routesResolver'
 import Deserts from '../index'
 
 export default {

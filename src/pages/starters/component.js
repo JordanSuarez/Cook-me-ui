@@ -1,31 +1,11 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
-import {any, arrayOf, func} from 'prop-types'
-
-import List from '../../common/components/list'
-
-function Starters({starters, fetchStarters}) {
-  useEffect(() => {
-    fetchStarters()
-    // eslint-disable-next-line
-  }, [])
-
-  return (
-    <div>
-      Starters List
-      <List items={starters} />
-    </div>
-  )
+function Starters() {
+  return <div>Starters List</div>
 }
 
-Starters.propTypes = {
-  fetchStarters: func,
-  starters: arrayOf(any),
-}
+Starters.propTypes = {}
 
-Starters.defaultProps = {
-  fetchStarters: Function.prototype,
-  starters: [],
-}
+Starters.defaultProps = {}
 
 export default Starters
