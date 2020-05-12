@@ -4,7 +4,7 @@ import {Button} from '@material-ui/core'
 
 import {string} from 'prop-types'
 
-function Submit(children) {
+function SubmitButton({children}) {
   return (
     <Button variant="contained" color="primary">
       {children}
@@ -12,8 +12,10 @@ function Submit(children) {
   )
 }
 
-Submit.propTypes = {
+SubmitButton.propTypes = {
   children: string.isRequired,
 }
 
-export default Submit
+SubmitButton.defaultProps = {}
+
+export default SubmitButton

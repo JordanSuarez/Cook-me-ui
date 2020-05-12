@@ -10,8 +10,8 @@ import {TextField} from 'mui-rff'
 import {Form} from 'react-final-form'
 
 import {classes as classesProps} from 'common/props'
-import {getHomeRoute} from '../../common/routing/routesResolver'
-import {handleLogin} from '../../common/helpers/repository'
+import {getHomeRoute} from 'common/routing/routesResolver'
+import {handleLogin} from 'common/helpers/repository'
 import Layout from 'common/components/layout'
 
 function Login({classes}) {
