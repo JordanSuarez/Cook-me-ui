@@ -29,6 +29,7 @@ export const logout = () => localStorage.removeItem(TOKEN)
  */
 export const getAuthorization = () => ({
   headers: {
+    'Access-Control-Allow-Origin': 'http://localhost:3000',
     Authorization: `Bearer ${getToken()}` || null,
   },
 })
