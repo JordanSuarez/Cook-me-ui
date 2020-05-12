@@ -2,7 +2,7 @@ import React from 'react'
 
 import {Link} from 'react-router-dom'
 
-import SubmitButton from 'common/components/submitButton/component'
+import Button from 'common/components/ctaButton'
 
 import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/routesResolver'
 
@@ -15,20 +15,16 @@ function Home() {
     <div>
       <h1>HOME</h1>
       <Link to={getStartersRoute()}>
-        <SubmitButton>{starters}</SubmitButton>
+        <Button label={starters} />
       </Link>
       <Link to={getDishRoute()}>
-        <SubmitButton>{dish}</SubmitButton>
+        <Button label={dish} />
       </Link>
       <Link to={getDesertsRoute()}>
-        <SubmitButton>{deserts}</SubmitButton>
+        <Button label={deserts} />
       </Link>
     </div>
   )
 }
-
-Home.propTypes = {}
-
-Home.defaultProps = {}
 
 export default Home
