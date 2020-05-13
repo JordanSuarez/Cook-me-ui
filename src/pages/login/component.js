@@ -12,7 +12,6 @@ import {Form} from 'react-final-form'
 import {classes as classesProps} from 'common/props'
 import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
-import Layout from 'common/components/layout'
 
 function Login({classes}) {
   const history = useHistory()
@@ -22,7 +21,7 @@ function Login({classes}) {
   }
 
   return (
-    <Layout>
+    <Grid container spacing={3} className={classes.root}>
       <Grid item xs={false} sm={4} md={7} className={classes.image} />
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
         <div className={classes.paper}>
@@ -64,7 +63,7 @@ function Login({classes}) {
           />
         </div>
       </Grid>
-    </Layout>
+    </Grid>
   )
 }
 

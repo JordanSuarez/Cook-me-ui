@@ -6,6 +6,7 @@ import {GET} from 'common/constants/methods'
 import {getEndpoint} from '../../common/helpers/urlHandler'
 import {RECIPES} from '../../common/constants/resources'
 import List from 'common/components/list'
+import Page from 'common/components/page'
 
 function Starters() {
   const [recipes, setRecipes] = useState([])
@@ -21,10 +22,9 @@ function Starters() {
   }, [])
 
   return (
-    <div>
-      Starters List
+    <Page title="Starters list">
       <List items={recipes} />
-    </div>
+    </Page>
   )
 }
 
