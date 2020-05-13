@@ -1,6 +1,5 @@
-export default ({palette}) => ({
+export default ({spacing}) => ({
   root: {
-    background: palette.secondary.medium,
-    height: '100vh',
+    padding: spacing(3),
   },
 })

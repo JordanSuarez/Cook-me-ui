@@ -1,15 +1,15 @@
 import React from 'react'
 
+import {Container} from '@material-ui/core'
 import {node} from 'prop-types'
-import Grid from '@material-ui/core/Grid'
 
 import {classes as classesProps} from '../../props'
 
 function Layout({children, classes}) {
   return (
-    <Grid container spacing={3} className={classes.root}>
+    <Container maxWidth="md" className={classes.root}>
       {children}
-    </Grid>
+    </Container>
   )
 }
 
