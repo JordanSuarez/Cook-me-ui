@@ -27,9 +27,6 @@ export const logout = () => localStorage.removeItem(TOKEN)
  * Set authorization headers for API call with JWT
  * @returns {{headers: {Authorization: (string|null)}}}
  */
-export const getAuthorization = () => ({
-  headers: {
-    'Access-Control-Allow-Origin': 'http://localhost:3000',
-    Authorization: `Bearer ${getToken()}` || null,
-  },
-})
+export const authorization = {
+  Authorization: `Bearer ${getToken()}` || null,
+}

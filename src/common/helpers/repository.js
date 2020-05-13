@@ -1,19 +1,30 @@
 import axios from 'axios'
 
-import {getAuthorization, setToken} from './authProvider'
-import {getUrl} from './urlHandler'
+import {apiUrl, getEndpoint} from './urlHandler'
+import {authorization, setToken} from './authProvider'
+
 import {LOGIN} from '../constants/resources_type'
 import {POST} from '../constants/methods'
 import {USERS} from '../constants/resources'
 
 /**
- *
+ * Create client instance for Axios HTTP call (set proper headers + base Url)
+ * @type {AxiosInstance}
+ */
+const axiosInstance = axios.create({
+  baseURL: apiUrl,
+  headers: {...authorization},
+})
+
+/**
+ * Call API with all axios instance method (POST, GET, PUT, PATCH, DELETE)
+ * Data is empty for GET and DELETE request
  * @param url
  * @param method
- * @param options
+ * @param data
  * @returns {Q.Promise<any> | * | void | PromiseLike<any>}
  */
-export const callApi = (url, method, options = {}) => axios[method](url, {...options, ...getAuthorization()}).then((response) => response)
+export const callApi = (url, method, data = {}) => axiosInstance[method](url, data).then((response) => response)
 
 /**
  * Login Handler
@@ -21,7 +32,7 @@ export const callApi = (url, method, options = {}) => axios[method](url, {...opt
  */
 export const handleLogin = (credentials) => {
   return new Promise((resolve, reject) => {
-    callApi(getUrl(USERS, POST, LOGIN), POST, credentials)
+    callApi(getEndpoint(USERS, POST, LOGIN), POST, credentials)
       .then(({data}) => {
         setToken(data.token)
 
