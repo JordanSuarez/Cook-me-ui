@@ -25,7 +25,7 @@ function Starters() {
   }, [])
 
   return (
-    <Page title={t('starters.title')}>
+    <Page title={t('startersPage.title')}>
       <List items={recipes} />
     </Page>
   )

@@ -10,7 +10,6 @@ i18n
       loadPath: 'locales/{{lng}}.json',
     },
     lng: process.env.REACT_APP_LOCALE,
-    keySeparator: false,
     interpolation: {
       escapeValue: false,
     },

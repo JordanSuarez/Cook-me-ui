@@ -25,7 +25,7 @@ function Dish() {
   }, [])
 
   return (
-    <Page title={t('dish.title')}>
+    <Page title={t('dishPage.title')}>
       <List items={recipes} />
     </Page>
   )

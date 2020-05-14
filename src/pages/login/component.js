@@ -43,7 +43,7 @@ function Login({classes}) {
                   margin="normal"
                   required
                   fullWidth
-                  label={t('login.form.username')}
+                  label={t('login.username')}
                   name="username"
                   autoComplete="email"
                   autoFocus
@@ -53,7 +53,7 @@ function Login({classes}) {
                   margin="normal"
                   required
                   fullWidth
-                  label={t('login.form.password')}
+                  label={t('login.password')}
                   name="password"
                   autoComplete="current-password"
                   type="password"

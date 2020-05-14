@@ -13,15 +13,15 @@ function Home() {
 
   return (
     <div>
-      <h1>{t('home.title')}</h1>
+      <h1>{t('homePage.title')}</h1>
       <Link to={getStartersRoute()}>
-        <Button label={t('home.link.starters')} />
+        <Button label={t('homePage.starters')} />
       </Link>
       <Link to={getDishRoute()}>
-        <Button label={t('home.link.dish')} />
+        <Button label={t('homePage.dish')} />
       </Link>
       <Link to={getDesertsRoute()}>
-        <Button label={t('home.link.deserts')} />
+        <Button label={t('homePage.deserts')} />
       </Link>
     </div>
   )

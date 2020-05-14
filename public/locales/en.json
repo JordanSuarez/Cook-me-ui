@@ -1,13 +1,23 @@
 {
-  "login.title": "Login",
-  "login.form.username": "Username",
-  "login.form.password": "Password",
-  "login.button": "Login",
-  "home.title": "The recipe garden",
-  "home.link.starters": "Starters",
-  "home.link.dish": "Dish",
-  "home.link.deserts": "Deserts",
-  "starters.title": "Starters",
-  "dish.title": "Dish",
-  "deserts.title": "Deserts"
+  "login": {
+    "title": "Login",
+    "username": "Username",
+    "password": "Password",
+    "button": "Login"
+  },
+  "homePage": {
+    "title": "The recipe garden",
+    "starters": "Starters",
+    "dish": "Dish",
+    "deserts": "Deserts"
+  },
+  "startersPage": {
+    "title": "Starters"
+  },
+  "dishPage": {
+    "title": "Dish"
+  },
+  "desertsPage": {
+    "title": "Deserts"
+  }
 }

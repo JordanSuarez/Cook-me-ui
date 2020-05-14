@@ -25,7 +25,7 @@ function Deserts() {
   }, [])
 
   return (
-    <Page title={t('deserts.title')}>
+    <Page title={t('desertsPage.title')}>
       <List items={recipes} />
     </Page>
   )
