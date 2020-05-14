@@ -43,7 +43,7 @@ function Login({classes}) {
                   margin="normal"
                   required
                   fullWidth
-                  label="Username"
+                  label={t('login.form.username')}
                   name="username"
                   autoComplete="email"
                   autoFocus
@@ -53,13 +53,13 @@ function Login({classes}) {
                   margin="normal"
                   required
                   fullWidth
-                  label="Password"
+                  label={t('login.form.password')}
                   name="password"
                   autoComplete="current-password"
                   type="password"
                 />
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                  Login
+                  {t('login.button')}
                 </Button>
               </form>
             )}

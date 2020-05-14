@@ -1,3 +1,13 @@
 {
-  "login.title": "Se connecter"
+  "login.title": "Identifiez-vous",
+  "login.form.username": "Identifiant",
+  "login.form.password": "Mot de passe",
+  "login.button": "Me connecter",
+  "home.title": "Le jardin des recettes",
+  "home.link.starters": "Entrées",
+  "home.link.dish": "Plats",
+  "home.link.deserts": "Desserts",
+  "starters.title": "Entrées",
+  "dish.title": "Plats",
+  "deserts.title": "Desserts"
 }

@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
+import {useTranslation} from 'react-i18next'
+
 import {BY_RECIPE_TYPE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
@@ -10,6 +12,7 @@ import Page from 'common/components/page'
 
 function Dish() {
   const [recipes, setRecipes] = useState([])
+  const {t} = useTranslation()
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, BY_RECIPE_TYPE, 12)
@@ -22,7 +25,7 @@ function Dish() {
   }, [])
 
   return (
-    <Page title="Dish list">
+    <Page title={t('dish.title')}>
       <List items={recipes} />
     </Page>
   )
