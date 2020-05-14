@@ -15,8 +15,6 @@ import {classes as classesProps} from 'common/props'
 import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
-import Layout from 'common/components/layout'
-
 function Login({classes}) {
   const history = useHistory()
   const {t} = useTranslation()
