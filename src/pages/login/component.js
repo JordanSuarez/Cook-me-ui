@@ -7,14 +7,19 @@ import LoginIcon from '@material-ui/icons/LockOutlined'
 
 import {TextField} from 'mui-rff'
 
+import {useTranslation} from 'react-i18next'
+
 import {Form} from 'react-final-form'
 
 import {classes as classesProps} from 'common/props'
 import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
+import Layout from 'common/components/layout'
+
 function Login({classes}) {
   const history = useHistory()
+  const {t} = useTranslation()
 
   function onSubmit(values) {
     handleLogin(values).then((logged) => (logged ? history.push(getHomeRoute()) : null))
@@ -29,7 +34,7 @@ function Login({classes}) {
             <LoginIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Login
+            {t('login.title')}
           </Typography>
           <Form
             onSubmit={onSubmit}
