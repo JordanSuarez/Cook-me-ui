@@ -1,4 +1,4 @@
-# Cook me UI
+# Cook me UI - Project
 
 ## Requirements
 
