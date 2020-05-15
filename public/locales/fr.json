@@ -1,9 +1,13 @@
 {
-  "login": {
+  "loginPage": {
     "title": "Identifiez-vous",
-    "username": "Identifiant",
-    "password": "Mot de passe",
-    "button": "Me connecter"
+    "form": {
+      "label": {
+        "username": "Identifiant",
+        "password": "Mot de passe"
+      },
+      "button": "Me connecter"
+    }
   },
   "homePage": {
     "title": "Le jardin des recettes",

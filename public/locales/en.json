@@ -1,9 +1,13 @@
 {
-  "login": {
+  "loginPage": {
     "title": "Login",
-    "username": "Username",
-    "password": "Password",
-    "button": "Login"
+    "form": {
+      "label": {
+        "username": "Login",
+        "password": "Password"
+      },
+      "button": "Login"
+    }
   },
   "homePage": {
     "title": "The recipe garden",
