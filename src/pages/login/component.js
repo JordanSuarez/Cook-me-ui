@@ -18,6 +18,7 @@ import {handleLogin} from 'common/helpers/repository'
 function Login({classes}) {
   const history = useHistory()
   const {t} = useTranslation()
+  //add an attribute to your state (errorDisplay, setErrorDisplay : useState)
 
   function onSubmit(values) {
     handleLogin(values).then((logged) => (logged ? history.push(getHomeRoute()) : null))
@@ -32,10 +33,14 @@ function Login({classes}) {
             <LoginIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            {t('login.title')}
+            {t('loginPage.title')}
           </Typography>
           <Form
             onSubmit={onSubmit}
+            // validate={(values) => {
+            // test if username and password are empty
+            // if empty setErrorDisplay(true)
+            // }}
             render={({handleSubmit}) => (
               <form onSubmit={handleSubmit} noValidate className={classes.form}>
                 <TextField
@@ -43,23 +48,24 @@ function Login({classes}) {
                   margin="normal"
                   required
                   fullWidth
-                  label={t('login.username')}
+                  label={t('loginPage.form.label.username')}
                   name="username"
-                  autoComplete="email"
                   autoFocus
+                  // add props 'error' if and only if state attribute 'errorDisplay' is true
                 />
                 <TextField
                   variant="outlined"
                   margin="normal"
                   required
                   fullWidth
-                  label={t('login.password')}
+                  label={t('loginPage.form.label.password')}
                   name="password"
                   autoComplete="current-password"
                   type="password"
+                  // add props 'error' if and only if state attribute 'errorDisplay' is true
                 />
                 <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                  {t('login.button')}
+                  {t('loginPage.form.button')}
                 </Button>
               </form>
             )}
