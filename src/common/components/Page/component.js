@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import {Divider, Typography} from '@material-ui/core'
 
 import {classes as classesProps} from '../../props'
-import Layout from '../layout'
+import Layout from '../Layout'
 
 function Page({children, classes, title}) {
   return (

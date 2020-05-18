@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 
 import {any, arrayOf, func} from 'prop-types'
 
-import List from '../../common/components/list'
+import List from '../../common/components/List'
 
 function Recipes({recipes, fetchRecipes}) {
   useEffect(() => {

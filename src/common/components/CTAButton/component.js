@@ -6,7 +6,7 @@ import {func, string} from 'prop-types'
 
 function CTAButton({label, handleClick}) {
   return (
-    <Button variant="contained" color="primary" handleClick={handleClick}>
+    <Button variant="contained" color="primary" onClick={handleClick}>
       {label}
     </Button>
   )

@@ -4,7 +4,7 @@
 // import {GET} from 'common/constants/methods'
 // import {getUrl} from 'common/helpers/urlHandler'
 // import {RECIPES} from 'common/constants/resources'
-// import {RECIPES_FETCH_FAILED, RECIPES_FETCH_SUCCEEDED} from 'pages/recipes/redux/actions/types'
+// import {RECIPES_FETCH_FAILED, RECIPES_FETCH_SUCCEEDED} from 'pages/Recipes/redux/actions/types'
 
 export default function* fetchRecipes() {
   // try {

@@ -7,8 +7,8 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
-import List from 'common/components/list'
-import Page from 'common/components/page'
+import List from 'common/components/List'
+import Page from 'common/components/Page'
 
 function Deserts() {
   const [recipes, setRecipes] = useState([])

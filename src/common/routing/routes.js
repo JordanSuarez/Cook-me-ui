@@ -1,10 +1,10 @@
-import desertsRouting from 'pages/deserts/config/routing'
-import dishRouting from 'pages/dish/config/routing'
-import homeRouting from 'pages/home/config/routing'
-import loginRouting from 'pages/login/config/routing'
-import logoutRouting from 'pages/logout/config/routing'
-import recipesRouting from 'pages/recipes/config/routing'
-import startersRouting from 'pages/starters/config/routing'
+import desertsRouting from 'pages/Deserts/config/routing'
+import dishRouting from 'pages/Dish/config/routing'
+import homeRouting from 'pages/Home/config/routing'
+import loginRouting from 'pages/Login/config/routing'
+import logoutRouting from 'pages/Logout/config/routing'
+import recipesRouting from 'pages/Recipes/config/routing'
+import startersRouting from 'pages/Starters/config/routing'
 
 /**
  *

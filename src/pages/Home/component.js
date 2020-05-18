@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 
 import {useTranslation} from 'react-i18next'
 
-import Button from 'common/components/ctaButton'
+import Button from 'common/components/CTAButton'
 
 import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/routesResolver'
 
