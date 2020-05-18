@@ -7,7 +7,7 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
-import List from 'common/components/List'
+import ListCard from '../../common/components/ListCard'
 import Page from 'common/components/Page'
 
 function Starters() {
@@ -26,7 +26,7 @@ function Starters() {
 
   return (
     <Page title={t('startersPage.title')}>
-      <List items={recipes} />
+      <ListCard items={recipes} />
     </Page>
   )
 }
