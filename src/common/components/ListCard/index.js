@@ -1,3 +1,6 @@
-import ListCard from './component'
+import {withStyles} from '@material-ui/core'
 
-export default ListCard
+import ListCard from './component'
+import styles from './styles'
+
+export default withStyles(styles)(ListCard)
