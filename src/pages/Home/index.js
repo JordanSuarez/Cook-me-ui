@@ -1,3 +1,6 @@
-import Home from './component'
+import {withStyles} from '@material-ui/core'
 
-export default Home
+import Home from './component'
+import styles from './styles'
+
+export default withStyles(styles)(Home)
