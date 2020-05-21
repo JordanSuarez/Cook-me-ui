@@ -13,6 +13,7 @@ import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
 import ListCard from 'common/components/ListCard'
 import Page from 'common/components/Page'
+import Pagination from 'common/components/Pagination'
 
 function Starters({location}) {
   const [recipes, setRecipes] = useState([])
@@ -31,7 +32,7 @@ function Starters({location}) {
 
   return (
     <Page title={t('startersPage.title')}>
-      <ListCard items={recipes} />
+      {recipes.length > 0 && <Pagination items={recipes} renderChild={(items) => <ListCard items={items} />} />}
     </Page>
   )
 }

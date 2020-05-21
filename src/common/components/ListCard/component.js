@@ -2,7 +2,7 @@ import React from 'react'
 
 import {any, arrayOf} from 'prop-types'
 
-import Grid from '@material-ui/core/Grid'
+import {Grid} from '@material-ui/core'
 
 import {classes as classesProps} from '../../props'
 import Card from '../Card'
