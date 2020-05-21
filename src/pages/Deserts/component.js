@@ -26,6 +26,7 @@ function Deserts({location}) {
         setRecipes(data)
       })
       .catch(() => {})
+    // eslint-disable-next-line
   }, [])
 
   return (

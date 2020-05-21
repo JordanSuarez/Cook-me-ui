@@ -2,20 +2,13 @@ import React, {useEffect} from 'react'
 
 import {any, arrayOf, func} from 'prop-types'
 
-import List from '../../common/components/List'
-
-function Recipes({recipes, fetchRecipes}) {
+function Recipes({fetchRecipes}) {
   useEffect(() => {
     fetchRecipes()
     // eslint-disable-next-line
   }, [])
 
-  return (
-    <div>
-      LISTE RECIPES
-      <List items={recipes} />
-    </div>
-  )
+  return <div>LISTE RECIPES</div>
 }
 
 Recipes.propTypes = {

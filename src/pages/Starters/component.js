@@ -26,6 +26,7 @@ function Starters({location}) {
         setRecipes(data)
       })
       .catch(() => {})
+    // eslint-disable-next-line
   }, [])
 
   return (
