@@ -23,5 +23,10 @@
   },
   "desertsPage": {
     "title": "Deserts"
+  },
+  "recipeListTable": {
+    "name": "Recipes",
+    "instruction": "Instructions",
+    "preparationTime": "Preparation time (min)"
   }
 }
