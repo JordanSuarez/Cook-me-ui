@@ -11,11 +11,14 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
+import CTAButton from '../../common/components/CTAButton'
 import ListCard from 'common/components/ListCard'
+import ListTable from '../../common/components/ListTable'
 import Page from 'common/components/Page'
 
 function Dish({location}) {
   const [recipes, setRecipes] = useState([])
+  const [displayComponent, setDisplayComponent] = useState(false)
   const {t} = useTranslation()
 
   useEffect(() => {
@@ -29,9 +32,15 @@ function Dish({location}) {
     // eslint-disable-next-line
   }, [])
 
+  function handleClick() {
+    setDisplayComponent(true)
+  }
+
   return (
     <Page title={t('dishPage.title')}>
-      <ListCard items={recipes} />
+      <CTAButton onClick={handleClick} label="test" />
+      {displayComponent && <ListTable items={recipes} />}
+      {!displayComponent && <ListCard items={recipes} />}
     </Page>
   )
 }

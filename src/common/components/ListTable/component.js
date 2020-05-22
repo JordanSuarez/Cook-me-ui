@@ -1,20 +1,7 @@
 import React from 'react'
 
 import {any, arrayOf} from 'prop-types'
-
-import {
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableFooter,
-  TableHead,
-  TablePagination,
-  TableRow,
-} from '@material-ui/core'
-
+import {Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
 import {useTranslation} from 'react-i18next'
 
 import {classes as classesProps} from '../../props'
@@ -43,9 +30,6 @@ function ListTable({items, classes}) {
                 </TableRow>
               ))}
             </TableBody>
-            <TableFooter>
-              <TablePagination rowsPerPageOptions={[10, 50, {value: -1, label: 'All'}]} />
-            </TableFooter>
           </Table>
         </Grid>
       </Grid>

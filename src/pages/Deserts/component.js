@@ -11,8 +11,9 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
-import ListCard from 'common/components/ListCard'
+import ListTable from 'common/components/ListTable'
 import Page from 'common/components/Page'
+import Pagination from 'common/components/Pagination'
 
 function Deserts({location}) {
   const [recipes, setRecipes] = useState([])
@@ -31,7 +32,7 @@ function Deserts({location}) {
 
   return (
     <Page title={t('desertsPage.title')}>
-      <ListCard items={recipes} />
+      {recipes.length > 0 && <Pagination items={recipes} renderChild={(items) => <ListTable items={items} />} />}
     </Page>
   )
 }
