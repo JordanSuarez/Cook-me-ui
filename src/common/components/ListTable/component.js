@@ -11,27 +11,25 @@ function ListTable({items, classes}) {
 
   return (
     <TableContainer component={Paper}>
-      <Grid container>
-        <Grid item xs={12} sm={false} md={3}>
-          <Table className={classes.table} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">{t('recipeListTable.name')}</TableCell>
-                <TableCell align="left">{t('recipeListTable.instruction')}</TableCell>
-                <TableCell align="right">{t('recipeListTable.preparationTime')}</TableCell>
+      <Grid item>
+        <Table className={classes.table} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="left">{t('recipeListTable.name')}</TableCell>
+              <TableCell align="left">{t('recipeListTable.preparationTime')}</TableCell>
+              <TableCell align="left">{t('recipeListTable.instruction')}</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {items.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell align="left">{item.name}</TableCell>
+                <TableCell align="left">{item.preparationTime}</TableCell>
+                <TableCell align="left">{item.instruction}</TableCell>
               </TableRow>
-            </TableHead>
-            <TableBody>
-              {items.map((item) => (
-                <TableRow key={item.id}>
-                  <TableCell align="left">{item.name}</TableCell>
-                  <TableCell align="left">{item.instruction}</TableCell>
-                  <TableCell align="right">{item.preparationTime}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </Grid>
+            ))}
+          </TableBody>
+        </Table>
       </Grid>
     </TableContainer>
   )

@@ -14,7 +14,7 @@ import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
 import ListCard from 'common/components/ListCard'
-import ListTable from '../../common/components/ListTable'
+import ListTable from 'common/components/ListTable'
 import Page from 'common/components/Page'
 import Pagination from 'common/components/Pagination'
 
