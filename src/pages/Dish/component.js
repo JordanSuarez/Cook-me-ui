@@ -6,12 +6,13 @@ import {any, objectOf} from 'prop-types'
 
 import {get} from 'lodash'
 
+import Button from '@material-ui/core/Button'
+
 import {BY_TYPE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
-import CTAButton from '../../common/components/CTAButton'
 import ListCard from 'common/components/ListCard'
 import ListTable from '../../common/components/ListTable'
 import Page from 'common/components/Page'
@@ -33,14 +34,19 @@ function Dish({location}) {
   }, [])
 
   function handleClick() {
-    setDisplayComponent(true)
+    if (displayComponent === false) {
+      return setDisplayComponent(true)
+    }
+
+    return setDisplayComponent(false)
   }
 
   return (
     <Page title={t('dishPage.title')}>
-      <CTAButton onClick={handleClick} label="test" />
-      {displayComponent && <ListTable items={recipes} />}
-      {!displayComponent && <ListCard items={recipes} />}
+      <Button onClick={handleClick} text="test">
+        test
+      </Button>
+      {displayComponent ? <ListTable items={recipes} /> : <ListCard items={recipes} />}
     </Page>
   )
 }
