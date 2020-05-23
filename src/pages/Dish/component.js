@@ -16,6 +16,7 @@ import {RECIPES} from 'common/constants/resources'
 import ListCard from 'common/components/ListCard'
 import ListTable from '../../common/components/ListTable'
 import Page from 'common/components/Page'
+import Pagination from 'common/components/Pagination'
 
 function Dish({location}) {
   const [recipes, setRecipes] = useState([])
@@ -46,7 +47,18 @@ function Dish({location}) {
       <Button onClick={handleClick} text="test">
         test
       </Button>
-      {displayComponent ? <ListTable items={recipes} /> : <ListCard items={recipes} />}
+      {recipes.length > 0 && (
+        <Pagination
+          items={recipes}
+          renderChild={(items) => {
+            if (displayComponent) {
+              return <ListTable items={items} />
+            }
+
+            return <ListCard items={items} />
+          }}
+        />
+      )}
     </Page>
   )
 }
