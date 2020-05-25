@@ -3,6 +3,6 @@ export default () => ({
     marginTop: '5px',
   },
   table: {
-    minWidth: 650,
+    width: '100%',
   },
 })
