@@ -29,10 +29,36 @@
     "instruction": "Instructions",
     "preparationTime": "Preparation time (min)"
   },
-  "listWrapper": {
+  "searchBar": {
     "form": {
       "label": {
         "field": "Search..."
+      }
+    }
+  },
+  "list": {
+    "table": {
+      "body": {
+        "noMatch": "Sorry, no matching records found",
+        "toolTip": "Sort"
+      },
+      "toolbar": {
+        "search": "Search",
+        "viewColumns": "View Columns",
+        "filter": "Filters",
+        "filterPopUp" : {
+          "title": "FILTERS",
+          "reset": "Reset",
+          "all": "ALL"
+        },
+        "viewColumnsPopUp": {
+          "title": "Show Columns"
+        },
+        "pagination": {
+          "next": "Next Page",
+          "previous": "Previous Page",
+          "rowsPerPage": "Recipes per page:"
+        }
       }
     }
   }

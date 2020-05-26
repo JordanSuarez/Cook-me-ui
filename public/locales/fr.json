@@ -27,12 +27,39 @@
   "recipeListTable": {
     "name": "Recettes",
     "instruction": "Instructions",
-    "preparationTime": "Temps de préparation (min)"
+    "preparationTime": "Temps de préparation"
   },
   "searchBar": {
     "form": {
       "label": {
         "field": "Rechercher..."
+      }
+    }
+  },
+  "list": {
+    "table": {
+      "body": {
+        "noMatch": "Désolé, aucune recettes n' a été trouvé",
+        "toolTip": "Trier",
+        "columnHeaderTooltip": "Trier par "
+      },
+      "toolbar": {
+        "search": "Rechercher",
+        "viewColumns": "Afficher",
+        "filter": "Filtrer",
+        "filterPopUp" : {
+          "title": "Filtrer",
+          "reset": "Reinitialiser",
+          "all": "Tout"
+        },
+        "viewColumnsPopUp": {
+          "title": "Sélectionner"
+        }
+      },
+      "pagination": {
+        "next": "Page Suivante",
+        "previous": "Page Précédente",
+        "rowsPerPage": "Recettes par page"
       }
     }
   }

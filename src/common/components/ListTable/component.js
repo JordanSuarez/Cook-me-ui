@@ -17,7 +17,33 @@ function ListTable({items, columns}) {
   }
 
   const options = {
-    filter: true,
+    textLabels: {
+      body: {
+        noMatch: `${t('list.table.body.noMatch')}`,
+        toolTip: `${t('list.table.body.toolTip')}`,
+        columnHeaderTooltip: (column) => `${t('list.table.body.columnHeaderTooltip')}${column.label}`,
+      },
+      toolbar: {
+        search: `${t('list.table.toolbar.search')}`,
+        viewColumns: `${t('list.table.toolbar.viewColumns')}`,
+        filterTable: `${t('list.table.toolbar.filter')}`,
+      },
+      filter: {
+        all: `${t('list.table.toolbar.filterPopUp.all')}`,
+        title: `${t('list.table.toolbar.filterPopUp.title')}`,
+        reset: `${t('list.table.toolbar.filterPopUp.reset')}`,
+      },
+      viewColumns: {
+        title: `${t('list.table.toolbar.viewColumnsPopUp.title')}`,
+      },
+      pagination: {
+        next: `${t('list.table.toolbar.pagination.next')}`,
+        previous: `${t('list.table.pagination.previous')}`,
+        rowsPerPage: null,
+      },
+    },
+
+    filter: false,
     filterType: 'dropdown',
     responsive: 'scrollFullHeight',
     print: false,
@@ -25,6 +51,7 @@ function ListTable({items, columns}) {
     rowsPerPage: 10,
     fixedHeader: true,
     viewColumns: true,
+    search: false,
     selectableRowsHeader: false,
     selectableRows: 'none',
     searchPlaceholder: `${t('searchBar.form.label.field')}`,
