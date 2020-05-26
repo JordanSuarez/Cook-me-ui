@@ -1,11 +1,10 @@
-import {any, arrayOf, func} from 'prop-types'
+import {any, arrayOf, func, number} from 'prop-types'
 import MuiPagination from '@material-ui/lab/Pagination'
 import React, {useEffect, useState} from 'react'
 
 import {classes as classesProps} from '../../props'
 
-function Pagination({classes, items, renderChild}) {
-  const maxPerPage = 5
+function Pagination({classes, items, renderChild, maxPerPage}) {
   const [itemsPaginated, setItemsPaginated] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
   const [count, setCount] = useState(maxPerPage)
@@ -42,6 +41,7 @@ function Pagination({classes, items, renderChild}) {
 Pagination.propTypes = {
   ...classesProps,
   items: arrayOf(any),
+  maxPerPage: number.isRequired,
   renderChild: func,
 }
 

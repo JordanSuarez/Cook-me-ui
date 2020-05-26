@@ -5,10 +5,10 @@ import {any, arrayOf} from 'prop-types'
 import {isEmpty} from 'lodash'
 import Button from '@material-ui/core/Button'
 
-import Filter from 'common/components/Filter'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
+import SearchBar from 'common/components/SearchBar'
 
 const LIST_TABLE = 'list_table'
 const LIST_CARD = 'list_card'
@@ -52,12 +52,29 @@ function ListWrapper({items, columns}) {
       <Button onClick={() => handleListDisplay(LIST_CARD)} text="test2">
         Card
       </Button>
-      {displayCard && <Filter handleChange={(e) => handleChange(e.target.value)} />}
-      {displayCard && searchResults.length > 0 && <ListCard items={searchResults} />}
-      {displayCard && searchResults.length === 0 && items.length > 0 && (
-        <Pagination items={items} renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} />} />
+      <SearchBar handleChange={(e) => handleChange(e.target.value)} />
+      {displayCard && (
+        <div>
+          {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
+          {searchResults.length > 0 && <ListCard items={searchResults} />}
+          {/*Si les résulats de recherches sont === 0, on affiche la pagination */}
+          {searchResults.length === 0 && (
+            <Pagination items={items} maxPerPage={5} renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} />} />
+          )}
+        </div>
       )}
-      {displayTable && <ListTable items={items} columns={columns} />}
+      {displayTable && (
+        <div>
+          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} />}
+          {searchResults.length === 0 && (
+            <Pagination
+              items={items}
+              maxPerPage={10}
+              renderChild={(itemsPaginated) => <ListTable items={itemsPaginated} columns={columns} />}
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 }

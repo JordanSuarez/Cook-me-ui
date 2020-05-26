@@ -53,6 +53,7 @@ function ListTable({items, columns}) {
     viewColumns: true,
     search: false,
     selectableRowsHeader: false,
+    pagination: false,
     selectableRows: 'none',
     searchPlaceholder: `${t('searchBar.form.label.field')}`,
   }

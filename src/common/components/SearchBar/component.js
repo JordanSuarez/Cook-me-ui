@@ -4,7 +4,7 @@ import {func} from 'prop-types'
 import {TextField} from '@material-ui/core'
 import {useTranslation} from 'react-i18next'
 
-function Filter({handleChange}) {
+function SearchBar({handleChange}) {
   const {t} = useTranslation()
 
   return (
@@ -14,8 +14,8 @@ function Filter({handleChange}) {
   )
 }
 
-Filter.propTypes = {
+SearchBar.propTypes = {
   handleChange: func.isRequired,
 }
 
-export default Filter
+export default SearchBar
