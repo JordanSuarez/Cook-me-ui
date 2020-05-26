@@ -28,5 +28,12 @@
     "name": "Recipes",
     "instruction": "Instructions",
     "preparationTime": "Preparation time (min)"
+  },
+  "searchBar": {
+    "form": {
+      "label": {
+        "field": "Search..."
+      }
+    }
   }
 }
