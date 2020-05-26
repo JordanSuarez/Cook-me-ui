@@ -29,7 +29,7 @@
     "instruction": "Instructions",
     "preparationTime": "Preparation time (min)"
   },
-  "searchBar": {
+  "listWrapper": {
     "form": {
       "label": {
         "field": "Search..."

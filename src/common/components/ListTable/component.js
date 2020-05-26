@@ -1,39 +1,44 @@
 import React from 'react'
 
 import {any, arrayOf} from 'prop-types'
-import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from '@material-ui/core'
 import {useTranslation} from 'react-i18next'
+import MUIDataTable from 'mui-datatables'
 
 import {classes as classesProps} from '../../props'
 
-function ListTable({items, classes}) {
-  const {t} = useTranslation('starters')
+/**
+ * @return {null}
+ */
+function ListTable({items, columns}) {
+  const {t} = useTranslation('listTable')
+
+  if (columns.length === 0) {
+    return null
+  }
+
+  const options = {
+    filter: true,
+    filterType: 'dropdown',
+    responsive: 'scrollFullHeight',
+    print: false,
+    download: false,
+    rowsPerPage: 10,
+    fixedHeader: true,
+    viewColumns: true,
+    selectableRowsHeader: false,
+    selectableRows: 'none',
+    searchPlaceholder: `${t('searchBar.form.label.field')}`,
+  }
 
   return (
-    <TableContainer component={Paper}>
-      <Table className={classes.table}>
-        <TableHead>
-          <TableRow>
-            <TableCell align="left">{t('recipeListTable.name')}</TableCell>
-            <TableCell align="left">{t('recipeListTable.preparationTime')}</TableCell>
-            <TableCell align="left">{t('recipeListTable.instruction')}</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {items.map((item) => (
-            <TableRow key={item.id}>
-              <TableCell align="left">{item.name}</TableCell>
-              <TableCell align="left">{item.preparationTime}</TableCell>
-              <TableCell align="left">{item.instruction}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <MUIDataTable data={items} columns={columns} options={options} />
+    </div>
   )
 }
 
 ListTable.propTypes = {
+  columns: arrayOf(any).isRequired,
   items: arrayOf(any),
   ...classesProps,
 }
