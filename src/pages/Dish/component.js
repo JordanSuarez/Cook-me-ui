@@ -11,8 +11,8 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
+import formatList from 'common/helpers/formatListForSearch'
 import getColumns from 'common/helpers/columns'
-import getFormatList from 'common/helpers/formatListForSearch'
 import ListWrapper from 'common/components/ListWrapper'
 import Page from 'common/components/Page'
 
@@ -25,11 +25,7 @@ function Dish({location}) {
 
     callApi(url, GET)
       .then(({data}) => {
-        setRecipes(
-          data.map((recipe) => {
-            return getFormatList(recipe)
-          }),
-        )
+        setRecipes(data.map((recipe) => formatList(recipe)))
       })
       .catch(() => {})
     // eslint-disable-next-line
