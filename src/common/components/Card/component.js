@@ -8,7 +8,7 @@ import {classes as classesProps} from '../../props'
 
 function Card({id, name, instruction, image, classes}) {
   return (
-    <MaterialUiCard key={id}>
+    <MaterialUiCard key={id} className={classes.shadow}>
       <CardHeader title={name} />
       <CardMedia className={classes.media} image={image} title="pie" />
       <CardContent>

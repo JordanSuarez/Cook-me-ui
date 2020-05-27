@@ -1,8 +1,8 @@
-export default () => ({
+export default ({spacing}) => ({
   root: {
-    marginTop: '5px',
+    margin: '22px 0px 10px',
   },
-  table: {
-    width: '100%',
+  iconButton: {
+    margin: spacing(-1),
   },
 })

@@ -4,14 +4,13 @@ import {any, arrayOf} from 'prop-types'
 import {useTranslation} from 'react-i18next'
 import MUIDataTable from 'mui-datatables'
 
+import {classes as classesProps} from 'common/props'
 import getOptions from 'common/helpers/muiDataTableOptions'
-
-import {classes as classesProps} from '../../props'
 
 /**
  * @return {null}
  */
-function ListTable({items, columns}) {
+function ListTable({items, columns, classes}) {
   const {t} = useTranslation('listTable')
 
   if (columns.length === 0) {
@@ -19,7 +18,7 @@ function ListTable({items, columns}) {
   }
 
   return (
-    <div>
+    <div className={classes.root}>
       <MUIDataTable data={items} columns={columns} options={getOptions(t)} />
     </div>
   )

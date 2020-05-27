@@ -33,7 +33,7 @@ function Pagination({classes, items, renderChild, maxPerPage}) {
   return (
     <div className={classes.root}>
       {renderChild(itemsPaginated)}
-      <MuiPagination count={count} onChange={handleChange} page={currentPage} />
+      <MuiPagination count={count} onChange={handleChange} page={currentPage} size="large" />
     </div>
   )
 }
