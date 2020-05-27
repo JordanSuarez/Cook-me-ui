@@ -24,10 +24,14 @@
   "desertsPage": {
     "title": "Desserts"
   },
-  "recipeListTable": {
-    "name": "Recettes",
-    "instruction": "Instructions",
-    "preparationTime": "Temps de préparation"
+  "recipe": {
+    "list": {
+      "table": {
+        "name": "Recettes",
+        "instruction": "Instructions",
+        "preparationTime": "Temps de préparation"
+      }
+    }
   },
   "searchBar": {
     "form": {
@@ -39,27 +43,15 @@
   "list": {
     "table": {
       "body": {
-        "noMatch": "Désolé, aucune recettes n' a été trouvé",
+        "noResult": "Désolé, aucune recette n'a été trouvé",
         "toolTip": "Trier",
         "columnHeaderTooltip": "Trier par "
       },
       "toolbar": {
-        "search": "Rechercher",
         "viewColumns": "Afficher",
-        "filter": "Filtrer",
-        "filterPopUp" : {
-          "title": "Filtrer",
-          "reset": "Reinitialiser",
-          "all": "Tout"
-        },
-        "viewColumnsPopUp": {
+        "viewColumnsModal": {
           "title": "Sélectionner"
         }
-      },
-      "pagination": {
-        "next": "Page Suivante",
-        "previous": "Page Précédente",
-        "rowsPerPage": "Recettes par page"
       }
     }
   }

@@ -1,3 +1,5 @@
 export const RECIPES = 'recipes'
 export const INGREDIENTS = 'ingredients'
 export const USERS = 'users'
+export const LIST_TABLE = 'list_table'
+export const LIST_CARD = 'list_card'

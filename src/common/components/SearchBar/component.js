@@ -9,7 +9,7 @@ function SearchBar({handleChange}) {
 
   return (
     <form>
-      <TextField onChange={handleChange} id="standard-basic" margin="normal" label={t('searchBar.form.label.field')} name="searchBar" />
+      <TextField onChange={handleChange} id="search-bar" margin="normal" label={t('searchBar.form.label.field')} name="searchBar" />
     </form>
   )
 }

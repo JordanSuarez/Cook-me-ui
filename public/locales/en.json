@@ -24,10 +24,14 @@
   "desertsPage": {
     "title": "Deserts"
   },
-  "recipeListTable": {
-    "name": "Recipes",
-    "instruction": "Instructions",
-    "preparationTime": "Preparation time (min)"
+  "recipe": {
+    "list": {
+      "table": {
+        "name": "Recipes",
+        "instruction": "Instructions",
+        "preparationTime": "Preparation time"
+      }
+    }
   },
   "searchBar": {
     "form": {
@@ -39,25 +43,15 @@
   "list": {
     "table": {
       "body": {
-        "noMatch": "Sorry, no matching records found",
-        "toolTip": "Sort"
+        "noResult": "Sorry, no resulting records found",
+        "toolTip": "Sort",
+        "columnHeaderTooltip": "Sort By "
+
       },
       "toolbar": {
-        "search": "Search",
         "viewColumns": "View Columns",
-        "filter": "Filters",
-        "filterPopUp" : {
-          "title": "FILTERS",
-          "reset": "Reset",
-          "all": "ALL"
-        },
-        "viewColumnsPopUp": {
+        "viewColumnsModal": {
           "title": "Show Columns"
-        },
-        "pagination": {
-          "next": "Next Page",
-          "previous": "Previous Page",
-          "rowsPerPage": "Recipes per page:"
         }
       }
     }
