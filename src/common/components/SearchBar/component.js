@@ -1,24 +1,50 @@
 import React from 'react'
 
-import {func} from 'prop-types'
-import {Grid, TextField} from '@material-ui/core'
+import {func, string} from 'prop-types'
+import {Grid, IconButton, TextField} from '@material-ui/core'
 import {useTranslation} from 'react-i18next'
+import ClearIcon from '@material-ui/icons/Clear'
+import InputAdornment from '@material-ui/core/InputAdornment'
 
-function SearchBar({handleChange}) {
+function SearchBar({handleChange, handleClick, value}) {
   const {t} = useTranslation()
+  // const [onFocus, setOnFocus] = useState(false)
+
+  // function inputPropsOnFocus() {
+  //
+  //     return
+  // }
+  //
+  // function setFocus() {
+  //   if (onFocus) {
+  //     setOnFocus(!onFocus)
+  //   }
+  //
+  //   return setOnFocus(!onFocus)
+  // }
 
   return (
     <form>
       <Grid container direction="row-reverse" spacing={3}>
         <Grid item xs={12} sm={6} md={3}>
           <TextField
+            value={value}
             onChange={handleChange}
             id="search-bar"
             size="small"
             label={t('searchBar.form.label.field')}
             name="searchBar"
-            type="search"
             fullWidth
+            // onFocus={setFocus}
+            InputProps={{
+              endAdornment: (
+                <IconButton onClick={handleClick}>
+                  <InputAdornment position="end">
+                    <ClearIcon />
+                  </InputAdornment>
+                </IconButton>
+              ),
+            }}
           />
         </Grid>
       </Grid>
@@ -28,6 +54,12 @@ function SearchBar({handleChange}) {
 
 SearchBar.propTypes = {
   handleChange: func.isRequired,
+  handleClick: func.isRequired,
+  value: string,
+}
+
+SearchBar.defaultProps = {
+  value: null,
 }
 
 export default SearchBar

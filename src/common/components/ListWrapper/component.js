@@ -22,9 +22,14 @@ function ListWrapper({items, columns, classes}) {
   const [displayTable, setDisplayTable] = useState(false)
   const [colorTableIcon, setColorTableIcon] = useState('inherit')
   const [colorCardIcon, setColorCardIcon] = useState('primary')
+  const [inputValue, setInputValue] = useState('')
 
   if (columns.length === 0) {
     return null
+  }
+
+  function handleClick() {
+    setInputValue('')
   }
 
   function handleChange(value) {
@@ -60,7 +65,14 @@ function ListWrapper({items, columns, classes}) {
           <ViewListCard color={colorCardIcon} fontSize="large" />
         </IconButton>
       </Grid>
-      <SearchBar handleChange={(e) => handleChange(e.target.value)} />
+      <SearchBar
+        value={inputValue}
+        handleChange={(e) => {
+          handleChange(e.target.value)
+          setInputValue(e.target.value)
+        }}
+        handleClick={handleClick}
+      />
       {displayCard && (
         <div>
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}

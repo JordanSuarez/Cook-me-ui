@@ -1,6 +1,6 @@
 import {withStyles} from '@material-ui/core'
 
 import ListTable from './component'
-import style from './style'
+import styles from './styles'
 
-export default withStyles(style)(ListTable)
+export default withStyles(styles)(ListTable)
