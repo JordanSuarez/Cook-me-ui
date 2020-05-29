@@ -1,5 +1,5 @@
 import {arrayOf, func} from 'prop-types'
-import {MuiThemeProvider} from '@material-ui/core/styles'
+import {MuiThemeProvider} from '@material-ui/core'
 import {Provider} from 'react-redux'
 import React, {Suspense} from 'react'
 
@@ -13,7 +13,7 @@ import theme from '../theme'
 const Core = () => {
   return (
     <MuiThemeProvider theme={theme}>
-      <Suspense fallback="loading">
+      <Suspense fallback="RESSELEM">
         <CssBaseline />
         <Provider store={initStore()}>
           <Router routes={routes} />

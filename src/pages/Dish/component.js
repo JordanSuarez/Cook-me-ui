@@ -29,7 +29,7 @@ function Dish({location}) {
       })
       .catch(() => {})
     // eslint-disable-next-line
-  }, [])
+  }, [location])
 
   return <Page title={t('dishPage.title')}>{recipes.length > 0 && <ListWrapper items={recipes} columns={getColumns(t)} />}</Page>
 }

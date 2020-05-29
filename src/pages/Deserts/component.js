@@ -6,6 +6,8 @@ import {any, objectOf} from 'prop-types'
 
 import {get} from 'lodash'
 
+import {Backdrop, CircularProgress} from '@material-ui/core'
+
 import {BY_TYPE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
@@ -19,6 +21,7 @@ import Page from 'common/components/Page'
 function Deserts({location}) {
   const {t} = useTranslation()
   const [recipes, setRecipes] = useState([])
+  const [displayLoader, setDisplayLoader] = useState(true)
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, BY_TYPE, get(location, 'state.id'))
@@ -26,12 +29,20 @@ function Deserts({location}) {
     callApi(url, GET)
       .then(({data}) => {
         setRecipes(data.map((recipe) => formatList(recipe)))
+        setDisplayLoader(!displayLoader)
       })
       .catch(() => {})
     // eslint-disable-next-line
   }, [])
 
-  return <Page title={t('desertsPage.title')}>{recipes.length > 0 && <ListWrapper items={recipes} columns={getColumns(t)} />}</Page>
+  return (
+    <div>
+      <Backdrop open={displayLoader}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+      <Page title={t('desertsPage.title')}>{recipes.length > 0 && <ListWrapper items={recipes} columns={getColumns(t)} />}</Page>
+    </div>
+  )
 }
 
 Deserts.propTypes = {

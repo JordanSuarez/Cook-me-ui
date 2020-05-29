@@ -8,28 +8,16 @@ import {get, isEmpty} from 'lodash'
 
 import {Card, CardContent, Grid, Typography} from '@material-ui/core'
 
-import {callApi} from 'common/helpers/repository'
-
-import {GET} from 'common/constants/methods'
 import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/routesResolver'
-import {getEndpoint} from 'common/helpers/urlHandler'
-import {RECIPES} from 'common/constants/resources'
-import {TYPES} from 'common/constants/resources_type'
 
 import {classes as classesProps} from 'common/props'
 
-function Home({classes}) {
+function Home({classes, data}) {
   const {t} = useTranslation()
   const [types, setTypes] = useState({})
 
   useEffect(() => {
-    const url = getEndpoint(RECIPES, GET, TYPES)
-
-    callApi(url, GET)
-      .then(({data}) => {
-        setTypes(data)
-      })
-      .catch(() => {})
+    data.then((recipeT) => setTypes(recipeT))
   }, [])
 
   return (
