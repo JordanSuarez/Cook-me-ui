@@ -9,6 +9,7 @@ import {routes} from '../routing/routes'
 import initStore from '../redux/store'
 import Router from '../routing/router'
 import theme from '../theme'
+import Toast from '../components/Toast'
 
 const Core = () => {
   return (
@@ -17,6 +18,7 @@ const Core = () => {
         <CssBaseline />
         <Provider store={initStore()}>
           <Router routes={routes} />
+          <Toast severity="info" title="super toast" content="super content" />
         </Provider>
       </Suspense>
     </MuiThemeProvider>
