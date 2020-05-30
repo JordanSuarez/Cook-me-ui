@@ -18,7 +18,7 @@ import {TYPES} from 'common/constants/resources_type'
 
 import {classes as classesProps} from 'common/props'
 
-function Home({classes, showToastSuccess, showToastError}) {
+function Home({classes}) {
   const {t} = useTranslation()
   const [types, setTypes] = useState({})
 
@@ -28,11 +28,8 @@ function Home({classes, showToastSuccess, showToastError}) {
     callApi(url, GET)
       .then(({data}) => {
         setTypes(data)
-        showToastSuccess(true)
       })
-      .catch(() => {
-        showToastError(true)
-      })
+      .catch(() => {})
     // eslint-disable-next-line
   }, [])
 

@@ -13,69 +13,84 @@ import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
 import {classes as classesProps} from 'common/props'
+import Toast from '../../common/components/Toast'
 
-function Login({classes}) {
+function Login({classes, showToastSuccess, showToastError}) {
   const history = useHistory()
   const {t} = useTranslation()
   //add an attribute to your state (errorDisplay, setErrorDisplay : useState)
 
   function onSubmit(values) {
-    handleLogin(values).then((logged) => (logged ? history.push(getHomeRoute()) : null))
+    handleLogin(values)
+      .then((logged) => {
+        if (logged) {
+          history.push(getHomeRoute())
+          showToastSuccess(true)
+        }
+
+        return null
+      })
+      .catch(() => {
+        showToastError(true)
+      })
   }
 
   return (
-    <Container fixed>
-      <Grid container spacing={3} className={classes.root}>
-        <Hidden xsDown>
-          <Grid item xs={12} sm={4} md={7} className={classes.image} />
-        </Hidden>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
-          <div className={classes.paper}>
-            <Avatar className={classes.icon}>
-              <LoginIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              {t('loginPage.title')}
-            </Typography>
-            <Form
-              onSubmit={onSubmit}
-              // validate={(values) => {
-              // test if username and password are empty
-              // if empty setErrorDisplay(true)
-              // }}
-              render={({handleSubmit}) => (
-                <form onSubmit={handleSubmit} noValidate className={classes.form}>
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    label={t('loginPage.form.label.username')}
-                    name="username"
-                    autoFocus
-                    // add props 'error' if and only if state attribute 'errorDisplay' is true
-                  />
-                  <TextField
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    label={t('loginPage.form.label.password')}
-                    name="password"
-                    autoComplete="current-password"
-                    type="password"
-                    // add props 'error' if and only if state attribute 'errorDisplay' is true
-                  />
-                  <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
-                    {t('loginPage.form.button')}
-                  </Button>
-                </form>
-              )}
-            />
-          </div>
+    <div>
+      <Toast />
+      <Container fixed>
+        <Grid container spacing={3} className={classes.root}>
+          <Hidden xsDown>
+            <Grid item xs={12} sm={4} md={7} className={classes.image} />
+          </Hidden>
+          <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6}>
+            <div className={classes.paper}>
+              <Avatar className={classes.icon}>
+                <LoginIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                {t('loginPage.title')}
+              </Typography>
+              <Form
+                onSubmit={onSubmit}
+                // validate={(values) => {
+                // test if username and password are empty
+                // if empty setErrorDisplay(true)
+                // }}
+                render={({handleSubmit}) => (
+                  <form onSubmit={handleSubmit} noValidate className={classes.form}>
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      label={t('loginPage.form.label.username')}
+                      name="username"
+                      autoFocus
+                      // add props 'error' if and only if state attribute 'errorDisplay' is true
+                    />
+                    <TextField
+                      variant="outlined"
+                      margin="normal"
+                      required
+                      fullWidth
+                      label={t('loginPage.form.label.password')}
+                      name="password"
+                      autoComplete="current-password"
+                      type="password"
+                      // add props 'error' if and only if state attribute 'errorDisplay' is true
+                    />
+                    <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
+                      {t('loginPage.form.button')}
+                    </Button>
+                  </form>
+                )}
+              />
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>
+    </div>
   )
 }
 

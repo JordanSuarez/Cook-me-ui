@@ -22,42 +22,37 @@ function Toast({classes, displayError, displaySuccess}) {
   if (!displaySuccess) return null
 
   return (
-    <div className={classes.root}>
-      {displaySuccess && (
-        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-          <Alert
-            severity="success"
-            action={
-              <IconButton aria-label="close" color="inherit" onClick={handleClose}>
-                <CloseIcon fontSize="inherit" />
-              </IconButton>
-            }
-          >
-            <AlertTitle>success bg</AlertTitle>
-            Bravo resselem
-          </Alert>
-        </Snackbar>
-      )}
-      {displayError && (
-        <Alert
-          severity="error"
-          action={
-            <IconButton
-              aria-label="close"
-              color="inherit"
-              size="small"
-              onClick={() => {
-                setOpen(false)
-              }}
+    <div>
+      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+        <div className={classes.root}>
+          {displaySuccess && (
+            <Alert
+              severity="success"
+              action={
+                <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
             >
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
-        >
-          <AlertTitle>error</AlertTitle>
-          Bravo Nils
-        </Alert>
-      )}
+              <AlertTitle>success bg</AlertTitle>
+              Bravo resselem
+            </Alert>
+          )}
+          {displayError && (
+            <Alert
+              severity="error"
+              action={
+                <IconButton aria-label="close" color="inherit" size="small" onClick={handleClose}>
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+            >
+              <AlertTitle>error</AlertTitle>
+              Bravo Nils!
+            </Alert>
+          )}
+        </div>
+      </Snackbar>
     </div>
   )
 }
