@@ -5,5 +5,7 @@ import {entitySelector} from 'common/redux/selectors'
 const toastSelector = (state) => entitySelector(state, 'toast')
 
 export default (state) => ({
-  display: get(toastSelector(state), 'isOpen'),
+  displaySuccess: get(toastSelector(state), 'isOpenSuccess'),
+  displayError: get(toastSelector(state), 'isOpenError'),
+  hide: get(toastSelector(state), 'isOpen'),
 })

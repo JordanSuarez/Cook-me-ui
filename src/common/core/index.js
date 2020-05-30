@@ -17,8 +17,8 @@ const Core = () => {
       <Suspense fallback="loading">
         <CssBaseline />
         <Provider store={initStore()}>
+          <Toast />
           <Router routes={routes} />
-          <Toast severity="info" title="super toast" content="super content" />
         </Provider>
       </Suspense>
     </MuiThemeProvider>
