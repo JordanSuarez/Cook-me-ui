@@ -8,51 +8,51 @@ import Snackbar from '@material-ui/core/Snackbar'
 
 import {classes as classesProps} from '../../props'
 
-/**
- * @return {null}
- */
-function Toast({classes, displayError, displaySuccess}) {
+function Toast({classes, displayError, displaySuccess, hideToast}) {
   const [open, setOpen] = React.useState(true)
 
   function handleClose() {
-    return setOpen(!open)
+    setOpen(!open)
+    hideToast(true)
   }
 
   // TODO trigger hideToast on setTimetout
-  if (!displaySuccess) return null
+  // if (!displaySuccess) return null
 
+  // Si displaySuccess est true, afficher le toast success
+  // Si displayError est true, afficher le toast error
   return (
-    <div>
-      <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
-        <div className={classes.root}>
-          {displaySuccess && (
-            <Alert
-              severity="success"
-              action={
-                <IconButton aria-label="close" color="inherit" onClick={handleClose}>
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              }
-            >
-              <AlertTitle>success bg</AlertTitle>
-              Bravo resselem
-            </Alert>
-          )}
-          {displayError && (
-            <Alert
-              severity="error"
-              action={
-                <IconButton aria-label="close" color="inherit" size="small" onClick={handleClose}>
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              }
-            >
-              <AlertTitle>error</AlertTitle>
-              Bravo Nils!
-            </Alert>
-          )}
-        </div>
-      </Snackbar>
+    <div className={classes.root}>
+      {displaySuccess && (
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert
+            severity="success"
+            action={
+              <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            <AlertTitle>success bg</AlertTitle>
+            Bravo resselem
+          </Alert>
+        </Snackbar>
+      )}
+      {displayError && (
+        <Snackbar open={open} autoHideDuration={5000} onClose={handleClose}>
+          <Alert
+            severity="error"
+            action={
+              <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            <AlertTitle>error</AlertTitle>
+            Bravo Nils!
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   )
 }

@@ -15,8 +15,9 @@ const reducersMap = {
     return {...state, isOpenError: displayError}
   },
   [TOAST_HIDE]: (state, {payload: {hide}}) => {
-    // TODO implement
-    return {...state, isHide: hide}
+    // Ici j'essaye de reset le state du toast success et du toast error, car ils ne s'affichent qu'une seule fois,
+    // sauf si je refresh la page.
+    return {...state, isHide: hide, isOpenSuccess: false, isOpenError: false}
   },
 }
 

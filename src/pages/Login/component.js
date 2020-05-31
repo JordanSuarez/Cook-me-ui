@@ -13,31 +13,37 @@ import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
 import {classes as classesProps} from 'common/props'
-import Toast from '../../common/components/Toast'
 
 function Login({classes, showToastSuccess, showToastError}) {
   const history = useHistory()
   const {t} = useTranslation()
-  //add an attribute to your state (errorDisplay, setErrorDisplay : useState)
+  // const [errorDisplay, setErrorDisplay] = useState(false)
 
+  //add an attribute to your state (errorDisplay, setErrorDisplay : useState)
+  // function showError() {
+  //   if (errorDisplay) {
+  //     showToastError(true)
+  //   }
+  // }
+
+  // Si je me log je retourne le toast success, sinon le toast error
+  // TODO trouver pourquoi les toasts ne s'affichent qu'une seule fois
   function onSubmit(values) {
     handleLogin(values)
       .then((logged) => {
         if (logged) {
           history.push(getHomeRoute())
-          showToastSuccess(true)
         }
 
-        return null
+        return showToastSuccess(true)
       })
       .catch(() => {
-        showToastError(true)
+        return showToastError(true)
       })
   }
 
   return (
     <div>
-      <Toast />
       <Container fixed>
         <Grid container spacing={3} className={classes.root}>
           <Hidden xsDown>
