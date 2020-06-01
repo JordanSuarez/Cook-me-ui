@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 
 import {Avatar, Button, Grid, Hidden, Typography} from '@material-ui/core'
 import {Form} from 'react-final-form'
-import {FORM_ERROR} from 'final-form'
 import {func} from 'prop-types'
 import {TextField} from 'mui-rff'
 import {useHistory} from 'react-router-dom'
@@ -33,9 +32,8 @@ function Login({classes, showToast}) {
       })
       .catch(() => {
         setErrorDisplay(true)
-        showToast(true, ERROR, t('loginPage.toast.error.title'), t('loginPage.toast.error.content'))
 
-        return {[FORM_ERROR]: 'Login Failed'}
+        return showToast(true, ERROR, t('loginPage.toast.error.title'), t('loginPage.toast.error.content'))
       })
   }
 
