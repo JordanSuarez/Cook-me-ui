@@ -4,7 +4,11 @@
     "form": {
       "label": {
         "username": "Login",
-        "password": "Password"
+        "password": "Password",
+        "required": {
+          "username": "Username required",
+          "password": "Password required"
+        }
       },
       "button": "Login"
     },

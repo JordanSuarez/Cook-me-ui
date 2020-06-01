@@ -4,7 +4,11 @@
     "form": {
       "label": {
         "username": "Identifiant",
-        "password": "Mot de passe"
+        "password": "Mot de passe",
+        "required": {
+          "username": "Identifiant requis",
+          "password": "Mot de passe requis"
+        }
       },
       "button": "Me connecter"
     },
