@@ -1,22 +1,19 @@
 import {createReducer} from 'common/helpers/redux'
-import {TOAST_HIDE, TOAST_SHOW_ERROR, TOAST_SHOW_SUCCESS} from '../actions/types'
+import {TOAST_HIDE, TOAST_SHOW} from '../actions/types'
 
 const initialState = {
-  isOpenSuccess: false,
-  isOpenError: false,
-  isHide: false,
+  isOpen: false,
+  title: '',
+  content: '',
+  severity: '',
 }
 
 const reducersMap = {
-  [TOAST_SHOW_SUCCESS]: (state, {payload: {displaySuccess}}) => {
-    return {...state, isOpenSuccess: displaySuccess}
+  [TOAST_SHOW]: (state, {payload}) => {
+    return {...state, ...payload}
   },
-  [TOAST_SHOW_ERROR]: (state, {payload: {displayError}}) => {
-    return {...state, isOpenError: displayError}
-  },
-  [TOAST_HIDE]: (state, {payload: {hide}}) => {
-    // Je reset le state des toasts success et error
-    return {...state, isHide: hide, isOpenSuccess: false, isOpenError: false}
+  [TOAST_HIDE]: (state) => {
+    return {...state, ...initialState}
   },
 }
 

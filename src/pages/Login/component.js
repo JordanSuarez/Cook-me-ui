@@ -13,8 +13,9 @@ import {getHomeRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
 import {classes as classesProps} from 'common/props'
+import {ERROR, SUCCESS} from '../../common/constants/severity'
 
-function Login({classes, showToastSuccess, showToastError}) {
+function Login({classes, showToast}) {
   const history = useHistory()
   const {t} = useTranslation()
   // const [errorDisplay, setErrorDisplay] = useState(false)
@@ -34,11 +35,9 @@ function Login({classes, showToastSuccess, showToastError}) {
           history.push(getHomeRoute())
         }
 
-        return showToastSuccess(true)
+        return showToast(true, SUCCESS, t('loginPage.toast.success.title'), t('loginPage.toast.success.content'))
       })
-      .catch(() => {
-        return showToastError(true)
-      })
+      .catch(() => showToast(true, ERROR, t('loginPage.toast.error.title'), t('loginPage.toast.error.content')))
   }
 
   return (

@@ -35,7 +35,7 @@ export const handleLogin = (credentials) => {
     callApi(getEndpoint(USERS, POST, LOGIN), POST, credentials)
       .then(({data}) => {
         setToken(data.token)
-
+        // get username
         resolve(true)
       })
       .catch((error) => {

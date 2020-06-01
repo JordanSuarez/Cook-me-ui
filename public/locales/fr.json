@@ -7,6 +7,16 @@
         "password": "Mot de passe"
       },
       "button": "Me connecter"
+    },
+    "toast": {
+      "success": {
+        "title": "Authentification réussie",
+        "content": "Bienvenue {{ currentUser }}"
+      },
+      "error": {
+        "title": "Echec de l'authentification",
+        "content": "Oupsi !"
+      }
     }
   },
   "homePage": {

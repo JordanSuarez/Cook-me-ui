@@ -7,6 +7,16 @@
         "password": "Password"
       },
       "button": "Login"
+    },
+    "toast": {
+      "success": {
+        "title": "Authentication succeeded",
+        "content": "Welcome back {{ currentUser }}"
+      },
+      "error": {
+        "title": "Authentication failed",
+        "content": "Oopsi !"
+      }
     }
   },
   "homePage": {
