@@ -9,13 +9,13 @@ const palette = {
     },
   },
   primary: {
-    main: '#42A6A6',
-    light: '#9BDADA',
-    medium: '#F2CB06',
+    main: '#B3DA2A',
+    light: '#F2BC1B',
+    medium: '#734F3C',
   },
   secondary: {
-    main: '#F01CBA',
-    light: '#F272A1',
+    main: '#F27910',
+    medium: '#F23C91',
   },
 }
 
