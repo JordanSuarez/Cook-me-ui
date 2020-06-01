@@ -1,9 +1,9 @@
 import React from 'react'
 
 import {Avatar, Button, Container, Grid, Hidden, Paper, Typography} from '@material-ui/core'
-import {useHistory} from 'react-router-dom'
-
 import {Form} from 'react-final-form'
+import {func} from 'prop-types'
+import {useHistory} from 'react-router-dom'
 
 import {TextField} from 'mui-rff'
 import {useTranslation} from 'react-i18next'
@@ -27,7 +27,6 @@ function Login({classes, showToastSuccess, showToastError}) {
   // }
 
   // Si je me log je retourne le toast success, sinon le toast error
-  // TODO trouver pourquoi les toasts ne s'affichent qu'une seule fois
   function onSubmit(values) {
     handleLogin(values)
       .then((logged) => {
@@ -101,6 +100,8 @@ function Login({classes, showToastSuccess, showToastError}) {
 }
 
 Login.propTypes = {
+  showToastError: func.isRequired,
+  showToastSuccess: func.isRequired,
   ...classesProps,
 }
 
