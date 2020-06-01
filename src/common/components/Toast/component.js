@@ -2,8 +2,8 @@ import React from 'react'
 
 import {Alert, AlertTitle} from '@material-ui/lab'
 import {bool, func} from 'prop-types'
+import {Grid, IconButton} from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
-import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 
 import {classes as classesProps} from '../../props'
@@ -20,32 +20,52 @@ function Toast({classes, displayError, displaySuccess, hideToast}) {
   // Si displayError est true, afficher le toast error
   return (
     <div className={classes.root}>
-      <Snackbar open={displaySuccess} autoHideDuration={5000} onClose={handleClose}>
-        <Alert
-          severity="success"
-          action={
-            <IconButton aria-label="close" color="inherit" onClick={handleClose}>
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
+      <Grid item xs={12} sm={8} md={5}>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={displaySuccess}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          className={classes.toast}
         >
-          <AlertTitle>success bg</AlertTitle>
-          Bravo Resselem!
-        </Alert>
-      </Snackbar>
-      <Snackbar open={displayError} autoHideDuration={5000} onClose={handleClose}>
-        <Alert
-          severity="error"
-          action={
-            <IconButton aria-label="close" color="inherit" onClick={handleClose}>
-              <CloseIcon fontSize="inherit" />
-            </IconButton>
-          }
+          <Alert
+            severity="success"
+            action={
+              <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            <AlertTitle>success bg</AlertTitle>
+            Bravo Resselem!
+          </Alert>
+        </Snackbar>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          open={displayError}
+          autoHideDuration={5000}
+          onClose={handleClose}
+          className={classes.toast}
         >
-          <AlertTitle>error</AlertTitle>
-          Bravo Nils!
-        </Alert>
-      </Snackbar>
+          <Alert
+            severity="error"
+            action={
+              <IconButton aria-label="close" color="inherit" onClick={handleClose}>
+                <CloseIcon fontSize="inherit" />
+              </IconButton>
+            }
+          >
+            <AlertTitle>error</AlertTitle>
+            Bravo Nils!
+          </Alert>
+        </Snackbar>
+      </Grid>
     </div>
   )
 }
