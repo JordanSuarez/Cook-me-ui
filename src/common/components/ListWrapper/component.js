@@ -8,6 +8,7 @@ import ViewListTable from '@material-ui/icons/ViewHeadline'
 
 import {classes as classesProps} from 'common/props'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
+import CreateForm from '../CreateForm'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
@@ -30,6 +31,7 @@ function ListWrapper({items, columns, classes}) {
 
   function handleClick() {
     setInputValue('')
+    setSearchResults([])
   }
 
   function handleChange(value) {
@@ -55,8 +57,15 @@ function ListWrapper({items, columns, classes}) {
     return setDisplayTable(false)
   }
 
+  function handleCreateFormDisplay() {}
+
   return (
     <div>
+      <Grid item>
+        <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
+          <CreateForm />
+        </IconButton>
+      </Grid>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
         <IconButton onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>
           <ViewListTable color={colorTableIcon} fontSize="large" />
