@@ -12,6 +12,7 @@ export default ({palette, spacing}) => ({
     backgroundColor: palette.secondary.medium,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
+    transform: 'scaleX(-1)',
   },
   paper: {
     margin: spacing(8),
