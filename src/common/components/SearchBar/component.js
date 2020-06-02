@@ -8,20 +8,6 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 
 function SearchBar({handleChange, handleClick, value}) {
   const {t} = useTranslation()
-  // const [onFocus, setOnFocus] = useState(false)
-
-  // function inputPropsOnFocus() {
-  //
-  //     return
-  // }
-  //
-  // function setFocus() {
-  //   if (onFocus) {
-  //     setOnFocus(!onFocus)
-  //   }
-  //
-  //   return setOnFocus(!onFocus)
-  // }
 
   return (
     <form>
@@ -35,7 +21,6 @@ function SearchBar({handleChange, handleClick, value}) {
             label={t('searchBar.form.label.field')}
             name="searchBar"
             fullWidth
-            // onFocus={setFocus}
             InputProps={{
               endAdornment: (
                 <IconButton onClick={handleClick}>
