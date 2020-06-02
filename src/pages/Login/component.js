@@ -44,9 +44,9 @@ function Login({classes, showToast}) {
     <div>
       <Grid container spacing={3} className={classes.root}>
         <Hidden xsDown>
-          <Grid item xs={12} sm={6} md={7} lg={8} xl={9} className={classes.image} />
+          <Grid item xs={12} sm={4} md={6} lg={7} xl={8} className={classes.image} />
         </Hidden>
-        <Grid item xs={12} sm={6} md={5} lg={4} xl={3}>
+        <Grid item xs={12} sm={8} md={6} lg={5} xl={4}>
           <div className={classes.paper}>
             <Avatar className={classes.icon}>
               <LoginIcon />
