@@ -68,16 +68,16 @@ function ListWrapper({items, columns, classes}) {
 
   return (
     <div>
-      <Grid item>
+      <Grid container direction="row-reverse" className={classes.container}>
         <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
-          <LinkToCreateForm color={colorTableIcon} fontSize="large" />
+          <LinkToCreateForm fontSize="large" />
         </IconButton>
       </Grid>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
         <IconButton onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>
           <ViewListTable color={colorTableIcon} fontSize="large" />
         </IconButton>
-        <IconButton onClick={() => handleListDisplay(LIST_CARD)}>
+        <IconButton onClick={() => handleListDisplay(LIST_CARD)} className={classes.iconButton}>
           <ViewListCard color={colorCardIcon} fontSize="large" />
         </IconButton>
       </Grid>

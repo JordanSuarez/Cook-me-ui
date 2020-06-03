@@ -11,7 +11,7 @@ function SearchBar({handleChange, handleClick, value}) {
 
   return (
     <form>
-      <Grid container direction="row-reverse" spacing={3}>
+      <Grid container direction="row-reverse" spacing={1}>
         <Grid item xs={12} sm={6} md={3}>
           <TextField
             value={value}

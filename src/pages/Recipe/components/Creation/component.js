@@ -53,7 +53,7 @@ function CreationForm({classes}) {
 
   return (
     <Page title={t('recipe.form.creation.label.field.title')}>
-      <Grid container spacing={3}>
+      <Grid container spacing={0} className={classes.root}>
         <Paper className={classes.paper}>
           <Form validate={validate} onSubmit={onSubmit} autoComplete="off">
             <TextField name="name" margin="normal" required={required.name} label={t('recipe.form.creation.label.field.name')} autoFocus />
