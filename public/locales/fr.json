@@ -44,13 +44,26 @@
     },
     "form": {
       "creation":{
-        "title": "Création d'une recette",
-        "name": "Nom de la recette",
-        "instruction": "Instruction",
-        "preparationTime": "Temps de préparation",
-        "ingredients": "Ingrédient",
-        "recipeType": "Type de recette",
-        "helperText": "Selection du type de recette"
+        "label": {
+          "field": {
+            "title": "Création d'une recette",
+            "name": "Nom de la recette",
+            "instruction": "Instruction",
+            "preparationTime": "Temps de préparation",
+            "ingredients": "Ingrédient",
+            "recipeType": "Type de recette",
+            "helperText": "Selection du type de recette"}
+        },
+        "values": {
+          "field": {
+            "recipeType": {
+              "starters": "Entrées",
+              "dish": "Plats",
+              "deserts": "Desserts"
+            }
+          }
+        }
+
       }
     }
   },

@@ -31,21 +31,21 @@ function Home({classes}) {
     // eslint-disable-next-line
   }, [])
 
-  function resourceFactory(type) {
+  function resourceFactory(type, id) {
     switch (type) {
       case STARTERS:
         return {
-          pathname: getStartersRoute(),
+          pathname: getStartersRoute(id),
           label: t('homePage.starters'),
         }
       case DISH:
         return {
-          pathname: getDishRoute(),
+          pathname: getDishRoute(id),
           label: t('homePage.dish'),
         }
       case DESERTS:
         return {
-          pathname: getDesertsRoute(),
+          pathname: getDesertsRoute(id),
           label: t('homePage.deserts'),
         }
       default:
@@ -56,7 +56,7 @@ function Home({classes}) {
   return (
     <div className={classes.image}>
       {types.map(({id, name}) => {
-        const {pathname, label} = resourceFactory(name)
+        const {pathname, label} = resourceFactory(name, id)
 
         return (
           <Grid key={id} container justify="center">

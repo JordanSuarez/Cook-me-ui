@@ -1,9 +1,9 @@
-import {getDesertsRoute} from 'common/routing/routesResolver'
+import {DESERTS} from 'common/routing/routesResolver'
 import Deserts from '../index'
 
 export default {
   id: 'desertsPage',
-  path: getDesertsRoute(),
+  path: DESERTS,
   component: Deserts,
   requireAuthentication: true,
 }

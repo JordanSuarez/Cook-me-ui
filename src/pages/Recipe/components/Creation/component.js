@@ -17,7 +17,7 @@ import Page from 'common/components/Page'
 
 import {classes as classesProps} from 'common/props'
 
-function CreationForm() {
+function CreationForm({classes}) {
   const {t} = useTranslation()
   const [types, setTypes] = useState([])
   const [selectedType, setSelectedType] = useState('')
@@ -52,30 +52,30 @@ function CreationForm() {
   function onSubmit() {}
 
   return (
-    <Page title={t('recipe.form.creation.title')}>
-      <Form validate={validate} onSubmit={onSubmit} autoComplete="off">
-        <Paper>
-          <Grid>
-            <TextField name="name" margin="normal" required={required.name} label={t('recipe.form.creation.name')} autoFocus />
+    <Page title={t('recipe.form.creation.label.field.title')}>
+      <Grid container spacing={3}>
+        <Paper className={classes.paper}>
+          <Form validate={validate} onSubmit={onSubmit} autoComplete="off">
+            <TextField name="name" margin="normal" required={required.name} label={t('recipe.form.creation.label.field.name')} autoFocus />
             <TextField
               name="instruction"
               multiline
               margin="normal"
               required={required.instruction}
-              label={t('recipe.form.creation.instruction')}
+              label={t('recipe.form.creation.label.field.instruction')}
             />
-            <TextField name="preparationTime" margin="normal" label={t('recipe.form.creation.preparationTime')} />
+            <TextField name="preparationTime" margin="normal" label={t('recipe.form.creation.label.field.preparationTime')} />
             <TextField
               name="recipeType"
               select
               value={selectedType}
               onChange={handleOnSelectChange}
-              label={t('recipe.form.creation.recipeType')}
-              helperText={t('recipe.form.creation.helperText')}
+              label={t('recipe.form.creation.label.field.recipeType')}
+              helperText={t('recipe.form.creation.label.field.helperText')}
             >
               {types.map(({id, name}) => (
                 <MenuItem key={id} value={id}>
-                  {name}
+                  {t(`recipe.form.creation.values.field.recipeType.${name}`)}
                 </MenuItem>
               ))}
             </TextField>
@@ -84,9 +84,9 @@ function CreationForm() {
                 Submit
               </CTAButton>
             </Grid>
-          </Grid>
+          </Form>
         </Paper>
-      </Form>
+      </Grid>
     </Page>
   )
 }

@@ -1,9 +1,9 @@
-import {getStartersRoute} from 'common/routing/routesResolver'
+import {STARTERS} from 'common/routing/routesResolver'
 import Starters from '../index'
 
 export default {
   id: 'startersPage',
-  path: getStartersRoute(),
+  path: STARTERS,
   component: Starters,
   requireAuthentication: true,
 }

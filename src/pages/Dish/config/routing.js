@@ -1,9 +1,9 @@
-import {getDishRoute} from 'common/routing/routesResolver'
+import {DISH} from 'common/routing/routesResolver'
 import Dish from '../index'
 
 export default {
   id: 'dishPage',
-  path: getDishRoute(),
+  path: DISH,
   component: Dish,
   requireAuthentication: true,
 }

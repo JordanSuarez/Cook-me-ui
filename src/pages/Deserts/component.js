@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react'
 
+import {useParams} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {any, objectOf} from 'prop-types'
-
-import {get} from 'lodash'
 
 import {BY_TYPE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -16,12 +15,13 @@ import getColumns from 'common/helpers/columns'
 import ListWrapper from 'common/components/ListWrapper'
 import Page from 'common/components/Page'
 
-function Deserts({location}) {
+function Deserts() {
   const {t} = useTranslation()
+  const {id} = useParams()
   const [recipes, setRecipes] = useState([])
 
   useEffect(() => {
-    const url = getEndpoint(RECIPES, GET, BY_TYPE, get(location, 'state.id'))
+    const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
 
     callApi(url, GET)
       .then(({data}) => {

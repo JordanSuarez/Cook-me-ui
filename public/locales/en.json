@@ -44,13 +44,26 @@
     },
     "form": {
       "creation":{
-        "title": "Create your recipe",
-        "name": "Recipe name",
-        "instruction": "Instruction",
-        "preparationTime": "Preparation time",
-        "ingredients": "Ingredient",
-        "recipeType": "Recipe type",
-        "helperText": "Please select your recipe type"
+        "label": {
+          "field": {
+            "title": "Create your recipe",
+            "name": "Recipe name",
+            "instruction": "Instruction",
+            "preparationTime": "Preparation time",
+            "ingredients": "Ingredient",
+            "recipeType": "Recipe type",
+            "helperText": "Please select your recipe type"
+          },
+          "values": {
+            "field": {
+              "recipeType": {
+                "starters": "Starters",
+                "dish": "Dish",
+                "deserts": "Deserts"
+              }
+            }
+          }
+        }
       }
     }
   },
