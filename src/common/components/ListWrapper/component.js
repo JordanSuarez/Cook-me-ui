@@ -3,12 +3,16 @@ import React, {useState} from 'react'
 import {any, arrayOf} from 'prop-types'
 import {Grid, IconButton} from '@material-ui/core'
 import {isEmpty} from 'lodash'
+import LinkToCreateForm from '@material-ui/icons/AddOutlined'
 import ViewListCard from '@material-ui/icons/ViewModule'
 import ViewListTable from '@material-ui/icons/ViewHeadline'
 
+import {useHistory} from 'react-router-dom'
+
 import {classes as classesProps} from 'common/props'
+
+import {getNewRecipesRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
-import CreateForm from '../CreateForm'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
@@ -18,6 +22,7 @@ import SearchBar from 'common/components/SearchBar'
  * @return {null}
  */
 function ListWrapper({items, columns, classes}) {
+  const history = useHistory()
   const [searchResults, setSearchResults] = useState([])
   const [displayCard, setDisplayCard] = useState(true)
   const [displayTable, setDisplayTable] = useState(false)
@@ -57,13 +62,15 @@ function ListWrapper({items, columns, classes}) {
     return setDisplayTable(false)
   }
 
-  function handleCreateFormDisplay() {}
+  function handleCreateFormDisplay() {
+    return history.push(getNewRecipesRoute())
+  }
 
   return (
     <div>
       <Grid item>
         <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
-          <CreateForm />
+          <LinkToCreateForm color={colorTableIcon} fontSize="large" />
         </IconButton>
       </Grid>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">

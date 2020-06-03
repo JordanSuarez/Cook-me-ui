@@ -1,4 +1,4 @@
-import {ALL, BY_TYPE, LOGIN, ONE, TYPES} from '../constants/resources_type'
+import {ALL, BY_TYPE, LOGIN, NEW, ONE, TYPES} from '../constants/resources_type'
 import {GET, POST} from '../constants/methods'
 import {RECIPES, USERS} from '../constants/resources'
 
@@ -16,6 +16,9 @@ const endpoints = {
         [ONE]: (meta) => `${RECIPES}/${meta}`,
         [BY_TYPE]: (meta) => `${RECIPES}/types/${meta}`,
         [TYPES]: `${RECIPES}/types`,
+      },
+      [POST]: {
+        [NEW]: `${RECIPES}/new`,
       },
     },
     [USERS]: {
