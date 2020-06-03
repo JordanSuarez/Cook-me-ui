@@ -41,6 +41,17 @@
         "instruction": "Instructions",
         "preparationTime": "Preparation time"
       }
+    },
+    "form": {
+      "creation":{
+        "title": "Create your recipe",
+        "name": "Recipe name",
+        "instruction": "Instruction",
+        "preparationTime": "Preparation time",
+        "ingredients": "Ingredient",
+        "recipeType": "Recipe type",
+        "helperText": "Please select your recipe type"
+      }
     }
   },
   "searchBar": {

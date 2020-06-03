@@ -38,8 +38,19 @@
     "list": {
       "table": {
         "name": "Recettes",
-        "instruction": "Instructions",
+        "instruction": "Instruction",
         "preparationTime": "Temps de préparation"
+      }
+    },
+    "form": {
+      "creation":{
+        "title": "Création d'une recette",
+        "name": "Nom de la recette",
+        "instruction": "Instruction",
+        "preparationTime": "Temps de préparation",
+        "ingredients": "Ingrédient",
+        "recipeType": "Type de recette",
+        "helperText": "Selection du type de recette"
       }
     }
   },

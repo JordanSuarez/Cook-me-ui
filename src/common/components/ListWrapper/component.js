@@ -11,7 +11,7 @@ import {useHistory} from 'react-router-dom'
 
 import {classes as classesProps} from 'common/props'
 
-import {getNewRecipesRoute} from 'common/routing/routesResolver'
+import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
@@ -63,7 +63,7 @@ function ListWrapper({items, columns, classes}) {
   }
 
   function handleCreateFormDisplay() {
-    return history.push(getNewRecipesRoute())
+    return history.push(getCreationRecipeRoute())
   }
 
   return (

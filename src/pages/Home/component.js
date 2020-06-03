@@ -4,23 +4,21 @@ import {Link} from 'react-router-dom'
 
 import {useTranslation} from 'react-i18next'
 
-import {get, isEmpty} from 'lodash'
-
 import {Card, CardContent, Grid, Typography} from '@material-ui/core'
 
 import {callApi} from 'common/helpers/repository'
 
+import {DESERTS, DISH, RECIPES, STARTERS} from 'common/constants/resources'
 import {GET} from 'common/constants/methods'
 import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/routesResolver'
 import {getEndpoint} from 'common/helpers/urlHandler'
-import {RECIPES} from 'common/constants/resources'
 import {TYPES} from 'common/constants/resources_type'
 
 import {classes as classesProps} from 'common/props'
 
 function Home({classes}) {
   const {t} = useTranslation()
-  const [types, setTypes] = useState({})
+  const [types, setTypes] = useState([])
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, TYPES)
@@ -33,57 +31,53 @@ function Home({classes}) {
     // eslint-disable-next-line
   }, [])
 
+  function resourceFactory(type) {
+    switch (type) {
+      case STARTERS:
+        return {
+          pathname: getStartersRoute(),
+          label: t('homePage.starters'),
+        }
+      case DISH:
+        return {
+          pathname: getDishRoute(),
+          label: t('homePage.dish'),
+        }
+      case DESERTS:
+        return {
+          pathname: getDesertsRoute(),
+          label: t('homePage.deserts'),
+        }
+      default:
+        return {}
+    }
+  }
+
   return (
     <div className={classes.image}>
-      {!isEmpty(types) && (
-        <Grid container justify="center">
-          <Link
-            to={{
-              pathname: getStartersRoute(),
-              state: {id: get(types, 'starters')},
-            }}
-            className={classes.button}
-          >
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {t('homePage.starters')}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-          <Link
-            to={{
-              pathname: getDishRoute(),
-              state: {id: get(types, 'dish')},
-            }}
-            className={classes.button}
-          >
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {t('homePage.dish')}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-          <Link
-            to={{
-              pathname: getDesertsRoute(),
-              state: {id: get(types, 'deserts')},
-            }}
-            className={classes.button}
-          >
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                  {t('homePage.deserts')}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
-        </Grid>
-      )}
+      {types.map(({id, name}) => {
+        const {pathname, label} = resourceFactory(name)
+
+        return (
+          <Grid key={id} container justify="center">
+            <Link
+              to={{
+                pathname,
+                state: {id},
+              }}
+              className={classes.button}
+            >
+              <Card className={classes.card}>
+                <CardContent>
+                  <Typography className={classes.title} color="textSecondary" gutterBottom>
+                    {label}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Link>
+          </Grid>
+        )
+      })}
     </div>
   )
 }
