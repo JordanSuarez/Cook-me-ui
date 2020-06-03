@@ -1,20 +1,36 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 
 import * as Yup from 'yup'
 import {Grid, MenuItem, Paper} from '@material-ui/core'
 import {makeRequired, makeValidate, TextField} from 'mui-rff'
 
-// import {callApi} from 'common/helpers/repository'
-// import {getEndpoint} from 'common/helpers/urlHandler'
-// import {NEW} from 'common/constants/resources_type'
-// import {POST} from 'common/constants/methods'
-// import {RECIPES} from 'common/constants/resources'
-import CTAButton from '../../common/components/CTAButton'
+import {callApi} from 'common/helpers/repository'
+import {GET} from 'common/constants/methods'
+import {getEndpoint} from 'common/helpers/urlHandler'
+import {RECIPES} from 'common/constants/resources'
+import {TYPES} from 'common/constants/resources_type'
+import CTAButton from 'common/components/CTAButton'
 import Form from '../../common/components/Form/component'
 
 import {classes as classesProps} from 'common/props'
 
 function CreateForm() {
+  const [types, setTypes] = useState({})
+
+  // TODO déplacer le callApi pour pouvoir l'utiliser dans Home
+  useEffect(() => {
+    const url = getEndpoint(RECIPES, GET, TYPES)
+
+    callApi(url, GET)
+      .then(({data}) => {
+        setTypes(data)
+        console.log(data)
+      })
+      .catch(() => {})
+    // eslint-disable-next-line
+  }, [])
+  const recipeTypes = [types]
+
   const schema = Yup.object().shape({
     ingredients: Yup.string().required(),
     instruction: Yup.string().required(),
@@ -24,47 +40,21 @@ function CreateForm() {
     quantityType: Yup.string().required(),
     recipeType: Yup.string().required(),
   })
-
   const validate = makeValidate(schema)
   const required = makeRequired(schema)
 
-  // call les recipeTypes sinon Maître pas content :)
-  const recipeTypes = [
-    {
-      value: 'starter',
-      label: 'starter',
-    },
-    {
-      value: 'dish',
-      label: 'dish',
-    },
-    {
-      value: 'desert',
-      label: 'desert',
-    },
-  ]
+  console.log(types)
 
-  // useEffect(() => {
-  //   const url = getEndpoint(RECIPES, POST, NEW)
+  // const onSubmit = async (values) => {
+  //   const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
   //
-  //   callApi(url, POST)
-  //     .then(({data}) => {
-  //       setTypes(data)
-  //     })
-  //     .catch(() => {})
-  //   // eslint-disable-next-line
-  // }, [])
-
-  const onSubmit = async (values) => {
-    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
-
-    await sleep(300)
-    window.alert(JSON.stringify(values, 0, 2))
-  }
+  //   await sleep(300)
+  //   window.alert(JSON.stringify(values, 0, 2))
+  // }
 
   return (
     <div>
-      <Form validate={validate} onSubmit={onSubmit}>
+      <Form validate={validate} onSubmit="test">
         <Paper>
           <Grid container alignItems="flex-start" spacing={2}>
             <TextField
@@ -96,9 +86,7 @@ function CreateForm() {
             />
             <TextField select name="recipeType" label="Select" helperText="Please select your recipe type">
               {recipeTypes.map((recipeType) => (
-                <MenuItem key={recipeType.value} value={recipeType.value}>
-                  {recipeType.label}
-                </MenuItem>
+                <MenuItem key={recipeType}>{recipeType}</MenuItem>
               ))}
             </TextField>
             <Grid item>
