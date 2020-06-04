@@ -111,15 +111,17 @@ function CreationForm({classes}) {
 
   return (
     <Page title="test">
-      <Grid container xs={12} spacing={0} className={classes.root}>
+      <Grid container spacing={0} className={classes.root}>
         <Paper className={classes.paper}>
           <Form validate={validate} onSubmit={onSubmit} autoComplete="off">
             <Grid item xs={7}>
               <TextField name="name" margin="normal" required={required.name} label="name" autoFocus />
             </Grid>
-            <TextField name="instruction" multiline margin="normal" required={required.instruction} label="instruction" />
-            <Grid container xs={12} justify="space-between">
-              <Grid item xs={5}>
+            <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
+              <TextField name="instruction" multiline margin="normal" required={required.instruction} label="instruction" />
+            </Grid>
+            <Grid container justify="space-between">
+              <Grid item xs={8} sm={6} md={6} lg={5} xl={4}>
                 <TextField
                   name="ingredient"
                   select
@@ -135,10 +137,10 @@ function CreationForm({classes}) {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={2}>
-                <TextField name="quantity" margin="normal" label="quantity" InputLabelProps={{shrink: true}} />
+              <Grid item xs={3} sm={2} md={2} lg={1} xl={1}>
+                <TextField name="quantity" type="number" margin="normal" label="quantity" />
               </Grid>
-              <Grid item xs={2}>
+              <Grid item xs={5} sm={3} md={2} lg={2} xl={3}>
                 <TextField
                   name="quantityType"
                   select
@@ -155,8 +157,8 @@ function CreationForm({classes}) {
                 </TextField>
               </Grid>
             </Grid>
-            <Grid container xs={12} justify="space-between">
-              <Grid item xs={5} className={classes.menuItem}>
+            <Grid container justify="space-between">
+              <Grid item xs={5} sm={3} md={2} lg={2} xl={3} className={classes.menuItem}>
                 <TextField
                   name="recipeType"
                   select
@@ -171,8 +173,8 @@ function CreationForm({classes}) {
                   ))}
                 </TextField>
               </Grid>
-              <Grid item xs={6} sm={4} md={3}>
-                <TextField name="preparationTime" margin="normal" label="preparation time" />
+              <Grid item xs={5} sm={3} md={2} lg={1} xl={1}>
+                <TextField name="preparationTime" type="number" margin="normal" label="Preparation time" />
               </Grid>
             </Grid>
             <Grid item className={classes.button}>

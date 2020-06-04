@@ -4,7 +4,7 @@ export default ({spacing}) => ({
     flexGrow: 1,
   },
   paper: {
-    padding: spacing(3),
+    padding: spacing(2),
     marginTop: spacing(3),
     width: '100%',
   },
