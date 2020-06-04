@@ -6,11 +6,11 @@ import {makeRequired, makeValidate, TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
 
+import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
-import {GET} from 'common/constants/methods'
+import {GET, POST} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
-import {RECIPES} from 'common/constants/resources'
-import {TYPES} from 'common/constants/resources_type'
+import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import Page from 'common/components/Page'
@@ -19,44 +19,96 @@ import {classes as classesProps} from 'common/props'
 
 function CreationForm({classes}) {
   // const {t} = useTranslation()
-  const [types, setTypes] = useState([])
-  const [selectedType, setSelectedType] = useState('')
 
+  const [listOfIngredients, setListOfIngredients] = useState([])
+  const [quantityTypes, setQuantityTypes] = useState([])
+  const [recipeTypes, setRecipeTypes] = useState([])
+
+  const [selectedIngredient, setSelectedIngredient] = useState('')
+  const [selectedQuantityType, setSelectedQuantityType] = useState('')
+  const [selectedRecipeType, setSelectedRecipeType] = useState('')
+
+  // Call pour récupérer les ingredients
+  useEffect(() => {
+    const url = getEndpoint(INGREDIENTS, GET, ALL)
+
+    callApi(url, GET)
+      .then(({data}) => {
+        setListOfIngredients(data)
+      })
+      .catch(() => {})
+    // eslint-disable-next-line
+  }, [])
+
+  // Call pour récupérer les types de quantitées
+  useEffect(() => {
+    const url = getEndpoint(QUANTITY_TYPE, GET, ALL)
+
+    callApi(url, GET)
+      .then(({data}) => {
+        setQuantityTypes(data)
+      })
+      .catch(() => {})
+    // eslint-disable-next-line
+  }, [])
+
+  // Call pour récupérer les types de recettes
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, TYPES)
 
     callApi(url, GET)
       .then(({data}) => {
-        setTypes(data)
+        setRecipeTypes(data)
       })
       .catch(() => {})
     // eslint-disable-next-line
   }, [])
 
   const schema = Yup.object().shape({
-    ingredients: Yup.string().required(),
+    ingredient: Yup.number(),
     instruction: Yup.string().required(),
     name: Yup.string().required(),
-    preparationTime: Yup.number(),
-    quantity: Yup.number().required(),
-    quantityType: Yup.string().required(),
-    recipeType: Yup.object(),
+    preparationTime: Yup.string(),
+    quantity: Yup.string().required(),
+    quantityType: Yup.number(),
+    recipeType: Yup.array().of(Yup.number()).min(1),
   })
+
   const validate = makeValidate(schema)
   const required = makeRequired(schema)
 
-  const handleOnSelectChange = (event) => {
-    setSelectedType(event.target.value)
+  const handleIngredientOnSelectChange = (event) => {
+    setSelectedIngredient(event.target.value)
+  }
+  const handleQuantityTypeOnSelectChange = (event) => {
+    setSelectedQuantityType(event.target.value)
+  }
+  const handleRecipeTypeOnSelectChange = (event) => {
+    setSelectedRecipeType(event.target.value)
   }
 
-  function onSubmit() {}
+  function onSubmit(values) {
+    const data = {
+      ingredient: [
+        {
+          id: values.ingredient,
+          quantity: {
+            type_id: values.quantityType,
+            number: values.quantity,
+          },
+        },
+      ],
+      name: values.name,
+      preparationTime: parseInt(values.preparationTime, 10),
+      instruction: values.instruction,
+      type: values.recipeType,
+    }
 
-  // title={t('recipe.form.creation.label.field.title')}
-  // label={t('recipe.form.creation.label.field.name')}
-  // label={t('recipe.form.creation.label.field.instruction')}
-  // label={t('recipe.form.creation.label.field.preparationTime')}
-  // label={t('recipe.form.creation.label.field.recipeType')}
-  // menuItem {t(`recipe.form.creation.values.field.recipeType.${name}`)}
+    console.log(data.recipeType, values.ingredient, values.quantityType)
+    callApi(getEndpoint(RECIPES, POST, ONE), POST, data)
+  }
+  console.log(selectedRecipeType, selectedQuantityType, selectedIngredient)
+
   return (
     <Page title="test">
       <Grid container xs={12} spacing={0} className={classes.root}>
@@ -68,22 +120,34 @@ function CreationForm({classes}) {
             <TextField name="instruction" multiline margin="normal" required={required.instruction} label="instruction" />
             <Grid container xs={12} justify="space-between">
               <Grid item xs={5}>
-                <TextField name="ingredient" margin="normal" required={required.ingredients} label="ingredient" />
+                <TextField
+                  name="ingredient"
+                  select
+                  value={selectedIngredient}
+                  onChange={handleIngredientOnSelectChange}
+                  margin="normal"
+                  label="ingredient"
+                >
+                  {listOfIngredients.map(({id, name}) => (
+                    <MenuItem key={id} value={id}>
+                      {name}
+                    </MenuItem>
+                  ))}
+                </TextField>
               </Grid>
               <Grid item xs={2}>
-                <TextField name="quantity" margin="normal" required={required.quantity} label="quantity" />
+                <TextField name="quantity" margin="normal" label="quantity" InputLabelProps={{shrink: true}} />
               </Grid>
               <Grid item xs={2}>
                 <TextField
                   name="quantityType"
                   select
-                  value={selectedType}
-                  onChange={handleOnSelectChange}
+                  value={selectedQuantityType}
+                  onChange={handleQuantityTypeOnSelectChange}
                   margin="normal"
-                  required={required.quantityType}
                   label="quantity type"
                 >
-                  {types.map(({id, name}) => (
+                  {quantityTypes.map(({id, name}) => (
                     <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
@@ -96,12 +160,11 @@ function CreationForm({classes}) {
                 <TextField
                   name="recipeType"
                   select
-                  value={selectedType}
-                  onChange={handleOnSelectChange}
-                  required={required.recipeType}
+                  value={selectedRecipeType}
+                  onChange={handleRecipeTypeOnSelectChange}
                   label="recipe type"
                 >
-                  {types.map(({id, name}) => (
+                  {recipeTypes.map(({id, name}) => (
                     <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
@@ -123,6 +186,12 @@ function CreationForm({classes}) {
     </Page>
   )
 }
+// title={t('recipe.form.creation.label.field.title')}
+// label={t('recipe.form.creation.label.field.name')}
+// label={t('recipe.form.creation.label.field.instruction')}
+// label={t('recipe.form.creation.label.field.preparationTime')}
+// label={t('recipe.form.creation.label.field.recipeType')}
+// menuItem {t(`recipe.form.creation.values.field.recipeType.${name}`)}
 
 CreationForm.propTypes = {
   ...classesProps,
