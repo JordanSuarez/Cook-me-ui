@@ -51,16 +51,15 @@
             "instruction": "Instruction",
             "preparationTime": "Preparation time",
             "ingredients": "Ingredient",
-            "recipeType": "Recipe type",
-            "helperText": "Please select your recipe type"
-          },
-          "values": {
-            "field": {
-              "recipeType": {
-                "starters": "Starters",
-                "dish": "Dish",
-                "deserts": "Deserts"
-              }
+            "recipeType": "Recipe type"
+          }
+        },
+        "values": {
+          "field": {
+            "recipeType": {
+              "starters": "Starters",
+              "dish": "Dish",
+              "deserts": "Deserts"
             }
           }
         }

@@ -51,8 +51,8 @@
             "instruction": "Instruction",
             "preparationTime": "Temps de préparation",
             "ingredients": "Ingrédient",
-            "recipeType": "Type de recette",
-            "helperText": "Selection du type de recette"}
+            "recipeType": "Type de recette"
+          }
         },
         "values": {
           "field": {
