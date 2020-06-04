@@ -1,25 +1,21 @@
 import React from 'react'
 
-import {any, arrayOf} from 'prop-types'
-import {useTranslation} from 'react-i18next'
+import {any, arrayOf, func} from 'prop-types'
 import MUIDataTable from 'mui-datatables'
 
 import {classes as classesProps} from 'common/props'
-import getOptions from 'common/helpers/muiDataTableOptions'
 
 /**
  * @return {null}
  */
-function ListTable({items, columns, classes}) {
-  const {t} = useTranslation('listTable')
-
+function ListTable({items, columns, classes, options}) {
   if (columns.length === 0) {
     return null
   }
 
   return (
     <div className={classes.root}>
-      <MUIDataTable data={items} columns={columns} options={getOptions(t)} />
+      <MUIDataTable data={items} columns={columns} options={options} />
     </div>
   )
 }
@@ -27,6 +23,7 @@ function ListTable({items, columns, classes}) {
 ListTable.propTypes = {
   columns: arrayOf(any).isRequired,
   items: arrayOf(any),
+  options: func.isRequired,
   ...classesProps,
 }
 

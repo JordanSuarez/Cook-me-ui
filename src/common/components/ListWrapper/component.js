@@ -8,11 +8,13 @@ import ViewListCard from '@material-ui/icons/ViewModule'
 import ViewListTable from '@material-ui/icons/ViewHeadline'
 
 import {useHistory} from 'react-router-dom'
+import {useTranslation} from 'react-i18next'
 
 import {classes as classesProps} from 'common/props'
 
 import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
+import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
@@ -22,6 +24,7 @@ import SearchBar from 'common/components/SearchBar'
  * @return {null}
  */
 function ListWrapper({items, columns, classes}) {
+  const {t} = useTranslation()
   const history = useHistory()
   const [searchResults, setSearchResults] = useState([])
   const [displayCard, setDisplayCard] = useState(true)
@@ -101,12 +104,12 @@ function ListWrapper({items, columns, classes}) {
       )}
       {displayTable && (
         <div>
-          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} />}
+          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} options={getOptions(t)} />}
           {searchResults.length === 0 && (
             <Pagination
               items={items}
               maxPerPage={10}
-              renderChild={(itemsPaginated) => <ListTable items={itemsPaginated} columns={columns} />}
+              renderChild={(itemsPaginated) => <ListTable items={itemsPaginated} columns={columns} options={getOptions(t)} />}
             />
           )}
         </div>
