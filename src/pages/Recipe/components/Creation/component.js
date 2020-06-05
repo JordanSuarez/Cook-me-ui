@@ -14,6 +14,7 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import Page from 'common/components/Page'
+import WysiwygEditor from 'common/components/WysiwygEditor'
 
 import {classes as classesProps} from 'common/props'
 
@@ -117,8 +118,8 @@ function CreationForm({classes}) {
             <Grid item xs={7}>
               <TextField name="name" margin="normal" required={required.name} label="name" autoFocus />
             </Grid>
-            <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
-              <TextField name="instruction" multiline margin="normal" required={required.instruction} label="instruction" />
+            <Grid item>
+              <WysiwygEditor />
             </Grid>
             <Grid container justify="space-between">
               <Grid item xs={8} sm={6} md={6} lg={5} xl={4}>
