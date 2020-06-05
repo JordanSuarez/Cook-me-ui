@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import * as Yup from 'yup'
 import {Grid, MenuItem, Paper} from '@material-ui/core'
-import {makeRequired, makeValidate, TextField} from 'mui-rff'
+import {makeRequired, makeValidate, Select, TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
 
@@ -14,7 +14,7 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import Page from 'common/components/Page'
-import WysiwygEditor from 'common/components/WysiwygEditor'
+import SelectField from 'common/components/SelectField'
 
 import {classes as classesProps} from 'common/props'
 
@@ -23,92 +23,61 @@ function CreationForm({classes}) {
 
   const [listOfIngredients, setListOfIngredients] = useState([])
   const [quantityTypes, setQuantityTypes] = useState([])
-  const [recipeTypes, setRecipeTypes] = useState([])
+  const [types, setTypes] = useState([])
 
-  const [selectedIngredient, setSelectedIngredient] = useState('')
-  const [selectedQuantityType, setSelectedQuantityType] = useState('')
-  const [selectedRecipeType, setSelectedRecipeType] = useState('')
-
-  // Call pour récupérer les ingredients
   useEffect(() => {
-    const url = getEndpoint(INGREDIENTS, GET, ALL)
+    const promises = [
+      callApi(getEndpoint(INGREDIENTS, GET, ALL), GET),
+      callApi(getEndpoint(QUANTITY_TYPE, GET, ALL), GET),
+      callApi(getEndpoint(RECIPES, GET, TYPES), GET),
+    ]
 
-    callApi(url, GET)
-      .then(({data}) => {
-        setListOfIngredients(data)
+    Promise.all(promises)
+      .then((values) => {
+        // values[0].data.map(({id}) => (
+        //   console.log(id)
+        // ))
+        setListOfIngredients(values[0].data)
+        setQuantityTypes(values[1].data)
+        setTypes(values[2].data)
       })
       .catch(() => {})
-    // eslint-disable-next-line
-  }, [])
-
-  // Call pour récupérer les types de quantitées
-  useEffect(() => {
-    const url = getEndpoint(QUANTITY_TYPE, GET, ALL)
-
-    callApi(url, GET)
-      .then(({data}) => {
-        setQuantityTypes(data)
-      })
-      .catch(() => {})
-    // eslint-disable-next-line
-  }, [])
-
-  // Call pour récupérer les types de recettes
-  useEffect(() => {
-    const url = getEndpoint(RECIPES, GET, TYPES)
-
-    callApi(url, GET)
-      .then(({data}) => {
-        setRecipeTypes(data)
-      })
-      .catch(() => {})
-    // eslint-disable-next-line
   }, [])
 
   const schema = Yup.object().shape({
     ingredient: Yup.number(),
     instruction: Yup.string().required(),
     name: Yup.string().required(),
-    preparationTime: Yup.string(),
-    quantity: Yup.string().required(),
+    preparationTime: Yup.number(),
     quantityType: Yup.number(),
-    recipeType: Yup.array().of(Yup.number()).min(1),
+    quantityValue: Yup.number().required(),
+    type: Yup.number(),
   })
 
+  // TODO give validate and required as props in index.js (with mapProps from recompose)
   const validate = makeValidate(schema)
   const required = makeRequired(schema)
 
-  const handleIngredientOnSelectChange = (event) => {
-    setSelectedIngredient(event.target.value)
-  }
-  const handleQuantityTypeOnSelectChange = (event) => {
-    setSelectedQuantityType(event.target.value)
-  }
-  const handleRecipeTypeOnSelectChange = (event) => {
-    setSelectedRecipeType(event.target.value)
-  }
-
   function onSubmit(values) {
+    // TODO put this data logic inside a dataHandler.js inside (helpers) of this directory
     const data = {
-      ingredient: [
+      ingredients: [
         {
           id: values.ingredient,
           quantity: {
             type_id: values.quantityType,
-            number: values.quantity,
+            value: values.quantityValue,
           },
         },
       ],
       name: values.name,
       preparationTime: parseInt(values.preparationTime, 10),
       instruction: values.instruction,
-      type: values.recipeType,
+      type: values.type,
     }
 
-    console.log(data.recipeType, values.ingredient, values.quantityType)
     callApi(getEndpoint(RECIPES, POST, ONE), POST, data)
   }
-  console.log(selectedRecipeType, selectedQuantityType, selectedIngredient)
 
   return (
     <Page title="test">
@@ -118,61 +87,30 @@ function CreationForm({classes}) {
             <Grid item xs={7}>
               <TextField name="name" margin="normal" required={required.name} label="name" autoFocus />
             </Grid>
-            <Grid item>
-              <WysiwygEditor />
+            <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
+              <TextField name="instruction" multiline margin="normal" required={required.instruction} label="instruction" />
             </Grid>
             <Grid container justify="space-between">
               <Grid item xs={8} sm={6} md={6} lg={5} xl={4}>
-                <TextField
-                  name="ingredient"
-                  select
-                  value={selectedIngredient}
-                  onChange={handleIngredientOnSelectChange}
-                  margin="normal"
-                  label="ingredient"
-                >
-                  {listOfIngredients.map(({id, name}) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                {/* TODO create a select comp inside common with proper props*/}
+                <SelectField name="ingredient" label="ingredient" items={listOfIngredients} />
               </Grid>
               <Grid item xs={3} sm={2} md={2} lg={1} xl={1}>
-                <TextField name="quantity" type="number" margin="normal" label="quantity" />
+                <TextField name="quantityValue" type="number" margin="normal" label="quantity" />
               </Grid>
               <Grid item xs={5} sm={3} md={2} lg={2} xl={3}>
-                <TextField
-                  name="quantityType"
-                  select
-                  value={selectedQuantityType}
-                  onChange={handleQuantityTypeOnSelectChange}
-                  margin="normal"
-                  label="quantity type"
-                >
+                <Select name="quantityType" label="quantity type">
                   {quantityTypes.map(({id, name}) => (
                     <MenuItem key={id} value={id}>
                       {name}
                     </MenuItem>
                   ))}
-                </TextField>
+                </Select>
               </Grid>
             </Grid>
             <Grid container justify="space-between">
               <Grid item xs={5} sm={3} md={2} lg={2} xl={3} className={classes.menuItem}>
-                <TextField
-                  name="recipeType"
-                  select
-                  value={selectedRecipeType}
-                  onChange={handleRecipeTypeOnSelectChange}
-                  label="recipe type"
-                >
-                  {recipeTypes.map(({id, name}) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </TextField>
+                <SelectField name="type" label="recipe type" items={types} />
               </Grid>
               <Grid item xs={5} sm={3} md={2} lg={1} xl={1}>
                 <TextField name="preparationTime" type="number" margin="normal" label="Preparation time" />
