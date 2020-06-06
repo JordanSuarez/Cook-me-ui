@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import {any, arrayOf} from 'prop-types'
-import {Grid, IconButton} from '@material-ui/core'
+import {Grid, IconButton, Tooltip} from '@material-ui/core'
 import {isEmpty} from 'lodash'
 import LinkToCreateForm from '@material-ui/icons/AddOutlined'
 import ViewListCard from '@material-ui/icons/ViewModule'
@@ -69,12 +69,15 @@ function ListWrapper({items, columns, classes}) {
     return history.push(getCreationRecipeRoute())
   }
 
+  // TODO create IconButton component
   return (
     <div>
       <Grid container direction="row-reverse" className={classes.container}>
-        <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
-          <LinkToCreateForm fontSize="large" />
-        </IconButton>
+        <Tooltip title="Add a Recipe">
+          <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
+            <LinkToCreateForm fontSize="large" />
+          </IconButton>
+        </Tooltip>
       </Grid>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
         <IconButton onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>

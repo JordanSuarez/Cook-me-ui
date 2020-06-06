@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
 import {get} from 'lodash'
-import {Grid, Paper} from '@material-ui/core'
+import {Grid, IconButton, Paper, Tooltip} from '@material-ui/core'
 import {TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
+import CreateNewIngredient from '@material-ui/icons/AddOutlined'
+
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
@@ -44,6 +46,8 @@ function CreationForm({classes, requiredFields, validateFields}) {
     callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValueFormated(values))
   }
 
+  function handleNewIngredient() {}
+
   return (
     <Page title="test">
       <Grid container spacing={0} className={classes.root}>
@@ -55,24 +59,32 @@ function CreationForm({classes, requiredFields, validateFields}) {
             <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
-            <Grid container justify="space-between">
-              <Grid item xs={8} sm={6} md={6} lg={5} xl={4}>
-                {/* TODO create a select comp inside common with proper props*/}
+            <Grid container justify="space-between" spacing={4}>
+              <Grid item xs={8} sm={7} md={6} lg={5} xl={4}>
                 <SelectField name="ingredient" label="ingredients" items={get(list, 'ingredients', [])} />
               </Grid>
-              <Grid item xs={3} sm={2} md={2} lg={1} xl={1}>
-                <TextField name="quantityValue" type="number" margin="normal" label="quantity" />
-              </Grid>
-              <Grid item xs={5} sm={3} md={2} lg={2} xl={3}>
-                <SelectField name="quantityType" label="quantity types" items={get(list, 'quantityTypes', [])} />
+              <Grid>
+                <Tooltip title="Add an ingredient">
+                  <IconButton onClick={handleNewIngredient} className={classes.button}>
+                    <CreateNewIngredient fontSize="large" />
+                  </IconButton>
+                </Tooltip>
               </Grid>
             </Grid>
-            <Grid container justify="space-between">
-              <Grid item xs={5} sm={3} md={2} lg={2} xl={3} className={classes.menuItem}>
+            <Grid container justify="flex-start" spacing={2} className={classes.quantity}>
+              <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
+                <SelectField name="quantityType" label="quantity types" items={get(list, 'quantityTypes', [])} />
+              </Grid>
+              <Grid item xs={4} sm={3} md={2} lg={2} xl={3} className={classes.alignField}>
+                <TextField name="quantityValue" type="number" margin="normal" label="quantity" />
+              </Grid>
+            </Grid>
+            <Grid container justify="flex-start" spacing={2}>
+              <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
                 <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
               </Grid>
-              <Grid item xs={5} sm={3} md={2} lg={1} xl={1}>
-                <TextField name="preparationTime" type="number" margin="normal" label="Preparation time" />
+              <Grid item xs={4} sm={3} md={2} lg={1} xl={1} className={classes.alignField}>
+                <TextField name="preparationTime" type="number" margin="normal" label="time" />
               </Grid>
             </Grid>
             <Grid item className={classes.button}>

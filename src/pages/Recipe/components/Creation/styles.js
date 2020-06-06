@@ -13,9 +13,12 @@ export default ({spacing}) => ({
   },
   button: {
     float: 'right',
-    marginTop: '15px',
+    marginTop: '23px',
   },
-  menuItem: {
-    marginTop: '16px',
+  alignField: {
+    marginTop: '-16px',
+  },
+  quantity: {
+    marginTop: '-30px',
   },
 })
