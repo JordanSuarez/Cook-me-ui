@@ -1,6 +1,6 @@
 import * as Yup from 'yup'
 
-export const schema = Yup.object().shape({
+export default Yup.object().shape({
   ingredient: Yup.number(),
   instruction: Yup.string().required(),
   name: Yup.string().required(),

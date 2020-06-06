@@ -5,14 +5,12 @@ import {any, arrayOf, string} from 'prop-types'
 import {MenuItem} from '@material-ui/core'
 import {Select} from 'mui-rff'
 
-function SelectField({fieldName, label, items}) {
-  console.log(items)
-  if(!items || items.length === 0) return null
+function SelectField({name, label, items}) {
   return (
-    <Select name={fieldName} label={label}>
-      {items.map(({id, name}) => (
+    <Select name={name} label={label}>
+      {items.map(({id, name: itemName}) => (
         <MenuItem key={id} value={id}>
-          {name}
+          {itemName}
         </MenuItem>
       ))}
     </Select>
@@ -20,15 +18,15 @@ function SelectField({fieldName, label, items}) {
 }
 
 SelectField.propTypes = {
-  fieldName: string,
   items: arrayOf(any),
   label: string,
+  name: string,
 }
 
 SelectField.defaultProps = {
-  // fieldName: '',
   items: [],
-  // label: '',
+  label: null,
+  name: null,
 }
 
 export default SelectField
