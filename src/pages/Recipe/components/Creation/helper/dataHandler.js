@@ -11,5 +11,5 @@ export default (values) => ({
   name: values.name,
   preparationTime: parseInt(values.preparationTime, 10),
   instruction: values.instruction,
-  type: values.type,
+  type: values.recipeType,
 })

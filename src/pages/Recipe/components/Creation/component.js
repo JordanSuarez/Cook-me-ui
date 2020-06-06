@@ -69,7 +69,7 @@ function CreationForm({classes, requiredFields, validateFields}) {
             </Grid>
             <Grid container justify="space-between">
               <Grid item xs={5} sm={3} md={2} lg={2} xl={3} className={classes.menuItem}>
-                <SelectField name="recipeTypes" label="recipe types" items={get(list, 'recipeTypes', [])} />
+                <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
               </Grid>
               <Grid item xs={5} sm={3} md={2} lg={1} xl={1}>
                 <TextField name="preparationTime" type="number" margin="normal" label="Preparation time" />
