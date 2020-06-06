@@ -21,9 +21,7 @@ import {classes as classesProps} from 'common/props'
 function CreationForm({classes}) {
   // const {t} = useTranslation()
 
-  const [listOfIngredients, setListOfIngredients] = useState([])
-  const [quantityTypes, setQuantityTypes] = useState([])
-  const [types, setTypes] = useState([])
+  const [list, setList] = useState({})
 
   useEffect(() => {
     const promises = [
@@ -34,12 +32,13 @@ function CreationForm({classes}) {
 
     Promise.all(promises)
       .then((values) => {
-        // values[0].data.map(({id}) => (
-        //   console.log(id)
-        // ))
-        setListOfIngredients(values[0].data)
-        setQuantityTypes(values[1].data)
-        setTypes(values[2].data)
+        setList({
+          ingredients: values[0].data,
+          quantityTypes: values[1].data,
+          recipeTypes: values[0].data,
+        })
+        // setQuantityTypes(values[1].data)
+        // setTypes(values[2].data)
       })
       .catch(() => {})
   }, [])
@@ -51,7 +50,7 @@ function CreationForm({classes}) {
     preparationTime: Yup.number(),
     quantityType: Yup.number(),
     quantityValue: Yup.number().required(),
-    type: Yup.number(),
+    recipeType: Yup.number(),
   })
 
   // TODO give validate and required as props in index.js (with mapProps from recompose)
@@ -93,24 +92,24 @@ function CreationForm({classes}) {
             <Grid container justify="space-between">
               <Grid item xs={8} sm={6} md={6} lg={5} xl={4}>
                 {/* TODO create a select comp inside common with proper props*/}
-                <SelectField name="ingredient" label="ingredient" items={listOfIngredients} />
+                <SelectField name="ingredient" label="ingredient" items={list.ingredients} />
               </Grid>
               <Grid item xs={3} sm={2} md={2} lg={1} xl={1}>
                 <TextField name="quantityValue" type="number" margin="normal" label="quantity" />
               </Grid>
               <Grid item xs={5} sm={3} md={2} lg={2} xl={3}>
-                <Select name="quantityType" label="quantity type">
-                  {quantityTypes.map(({id, name}) => (
-                    <MenuItem key={id} value={id}>
-                      {name}
-                    </MenuItem>
-                  ))}
-                </Select>
+                {/*<Select name="quantityType" label="quantity type">*/}
+                {/*  {quantityTypes.map(({id, name}) => (*/}
+                {/*    <MenuItem key={id} value={id}>*/}
+                {/*      {name}*/}
+                {/*    </MenuItem>*/}
+                {/*  ))}*/}
+                {/*</Select>*/}
               </Grid>
             </Grid>
             <Grid container justify="space-between">
               <Grid item xs={5} sm={3} md={2} lg={2} xl={3} className={classes.menuItem}>
-                <SelectField name="type" label="recipe type" items={types} />
+                {/*<SelectField name="type" label="recipe type" items={types} />*/}
               </Grid>
               <Grid item xs={5} sm={3} md={2} lg={1} xl={1}>
                 <TextField name="preparationTime" type="number" margin="normal" label="Preparation time" />
