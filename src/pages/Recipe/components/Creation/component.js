@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
 import {get} from 'lodash'
-import {Grid, IconButton, Paper, Tooltip} from '@material-ui/core'
+import {Grid, Paper} from '@material-ui/core'
 import {TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
-import CreateNewIngredient from '@material-ui/icons/AddOutlined'
+import AddIngredient from '@material-ui/icons/AddOutlined'
+import RemoveIngredient from '@material-ui/icons/RemoveOutlined'
 
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -16,12 +17,15 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import getFormValueFormated from './helper/dataHandler'
+import HandleField from '../../../../common/components/HandleField'
+import IconButton from 'common/components/IconButton'
 import Page from 'common/components/Page'
 import SelectField from 'common/components/SelectField'
 
 function CreationForm({classes, requiredFields, validateFields}) {
   // const {t} = useTranslation()
   const [list, setList] = useState({})
+  const [ingredientElement, setIngredientElement] = useState([])
 
   useEffect(() => {
     const promises = [
@@ -46,7 +50,19 @@ function CreationForm({classes, requiredFields, validateFields}) {
     callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValueFormated(values))
   }
 
-  function handleNewIngredient() {}
+  function handleRemoveIngredient() {
+    return setIngredientElement(null)
+  }
+
+  function handleNewIngredient() {
+    return setIngredientElement(
+      <HandleField items={list}>
+        <IconButton title="Remove an ingredient" onClick={handleRemoveIngredient} className={classes.button}>
+          <RemoveIngredient fontSize="large" />
+        </IconButton>
+      </HandleField>,
+    )
+  }
 
   return (
     <Page title="test">
@@ -59,26 +75,12 @@ function CreationForm({classes, requiredFields, validateFields}) {
             <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
-            <Grid container justify="space-between" spacing={4}>
-              <Grid item xs={8} sm={7} md={6} lg={5} xl={4}>
-                <SelectField name="ingredient" label="ingredients" items={get(list, 'ingredients', [])} />
-              </Grid>
-              <Grid>
-                <Tooltip title="Add an ingredient">
-                  <IconButton onClick={handleNewIngredient} className={classes.button}>
-                    <CreateNewIngredient fontSize="large" />
-                  </IconButton>
-                </Tooltip>
-              </Grid>
-            </Grid>
-            <Grid container justify="flex-start" spacing={2} className={classes.quantity}>
-              <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
-                <SelectField name="quantityType" label="quantity types" items={get(list, 'quantityTypes', [])} />
-              </Grid>
-              <Grid item xs={4} sm={3} md={2} lg={2} xl={3} className={classes.alignField}>
-                <TextField name="quantityValue" type="number" margin="normal" label="quantity" />
-              </Grid>
-            </Grid>
+            <HandleField items={list}>
+              <IconButton title="Add an ingredient" onClick={handleNewIngredient} className={classes.button}>
+                <AddIngredient fontSize="large" />
+              </IconButton>
+            </HandleField>
+            <div>{ingredientElement}</div>
             <Grid container justify="flex-start" spacing={2}>
               <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
                 <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />

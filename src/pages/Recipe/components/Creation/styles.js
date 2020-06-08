@@ -11,7 +11,7 @@ export default ({spacing}) => ({
   container: {
     marginRight: '0px',
   },
-  button: {
+  iconButton: {
     float: 'right',
     marginTop: '23px',
   },
@@ -19,6 +19,6 @@ export default ({spacing}) => ({
     marginTop: '-16px',
   },
   quantity: {
-    marginTop: '-30px',
+    marginTop: '-25px',
   },
 })
