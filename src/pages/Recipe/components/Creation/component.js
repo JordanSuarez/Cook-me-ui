@@ -18,7 +18,6 @@ import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import getFormValueFormated from './helper/dataHandler'
 import HandleField from '../../../../common/components/HandleField'
-import IconButton from 'common/components/IconButton'
 import Page from 'common/components/Page'
 import SelectField from 'common/components/SelectField'
 
@@ -51,15 +50,13 @@ function CreationForm({classes, requiredFields, validateFields}) {
   }
 
   function handleRemoveIngredient() {
-    return setIngredientElement(null)
+    return setIngredientElement([])
   }
-
+  // TODO push value in array whit proper key
   function handleNewIngredient() {
     return setIngredientElement(
-      <HandleField items={list}>
-        <IconButton title="Remove an ingredient" onClick={handleRemoveIngredient} className={classes.button}>
-          <RemoveIngredient fontSize="large" />
-        </IconButton>
+      <HandleField items={list} title="Remove an ingredient" onClick={handleRemoveIngredient}>
+        <RemoveIngredient fontSize="large" />
       </HandleField>,
     )
   }
@@ -75,12 +72,10 @@ function CreationForm({classes, requiredFields, validateFields}) {
             <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
-            <HandleField items={list}>
-              <IconButton title="Add an ingredient" onClick={handleNewIngredient} className={classes.button}>
-                <AddIngredient fontSize="large" />
-              </IconButton>
+            <HandleField items={list} title="Add an ingredient" onClick={handleNewIngredient}>
+              <AddIngredient fontSize="large" />
             </HandleField>
-            <div>{ingredientElement}</div>
+            {ingredientElement}
             <Grid container justify="flex-start" spacing={2}>
               <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
                 <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />

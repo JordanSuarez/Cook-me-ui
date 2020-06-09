@@ -1,3 +1,6 @@
-import HandleField from './component'
+import {withStyles} from '@material-ui/core'
 
-export default HandleField
+import HandleField from './component'
+import styles from './styles'
+
+export default withStyles(styles)(HandleField)

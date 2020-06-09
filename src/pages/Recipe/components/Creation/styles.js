@@ -11,14 +11,7 @@ export default ({spacing}) => ({
   container: {
     marginRight: '0px',
   },
-  iconButton: {
-    float: 'right',
-    marginTop: '23px',
-  },
   alignField: {
     marginTop: '-16px',
-  },
-  quantity: {
-    marginTop: '-25px',
   },
 })

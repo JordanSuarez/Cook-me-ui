@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import {any, arrayOf} from 'prop-types'
-import {Grid, IconButton, Tooltip} from '@material-ui/core'
+import {Grid} from '@material-ui/core'
 import {isEmpty} from 'lodash'
 import LinkToCreateForm from '@material-ui/icons/AddOutlined'
 import ViewListCard from '@material-ui/icons/ViewModule'
@@ -15,6 +15,7 @@ import {classes as classesProps} from 'common/props'
 import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
+import IconButton from '../IconButton'
 import ListCard from 'common/components/ListCard'
 import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
@@ -73,17 +74,15 @@ function ListWrapper({items, columns, classes}) {
   return (
     <div>
       <Grid container direction="row-reverse" className={classes.container}>
-        <Tooltip title="Add a Recipe">
-          <IconButton onClick={handleCreateFormDisplay} className={classes.iconButton}>
-            <LinkToCreateForm fontSize="large" />
-          </IconButton>
-        </Tooltip>
+        <IconButton title="Add recipe" onClick={handleCreateFormDisplay} className={classes.iconButton}>
+          <LinkToCreateForm fontSize="large" />
+        </IconButton>
       </Grid>
       <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-        <IconButton onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>
+        <IconButton title="Table view" onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>
           <ViewListTable color={colorTableIcon} fontSize="large" />
         </IconButton>
-        <IconButton onClick={() => handleListDisplay(LIST_CARD)} className={classes.iconButton}>
+        <IconButton title="Card view" onClick={() => handleListDisplay(LIST_CARD)} className={classes.iconButton}>
           <ViewListCard color={colorCardIcon} fontSize="large" />
         </IconButton>
       </Grid>
