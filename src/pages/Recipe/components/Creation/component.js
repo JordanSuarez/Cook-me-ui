@@ -5,8 +5,8 @@ import {Grid, Paper} from '@material-ui/core'
 import {TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
-import AddIngredient from '@material-ui/icons/AddOutlined'
-import RemoveIngredient from '@material-ui/icons/RemoveOutlined'
+import AddButton from '@material-ui/icons/AddOutlined'
+import RemoveButton from '@material-ui/icons/RemoveOutlined'
 
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -56,8 +56,8 @@ function CreationForm({classes, requiredFields, validateFields}) {
   // TODO push value in array whit proper key
   function handleNewIngredient() {
     listOfIngredient.push(
-      <HandleField items={list} title="Remove an ingredient" onClick={handleRemoveIngredient}>
-        <RemoveIngredient fontSize="large" />
+      <HandleField items={list} title="Remove an ingredient" onClick={handleRemoveIngredient} key="removeIngredient">
+        <RemoveButton fontSize="large" />
       </HandleField>,
     )
     setIngredientElement(listOfIngredient)
@@ -80,10 +80,12 @@ function CreationForm({classes, requiredFields, validateFields}) {
             <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
-            <HandleField items={list} title="Add an ingredient" onClick={handleNewIngredient}>
-              <AddIngredient fontSize="large" />
-            </HandleField>
-            {ingredientElement}
+            <Grid>
+              <HandleField items={list} title="Add an ingredient" onClick={handleNewIngredient}>
+                <AddButton fontSize="large" />
+              </HandleField>
+            </Grid>
+            <Grid>{ingredientElement}</Grid>
             <Grid container justify="flex-start" spacing={2}>
               <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
                 <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
