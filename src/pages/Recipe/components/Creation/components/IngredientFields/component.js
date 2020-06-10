@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 
 import {any, func, node, number, objectOf, string} from 'prop-types'
 import {get} from 'lodash'
@@ -7,13 +7,13 @@ import {TextField} from 'mui-rff'
 
 import AddIcon from '@material-ui/icons/AddOutlined'
 
+import Button from '@material-ui/core/Button'
 import RemoveIcon from '@material-ui/icons/RemoveOutlined'
-import IconButton from 'common/components/IconButton'
+
+// import IconButton from 'common/components/IconButton'
 import SelectField from 'common/components/SelectField'
 
 import {classes as classesProps} from 'common/props'
-
-import Button from '@material-ui/core/Button'
 
 function IngredientFields({id, onRemove, onAdd, classes, items}) {
   return (

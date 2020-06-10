@@ -5,8 +5,8 @@ import {Grid, Paper} from '@material-ui/core'
 import {TextField} from 'mui-rff'
 
 // import {useTranslation} from 'react-i18next'
-import AddButton from '@material-ui/icons/AddOutlined'
-import RemoveButton from '@material-ui/icons/RemoveOutlined'
+// import AddButton from '@material-ui/icons/AddOutlined'
+// import RemoveButton from '@material-ui/icons/RemoveOutlined'
 
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -27,11 +27,16 @@ function CreationForm({classes, requiredFields, validateFields}) {
   const [fields, setFields] = useState([])
 
   function handleRemoveIngredient(id) {
+    console.log(id)
+
     return setFields(fields.filter((field, index) => index === id))
   }
 
   function addIngredient() {
-    return setFields([...fields, (id) => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={id} />])
+    return setFields([
+      ...fields,
+      () => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={fields.length + 1} />,
+    ])
   }
   useEffect(() => {
     const promises = [
@@ -48,7 +53,7 @@ function CreationForm({classes, requiredFields, validateFields}) {
           quantityTypes: values[1].data,
           recipeTypes: values[2].data,
         })
-        setFields([...fields, () => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={0} />])
+        // setFields([...fields, () => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={0} />])
       })
       .catch(() => {})
   }, [])
@@ -69,8 +74,8 @@ function CreationForm({classes, requiredFields, validateFields}) {
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
             <Grid>
+              <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={0} />
               {fields.map((component, index) => {
-
                 return component(index)
               })}
             </Grid>
@@ -93,12 +98,6 @@ function CreationForm({classes, requiredFields, validateFields}) {
     </Page>
   )
 }
-// title={t('recipe.form.creation.label.field.title')}
-// label={t('recipe.form.creation.label.field.name')}
-// label={t('recipe.form.creation.label.field.instruction')}
-// label={t('recipe.form.creation.label.field.preparationTime')}
-// label={t('recipe.form.creation.label.field.recipeType')}
-// menuItem {t(`recipe.form.creation.values.field.recipeType.${name}`)}
 
 CreationForm.propTypes = {
   ...classesProps,
