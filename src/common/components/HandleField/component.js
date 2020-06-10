@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {any, func, node, objectOf, string} from 'prop-types'
+import {any, func, node, number, objectOf, string} from 'prop-types'
 import {get} from 'lodash'
 import {Grid} from '@material-ui/core'
 import {TextField} from 'mui-rff'
@@ -10,9 +10,9 @@ import SelectField from '../SelectField'
 
 import {classes as classesProps} from 'common/props'
 
-function HandleField({children, onClick, classes, items, title}) {
+function HandleField({id, children, onClick, classes, items, title}) {
   return (
-    <div>
+    <div key={id}>
       <Grid container justify="space-between" spacing={4}>
         <Grid item xs={8} sm={7} md={6} lg={5} xl={4}>
           <SelectField name="ingredient" label="ingredients" items={get(items, 'ingredients', [])} />
@@ -35,6 +35,7 @@ function HandleField({children, onClick, classes, items, title}) {
 
 HandleField.propTypes = {
   children: node.isRequired,
+  id: number,
   items: objectOf(any),
   label: string,
   name: string,
@@ -43,6 +44,7 @@ HandleField.propTypes = {
 }
 
 HandleField.defaultProps = {
+  id: null,
   items: {},
   label: null,
   name: null,

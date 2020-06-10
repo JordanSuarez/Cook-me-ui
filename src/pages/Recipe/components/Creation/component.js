@@ -25,6 +25,7 @@ function CreationForm({classes, requiredFields, validateFields}) {
   // const {t} = useTranslation()
   const [list, setList] = useState({})
   const [ingredientElement, setIngredientElement] = useState([])
+  const listOfIngredient = []
 
   useEffect(() => {
     const promises = [
@@ -54,12 +55,19 @@ function CreationForm({classes, requiredFields, validateFields}) {
   }
   // TODO push value in array whit proper key
   function handleNewIngredient() {
-    return setIngredientElement(
+    listOfIngredient.push(
       <HandleField items={list} title="Remove an ingredient" onClick={handleRemoveIngredient}>
         <RemoveIngredient fontSize="large" />
       </HandleField>,
     )
+    setIngredientElement(listOfIngredient)
   }
+
+  // {listOfIngredient.map((id) => (
+  //   <HandleField key={id} items={list} title="Remove an ingredient" onClick={handleRemoveIngredient}>
+  //     <RemoveIngredient fontSize="large" />
+  //   </HandleField>
+  // ))}
 
   return (
     <Page title="test">
