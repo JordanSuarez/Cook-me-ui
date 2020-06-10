@@ -17,16 +17,22 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import Form from 'common/components/Form'
 import getFormValueFormated from './helper/dataHandler'
-import HandleField from '../../../../common/components/HandleField'
+import IngredientFields from './components/IngredientFields'
 import Page from 'common/components/Page'
 import SelectField from 'common/components/SelectField'
 
 function CreationForm({classes, requiredFields, validateFields}) {
   // const {t} = useTranslation()
   const [list, setList] = useState({})
-  const [ingredientElement, setIngredientElement] = useState([])
-  const listOfIngredient = []
+  const [fields, setFields] = useState([])
 
+  function handleRemoveIngredient(id) {
+    return setFields(fields.filter((field, index) => index === id))
+  }
+
+  function addIngredient() {
+    return setFields([...fields, (id) => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={id} />])
+  }
   useEffect(() => {
     const promises = [
       callApi(getEndpoint(INGREDIENTS, GET, ALL), GET),
@@ -42,6 +48,7 @@ function CreationForm({classes, requiredFields, validateFields}) {
           quantityTypes: values[1].data,
           recipeTypes: values[2].data,
         })
+        setFields([...fields, () => <IngredientFields items={list} onRemove={handleRemoveIngredient} onAdd={addIngredient} id={0} />])
       })
       .catch(() => {})
   }, [])
@@ -49,25 +56,6 @@ function CreationForm({classes, requiredFields, validateFields}) {
   function onSubmit(values) {
     callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValueFormated(values))
   }
-
-  function handleRemoveIngredient() {
-    return setIngredientElement([])
-  }
-  // TODO push value in array whit proper key
-  function handleNewIngredient() {
-    listOfIngredient.push(
-      <HandleField items={list} title="Remove an ingredient" onClick={handleRemoveIngredient} key="removeIngredient">
-        <RemoveButton fontSize="large" />
-      </HandleField>,
-    )
-    setIngredientElement(listOfIngredient)
-  }
-
-  // {listOfIngredient.map((id) => (
-  //   <HandleField key={id} items={list} title="Remove an ingredient" onClick={handleRemoveIngredient}>
-  //     <RemoveIngredient fontSize="large" />
-  //   </HandleField>
-  // ))}
 
   return (
     <Page title="test">
@@ -81,11 +69,11 @@ function CreationForm({classes, requiredFields, validateFields}) {
               <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
             </Grid>
             <Grid>
-              <HandleField items={list} title="Add an ingredient" onClick={handleNewIngredient}>
-                <AddButton fontSize="large" />
-              </HandleField>
+              {fields.map((component, index) => {
+
+                return component(index)
+              })}
             </Grid>
-            <Grid>{ingredientElement}</Grid>
             <Grid container justify="flex-start" spacing={2}>
               <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
                 <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />

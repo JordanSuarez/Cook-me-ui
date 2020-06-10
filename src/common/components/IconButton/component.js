@@ -2,12 +2,13 @@ import React from 'react'
 
 import {func, node, string} from 'prop-types'
 import {IconButton as MuiIconButton, Tooltip} from '@material-ui/core'
+import Button from '@material-ui/core/Button'
 
 function IconButton({title, children, onClick}) {
   return (
-    <Tooltip title={title}>
-      <MuiIconButton onClick={onClick}>{children}</MuiIconButton>
-    </Tooltip>
+    // <Tooltip title={title}>
+    <Button onClick={onClick}>{children}</Button>
+    // </Tooltip>
   )
 }
 
