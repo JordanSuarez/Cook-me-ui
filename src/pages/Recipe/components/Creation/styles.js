@@ -14,4 +14,10 @@ export default ({spacing}) => ({
   alignField: {
     marginTop: '-16px',
   },
+  button: {
+    justifyContent: 'flex-end',
+  },
+  ingredientContainer: {
+    marginTop: '15px',
+  },
 })
