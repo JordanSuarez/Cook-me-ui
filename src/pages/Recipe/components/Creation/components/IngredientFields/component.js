@@ -4,7 +4,7 @@ import {any, bool, func, objectOf, string} from 'prop-types'
 import {get} from 'lodash'
 import {Grid} from '@material-ui/core'
 import {TextField} from 'mui-rff'
-import RemoveIcon from '@material-ui/icons/DeleteForeverOutlined'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 import IconButton from 'common/components/IconButton'
 import SelectField from 'common/components/SelectField'
@@ -14,22 +14,22 @@ import {classes as classesProps} from 'common/props'
 function IngredientFields({classes, items, name, displayButton, onClick}) {
   return (
     <div key={name} className={classes.border}>
-      <Grid container justify="space-between">
-        <Grid item xs={8} sm={7} md={6} lg={5} xl={4}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4} md={5} lg={5} xl={5}>
           <SelectField name={`${name}.name`} label="ingredients" items={get(items, 'ingredients', [])} />
         </Grid>
-        {displayButton && (
-          <IconButton variant="contained" onClick={onClick} size="small" color="primary.medium" title="remove ingredient">
-            <RemoveIcon />
-          </IconButton>
-        )}
-      </Grid>
-      <Grid container justify="flex-start" spacing={2}>
-        <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
+        <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
           <SelectField name={`${name}.quantityType`} label="quantity types" items={get(items, 'quantityTypes', [])} />
         </Grid>
-        <Grid item xs={4} sm={3} md={2} lg={2} xl={3} className={classes.quantity}>
+        <Grid item xs={10} sm={3} md={2} lg={2} xl={2} className={classes.quantity}>
           <TextField name={`${name}.quantityValue`} type="number" margin="normal" label="quantity" />
+        </Grid>
+        <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.button}>
+          {displayButton && (
+            <IconButton onClick={onClick} size="small" color="secondary" title="remove ingredient">
+              <DeleteIcon />
+            </IconButton>
+          )}
         </Grid>
       </Grid>
     </div>

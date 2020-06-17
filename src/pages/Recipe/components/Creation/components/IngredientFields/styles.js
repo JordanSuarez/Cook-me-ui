@@ -8,4 +8,8 @@ export default () => ({
     padding: '2px 7px 5px 7px',
     margin: '10px -7px 10px -7px',
   },
+  button: {
+    alignSelf: 'flex-end',
+    justifyContent: 'space-between',
+  },
 })

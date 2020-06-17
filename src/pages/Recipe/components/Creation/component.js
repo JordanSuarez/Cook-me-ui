@@ -67,37 +67,33 @@ function CreationForm({classes, requiredFields, validateFields}) {
             }) => {
               return (
                 <form onSubmit={handleSubmit}>
-                  <Grid item xs={7}>
-                    <TextField name="name" margin="normal" required={requiredFields.name} label="name" autoFocus />
-                  </Grid>
-                  <Grid item xs={12} sm={11} md={10} lg={9} xl={8}>
-                    <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
-                  </Grid>
-                  <Grid container justify="flex-start" spacing={2}>
-                    <Grid item xs={7} sm={6} md={5} lg={4} xl={3}>
-                      <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} sm={8} md={8} lg={8} xl={8}>
+                      <TextField name="name" margin="normal" required={requiredFields.name} label="name" autoFocus />
                     </Grid>
-                    <Grid item xs={4} sm={3} md={2} lg={1} xl={1} className={classes.alignField}>
+                    <Grid item xs={6} sm={4} md={4} lg={4} xl={4}>
                       <TextField name="preparationTime" type="number" margin="normal" label="time" />
                     </Grid>
+                  </Grid>
+                  <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                    <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
                   </Grid>
                   <Grid item>
                     <IngredientFields items={list} displayButton={false} />
                     <IngredientFieldArray items={list} />
-                    <Grid container justify="flex-end">
-                      <IconButton
-                        variant="contained"
-                        onClick={() => push('ingredient', undefined)}
-                        size="small"
-                        color="primary"
-                        title="add ingredient"
-                      >
-                        <AddIcon />
-                      </IconButton>
+                    <Grid container justify="space-between">
+                      <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
+                        <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
+                      </Grid>
+                      <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.button}>
+                        <IconButton onClick={() => push('ingredient', undefined)} color="primary" title="add ingredient">
+                          <AddIcon />
+                        </IconButton>
+                      </Grid>
                     </Grid>
                   </Grid>
                   <Grid container justify="flex-end">
-                    <CTAButton label="submit" type="submit" variant="contained">
+                    <CTAButton handleClick={onSubmit} label="submit" type="submit" variant="contained">
                       Submit
                     </CTAButton>
                   </Grid>
