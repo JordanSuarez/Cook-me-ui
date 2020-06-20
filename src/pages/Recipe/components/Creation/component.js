@@ -14,7 +14,7 @@ import {GET, POST} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
-import getFormValueFormated from './helper/dataHandler'
+import getFormValuesFormated from './helper/dataHandler'
 import IconButton from 'common/components/IconButton'
 import IngredientFieldArray from './components/IngredientFieldArray'
 import IngredientFields from './components/IngredientFields'
@@ -45,7 +45,8 @@ function CreationForm({classes, requiredFields, validateFields}) {
   }, [])
 
   function onSubmit(values) {
-    callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValueFormated(values))
+    console.log(values)
+    callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValuesFormated(values))
   }
 
   return (
@@ -79,23 +80,21 @@ function CreationForm({classes, requiredFields, validateFields}) {
                     <TextField name="instruction" multiline margin="normal" required={requiredFields.instruction} label="instruction" />
                   </Grid>
                   <Grid item>
-                    <IngredientFields items={list} displayButton={false} />
+                    <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
                     <IngredientFieldArray items={list} />
                     <Grid container justify="space-between">
                       <Grid item xs={10} sm={4} md={4} lg={4} xl={4}>
                         <SelectField name="recipeType" label="recipe types" items={get(list, 'recipeTypes', [])} />
                       </Grid>
                       <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.button}>
-                        <IconButton onClick={() => push('ingredient', undefined)} color="primary" title="add ingredient">
+                        <IconButton onClick={() => push('ingredientFields', {id: list.length + 1})} color="primary" title="add ingredient">
                           <AddIcon />
                         </IconButton>
                       </Grid>
                     </Grid>
                   </Grid>
                   <Grid container justify="flex-end">
-                    <CTAButton handleClick={onSubmit} label="submit" type="submit" variant="contained">
-                      Submit
-                    </CTAButton>
+                    <CTAButton label="submit" type="submit" variant="contained" />
                   </Grid>
                 </form>
               )

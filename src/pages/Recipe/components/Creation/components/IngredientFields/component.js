@@ -16,7 +16,7 @@ function IngredientFields({classes, items, name, displayButton, onClick}) {
     <div key={name} className={classes.border}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} md={5} lg={5} xl={5}>
-          <SelectField name={`${name}.name`} label="ingredients" items={get(items, 'ingredients', [])} />
+          <SelectField name={`${name}.ingredient`} label="ingredients" items={get(items, 'ingredients', [])} />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
           <SelectField name={`${name}.quantityType`} label="quantity types" items={get(items, 'quantityTypes', [])} />

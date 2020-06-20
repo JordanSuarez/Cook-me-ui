@@ -2,10 +2,10 @@ import * as Yup from 'yup'
 
 export default Yup.object().shape({
   ingredient: Yup.number(),
-  instruction: Yup.string().required(),
-  name: Yup.string().required(),
+  instruction: Yup.string(),
+  name: Yup.string(),
   preparationTime: Yup.number(),
   quantityType: Yup.number(),
-  quantityValue: Yup.number().required(),
+  quantityValue: Yup.number(),
   type: Yup.number(),
 })
