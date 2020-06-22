@@ -1,8 +1,8 @@
 import React from 'react'
 
 import {any, bool, func, objectOf, string} from 'prop-types'
+import {Divider, Grid} from '@material-ui/core'
 import {get} from 'lodash'
-import {Grid} from '@material-ui/core'
 import {TextField} from 'mui-rff'
 import DeleteIcon from '@material-ui/icons/Delete'
 
@@ -14,6 +14,7 @@ import {classes as classesProps} from 'common/props'
 function IngredientFields({classes, items, name, displayButton, onClick}) {
   return (
     <div key={name} className={classes.border}>
+      <Divider variant="middle" className={classes.divider} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} md={5} lg={5} xl={5}>
           <SelectField name={`${name}.ingredient`} label="ingredients" items={get(items, 'ingredients', [])} />

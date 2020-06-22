@@ -11,13 +11,29 @@ export default ({spacing}) => ({
   container: {
     marginRight: '0px',
   },
-  alignField: {
-    marginTop: '-16px',
-  },
   ingredientContainer: {
     marginTop: '15px',
   },
-  button: {
+  icon: {
     alignSelf: 'flex-end',
+    justifyContent: 'space-between',
+  },
+  radioField: {
+    alignSelf: 'center',
+    marginTop: '10px',
+  },
+  border: {
+    borderRadius: '1px',
+    border: '1px solid #DBDEE0',
+    marginLeft: '10px',
+  },
+  radio: {
+    marginTop: '10px',
+  },
+  instructionField: {
+    marginTop: '5px',
+  },
+  selectField: {
+    marginTop: '10px',
   },
 })

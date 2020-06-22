@@ -1,4 +1,5 @@
 export default ({ingredientFields, requiredIngredients, recipeType, ...values}) => ({
+  // TODO fix l'erreur qui pop lorsqu'il n'y a qu'un ingredient
   ingredients: [
     {
       id: requiredIngredients.ingredient,

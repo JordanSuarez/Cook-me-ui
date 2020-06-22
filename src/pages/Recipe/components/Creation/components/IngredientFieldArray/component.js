@@ -10,7 +10,7 @@ function IngredientFieldArray({items}) {
     <FieldArray name="ingredientFields">
       {({fields}) =>
         fields.map((name, index) => {
-          return <IngredientFields name={name} items={items} onClick={() => fields.remove(index)} displayButton />
+          return <IngredientFields key={name} name={name} items={items} onClick={() => fields.remove(index)} displayButton />
         })
       }
     </FieldArray>
