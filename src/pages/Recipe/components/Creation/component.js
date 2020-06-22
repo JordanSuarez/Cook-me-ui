@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react'
 
-import {Button, Grid, Paper} from '@material-ui/core'
-import {Field, Form} from 'react-final-form'
-// import {get} from 'lodash'
-import {TextField} from 'mui-rff'
+import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
+import {Form} from 'react-final-form'
+import {get} from 'lodash'
+import {Radios, TextField} from 'mui-rff'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
 import arrayMutators from 'final-form-arrays'
@@ -19,8 +19,9 @@ import getFormValuesFormated from './helper/dataHandler'
 import IngredientFieldArray from './components/IngredientFieldArray'
 import IngredientFields from './components/IngredientFields'
 import Page from 'common/components/Page'
+import WysiwygEditor from 'common/components/WysiwygEditor'
 
-function CreationForm({classes, requiredFields, validateFields}) {
+function CreationForm({classes, validateFields}) {
   // const {t} = useTranslation()
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
@@ -44,7 +45,11 @@ function CreationForm({classes, requiredFields, validateFields}) {
   }, [])
 
   function onSubmit(values) {
-    callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValuesFormated(values))
+    if (!get(values, 'ingredientFields')) {
+      return false
+    }
+
+    return callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValuesFormated(values))
   }
 
   return (
@@ -67,50 +72,52 @@ function CreationForm({classes, requiredFields, validateFields}) {
               return (
                 <form onSubmit={handleSubmit}>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                    <TextField name="name" margin="normal" required={requiredFields.name} label="name" autoFocus />
+                    <TextField name="name" margin="normal" label="name" autoFocus />
                   </Grid>
-                  <Grid container spacing={2} className={classes.radioField}>
+                  <Grid container spacing={1} className={classes.radioField}>
                     {list.recipeTypes.map(({name, id}) => {
-                      // TODO implementer l' i18n dans le label
                       return (
-                        <Grid item xs={12} sm={2} md={2} lg={2} xl={2}>
-                          <label key={id}>
-                            <Field
-                              name="recipeType"
-                              label="Recipe Types"
-                              component="input"
-                              type="radio"
-                              value={name}
-                              // value={get(list, 'recipeTypes', [])}
-                            />
-                            {name}
-                          </label>
+                        <Grid item key={id} xs={12} sm={2} md={2} lg={2} xl={2}>
+                          <Radios key={id} color="primary" name="recipeType" required data={[{label: `${name}`, value: `${id}`}]} />
                         </Grid>
                       )
                     })}
+                    {/*{t(`recipe.form.creation.values.field.recipeType.${name}`)}*/}
                   </Grid>
-                  <Grid container spacing={2}>
+                  <Grid container spacing={1}>
                     <Grid item xs={10} sm={6} md={4} lg={3} xl={4}>
-                      <TextField name="preparationTime" type="number" label="preparation time (min)" className={classes.selectField} />
+                      <TextField
+                        name="preparationTime"
+                        type="number"
+                        label="Preparation time"
+                        InputProps={{
+                          endAdornment: <InputAdornment position="end">Minutes</InputAdornment>,
+                        }}
+                        className={classes.selectField}
+                      />
                     </Grid>
-                    <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.icon}>
+                    <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.timerIcon}>
                       <AlarmIcon />
                     </Grid>
                   </Grid>
 
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.instructionField}>
-                    <TextField name="instruction" multiline required={requiredFields.instruction} label="instruction" />
+                    <WysiwygEditor theme="snow" name="instruction" />
                   </Grid>
                   <Grid className={classes.ingredientContainer}>
                     <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
                     <IngredientFieldArray items={list} />
                   </Grid>
-                  <Button onClick={() => push('ingredientFields', {id: list.length + 1})} color="main">
-                    Add ingredient
-                    <AddIcon fontSize="large" className={classes.border} />
-                  </Button>
-                  <Grid container justify="flex-end">
-                    <CTAButton label="submit" type="submit" variant="contained" />
+                  <Grid container justify="space-between" className={classes.footer}>
+                    <Grid item>
+                      <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
+                        <span className={classes.buttonLabel}>Add ingredient</span>
+                        <AddIcon fontSize="large" className={classes.border} />
+                      </Button>
+                    </Grid>
+                    <Grid item>
+                      <CTAButton label="Recipe creation" type="submit" />
+                    </Grid>
                   </Grid>
                 </form>
               )

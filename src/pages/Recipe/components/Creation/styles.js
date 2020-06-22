@@ -1,4 +1,4 @@
-export default ({spacing}) => ({
+export default ({spacing, palette}) => ({
   root: {
     overflow: 'visible',
     flexGrow: 1,
@@ -14,9 +14,9 @@ export default ({spacing}) => ({
   ingredientContainer: {
     marginTop: '15px',
   },
-  icon: {
-    alignSelf: 'flex-end',
-    justifyContent: 'space-between',
+  timerIcon: {
+    marginTop: '30px',
+    color: palette.common.grey.medium,
   },
   radioField: {
     alignSelf: 'center',
@@ -24,16 +24,29 @@ export default ({spacing}) => ({
   },
   border: {
     borderRadius: '1px',
-    border: '1px solid #DBDEE0',
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: palette.common.grey.light,
     marginLeft: '10px',
+    color: palette.common.grey.medium,
   },
   radio: {
     marginTop: '10px',
   },
   instructionField: {
-    marginTop: '5px',
+    marginTop: '15px',
   },
   selectField: {
     marginTop: '10px',
+  },
+  buttonLabel: {
+    textTransform: 'none',
+    color: palette.common.grey.dark,
+  },
+  footer: {
+    marginTop: '20px',
+  },
+  submitButton: {
+    textTransform: 'none',
   },
 })

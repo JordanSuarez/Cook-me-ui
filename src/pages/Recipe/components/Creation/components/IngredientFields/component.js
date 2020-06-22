@@ -4,7 +4,7 @@ import {any, bool, func, objectOf, string} from 'prop-types'
 import {Divider, Grid} from '@material-ui/core'
 import {get} from 'lodash'
 import {TextField} from 'mui-rff'
-import DeleteIcon from '@material-ui/icons/Delete'
+import RemoveOutlinedIcon from '@material-ui/icons/RemoveOutlined'
 
 import IconButton from 'common/components/IconButton'
 import SelectField from 'common/components/SelectField'
@@ -13,7 +13,7 @@ import {classes as classesProps} from 'common/props'
 
 function IngredientFields({classes, items, name, displayButton, onClick}) {
   return (
-    <div key={name} className={classes.border}>
+    <div key={name}>
       <Divider variant="middle" className={classes.divider} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} md={5} lg={5} xl={5}>
@@ -25,10 +25,10 @@ function IngredientFields({classes, items, name, displayButton, onClick}) {
         <Grid item xs={10} sm={3} md={2} lg={2} xl={2} className={classes.quantity}>
           <TextField name={`${name}.quantityValue`} type="number" margin="normal" label="quantity" />
         </Grid>
-        <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.button}>
+        <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.iconButton}>
           {displayButton && (
-            <IconButton onClick={onClick} size="small" color="secondary" title="remove ingredient">
-              <DeleteIcon />
+            <IconButton onClick={onClick} size="small" title="remove ingredient">
+              <RemoveOutlinedIcon fontSize="large" className={classes.border} />
             </IconButton>
           )}
         </Grid>

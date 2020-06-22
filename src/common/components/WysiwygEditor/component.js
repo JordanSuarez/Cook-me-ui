@@ -1,15 +1,29 @@
 import React from 'react'
 
-import {Editor} from 'react-draft-wysiwyg'
+import {string} from 'prop-types'
 
-const WysiwygEditor = () => (
-  <div className="rdw-storybook-root">
-    <Editor toolbarClassName="rdw-storybook-toolbar" wrapperClassName="rdw-storybook-wrapper" editorClassName="rdw-storybook-editor" />
-  </div>
-)
+import 'react-quill/dist/quill.snow.css'
+import {Field} from 'react-final-form'
+import ReactQuill from 'react-quill'
+
+import {classes as classesProps} from '../../props'
+
+function WysiwygEditor({name, theme, classes}) {
+  return (
+    <div className={classes.textEditor}>
+      <Field name={name}>
+        {({input: {value, onChange}}) => (
+          <ReactQuill theme={theme} value={value} onChange={onChange} placeholder="Compose your recipe..." className={classes.textEditor} />
+        )}
+      </Field>
+    </div>
+  )
+}
 
 WysiwygEditor.propTypes = {
-  // ...classesProps,
+  name: string.isRequired,
+  theme: string.isRequired,
+  ...classesProps,
 }
 
 WysiwygEditor.defaultProps = {}

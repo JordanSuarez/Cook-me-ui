@@ -3,9 +3,11 @@ import {createMuiTheme} from '@material-ui/core'
 const palette = {
   common: {
     white: '#ffffff',
+    dark: '#2c2c2c',
     grey: {
-      dark: '#2c2c2c',
-      light: '#a8aeb5',
+      dark: '#757575',
+      medium: '#B8B8B8',
+      light: '#E4E6E7',
     },
   },
   primary: {

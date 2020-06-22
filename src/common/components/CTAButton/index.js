@@ -1,3 +1,6 @@
-import CTAButton from './component'
+import {withStyles} from '@material-ui/core'
 
-export default CTAButton
+import CTAButton from './component'
+import styles from './styles'
+
+export default withStyles(styles)(CTAButton)
