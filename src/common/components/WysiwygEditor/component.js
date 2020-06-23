@@ -10,7 +10,7 @@ import {classes as classesProps} from '../../props'
 
 function WysiwygEditor({name, theme, classes}) {
   return (
-    <div className={classes.textEditor}>
+    <div className={classes.text}>
       <Field name={name}>
         {({input: {value, onChange}}) => (
           <ReactQuill theme={theme} value={value} onChange={onChange} placeholder="Compose your recipe..." className={classes.textEditor} />

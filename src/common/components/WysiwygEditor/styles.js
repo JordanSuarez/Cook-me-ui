@@ -1,5 +1,8 @@
 export default () => ({
   textEditor: {
-    minHeight: '100px',
+    height: '250px',
+  },
+  text: {
+    minHeight: '300px',
   },
 })
