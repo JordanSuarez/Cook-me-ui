@@ -106,13 +106,13 @@ function CreationForm({classes, validateFields}) {
                     <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
                     <IngredientFieldArray items={list} />
                   </Grid>
-                  <Grid item className={classes.buttonMargin}>
+                  <Grid item className={classes.submitButton}>
                     <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
                       <span className={classes.buttonLabel}>Add ingredient</span>
                       <AddIcon fontSize="large" className={classes.buttonBorder} />
                     </Button>
                   </Grid>
-                  <Grid item className={classes.CTAButton}>
+                  <Grid item className={classes.ctaButton}>
                     <CTAButton label="Recipe creation" type="submit" />
                   </Grid>
                 </form>

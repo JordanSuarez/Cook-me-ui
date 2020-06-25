@@ -37,11 +37,11 @@ export default ({spacing, palette}) => ({
     textTransform: 'none',
     color: palette.common.grey.dark,
   },
-  CTAButton: {
+  ctaButton: {
     direction: 'rtl',
     marginTop: '10px',
   },
-  buttonMargin: {
+  submitButton: {
     marginTop: '10px',
   },
 })
