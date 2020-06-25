@@ -73,7 +73,7 @@ function ListWrapper({items, columns, classes}) {
 
   return (
     <div>
-      <Grid container direction="row-reverse" className={classes.CTAbutton}>
+      <Grid container direction="row-reverse" className={classes.ctaButton}>
         <CTAButton handleClick={handleCreateFormDisplay} label="Create recipe">
           <LinkToCreateForm fontSize="default" className={classes.icon} />
         </CTAButton>
