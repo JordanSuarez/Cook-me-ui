@@ -14,6 +14,7 @@ import {classes as classesProps} from 'common/props'
 
 import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
+import CTAButton from 'common/components/CTAButton'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
 import IconButton from '../IconButton'
 import ListCard from 'common/components/ListCard'
@@ -70,30 +71,35 @@ function ListWrapper({items, columns, classes}) {
     return history.push(getCreationRecipeRoute())
   }
 
-  // TODO create IconButton component
   return (
     <div>
-      <Grid container direction="row-reverse" className={classes.container}>
-        <IconButton title="Add recipe" onClick={handleCreateFormDisplay} className={classes.iconButton}>
-          <LinkToCreateForm fontSize="large" />
-        </IconButton>
+      <Grid container direction="row-reverse" className={classes.CTAbutton}>
+        <CTAButton handleClick={handleCreateFormDisplay} label="Create recipe">
+          <LinkToCreateForm fontSize="default" className={classes.icon} />
+        </CTAButton>
       </Grid>
-      <Grid container direction="row-reverse" justify="flex-start" alignItems="center">
-        <IconButton title="Table view" onClick={() => handleListDisplay(LIST_TABLE)} className={classes.iconButton}>
-          <ViewListTable color={colorTableIcon} fontSize="large" />
-        </IconButton>
-        <IconButton title="Card view" onClick={() => handleListDisplay(LIST_CARD)} className={classes.iconButton}>
-          <ViewListCard color={colorCardIcon} fontSize="large" />
-        </IconButton>
+      <Grid container direction="row-reverse" justify="flex-start" spacing={2} className={classes.container}>
+        <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
+          <IconButton title="Table view" onClick={() => handleListDisplay(LIST_TABLE)}>
+            <ViewListTable color={colorTableIcon} fontSize="large" className={classes.iconButton} />
+          </IconButton>
+        </Grid>
+        <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
+          <IconButton title="Card view" onClick={() => handleListDisplay(LIST_CARD)}>
+            <ViewListCard color={colorCardIcon} fontSize="large" className={classes.iconButton} />
+          </IconButton>
+        </Grid>
+        <Grid item xs={12} sm={10} md={10} lg={10} xl={10}>
+          <SearchBar
+            value={inputValue}
+            handleChange={(e) => {
+              handleChange(e.target.value)
+              setInputValue(e.target.value)
+            }}
+            handleClick={handleClick}
+          />
+        </Grid>
       </Grid>
-      <SearchBar
-        value={inputValue}
-        handleChange={(e) => {
-          handleChange(e.target.value)
-          setInputValue(e.target.value)
-        }}
-        handleClick={handleClick}
-      />
       {displayCard && (
         <div>
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
