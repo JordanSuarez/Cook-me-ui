@@ -8,9 +8,6 @@ export default ({spacing, palette}) => ({
     marginTop: spacing(3),
     width: '100%',
   },
-  container: {
-    marginRight: '0px',
-  },
   ingredientContainer: {
     marginTop: '15px',
   },
@@ -22,16 +19,13 @@ export default ({spacing, palette}) => ({
     alignSelf: 'center',
     marginTop: '10px',
   },
-  border: {
+  buttonBorder: {
     borderRadius: '1px',
     borderStyle: 'solid',
     borderWidth: '1px',
     borderColor: palette.common.grey.light,
     marginLeft: '10px',
     color: palette.common.grey.medium,
-  },
-  radio: {
-    marginTop: '10px',
   },
   instructionField: {
     marginTop: '15px',
@@ -43,10 +37,11 @@ export default ({spacing, palette}) => ({
     textTransform: 'none',
     color: palette.common.grey.dark,
   },
-  footer: {
-    marginTop: '20px',
+  CTAButton: {
+    direction: 'rtl',
+    marginTop: '10px',
   },
-  submitButton: {
-    textTransform: 'none',
+  buttonMargin: {
+    marginTop: '10px',
   },
 })

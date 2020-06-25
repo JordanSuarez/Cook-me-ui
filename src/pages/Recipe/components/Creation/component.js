@@ -22,7 +22,6 @@ import Page from 'common/components/Page'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
 function CreationForm({classes, validateFields}) {
-  // const {t} = useTranslation()
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
   useEffect(() => {
@@ -45,7 +44,7 @@ function CreationForm({classes, validateFields}) {
   }, [])
 
   function onSubmit(values) {
-    if (!get(values, 'ingredientFields')) {
+    if (!get(values, 'requiredIngredients')) {
       return false
     }
 
@@ -82,7 +81,6 @@ function CreationForm({classes, validateFields}) {
                         </Grid>
                       )
                     })}
-                    {/*{t(`recipe.form.creation.values.field.recipeType.${name}`)}*/}
                   </Grid>
                   <Grid container spacing={1}>
                     <Grid item xs={10} sm={6} md={4} lg={3} xl={4}>
@@ -108,16 +106,14 @@ function CreationForm({classes, validateFields}) {
                     <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
                     <IngredientFieldArray items={list} />
                   </Grid>
-                  <Grid container justify="space-between" className={classes.footer}>
-                    <Grid item>
-                      <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
-                        <span className={classes.buttonLabel}>Add ingredient</span>
-                        <AddIcon fontSize="large" className={classes.border} />
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <CTAButton label="Recipe creation" type="submit" />
-                    </Grid>
+                  <Grid item className={classes.buttonMargin}>
+                    <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
+                      <span className={classes.buttonLabel}>Add ingredient</span>
+                      <AddIcon fontSize="large" className={classes.buttonBorder} />
+                    </Button>
+                  </Grid>
+                  <Grid item className={classes.CTAButton}>
+                    <CTAButton label="Recipe creation" type="submit" />
                   </Grid>
                 </form>
               )
