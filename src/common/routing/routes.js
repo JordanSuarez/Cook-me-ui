@@ -4,7 +4,8 @@ import dishRouting from 'pages/Dish/config/routing'
 import homeRouting from 'pages/Home/config/routing'
 import loginRouting from 'pages/Login/config/routing'
 import logoutRouting from 'pages/Logout/config/routing'
-import recipesRouting from 'pages/Recipes/config/routing'
+//import recipesRouting from 'pages/Recipes/config/routing'
+import recipeRouting from 'pages/Recipe/config/routing'
 import startersRouting from 'pages/Starters/config/routing'
 
 /**
@@ -13,7 +14,8 @@ import startersRouting from 'pages/Starters/config/routing'
  */
 // eslint-disable-next-line import/prefer-default-export
 export const routes = [
-  recipesRouting,
+  //recipesRouting,
+  recipeRouting,
   loginRouting,
   homeRouting,
   logoutRouting,
