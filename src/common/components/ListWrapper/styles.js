@@ -2,7 +2,7 @@ export default ({palette}) => ({
   root: {
     margin: '22px 0px 10px',
   },
-  CTAbutton: {
+  ctaButton: {
     marginTop: '25px',
   },
   container: {
