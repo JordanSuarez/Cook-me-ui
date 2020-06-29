@@ -11,14 +11,16 @@ import Page from 'common/components/Page'
 
 function Recipe() {
   const {id} = useParams()
-  const [recipe, setRecipe] = useState({})
+  const [recipeData, setRecipeData] = useState([{}])
+  const [displayData, setDisplayData] = useState(false)
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, ONE, id)
 
     callApi(url, GET)
       .then(({data}) => {
-        setRecipe(data)
+        setRecipeData(data[0])
+        setDisplayData(true)
       })
       .catch(() => {})
     // eslint-disable-next-line
@@ -26,11 +28,24 @@ function Recipe() {
 
   return (
     <div>
-      <Page title={recipe.name}>
-        <div>{recipe.instruction}</div>
-        <div>{recipe.preparationTime}</div>
-        <div>{recipe.type}</div>
-      </Page>
+      {displayData && (
+        <Page title={recipeData.name}>
+          <div>instruction: {recipeData.instruction}</div>
+          <div>temps de preparation: {recipeData.preparationTime}</div>
+          <div>type: {recipeData.type}</div>
+          Ingredients:
+          {recipeData.ingredients.map(({id: key, name, description, quantity}) => {
+            return (
+              <div key={key}>
+                <div>{name}</div>
+                <div>{description}</div>
+                <div>{quantity.value}</div>
+                <div>{quantity.quantityType.name}</div>
+              </div>
+            )
+          })}
+        </Page>
+      )}
     </div>
   )
 }
