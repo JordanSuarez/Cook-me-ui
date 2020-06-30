@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {useParams} from 'react-router-dom'
+import {useTranslation} from 'react-i18next'
 
 import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
@@ -10,13 +11,15 @@ import {RECIPES} from 'common/constants/resources'
 import Page from 'common/components/Page'
 
 function Recipe() {
+  const {t} = useTranslation()
   const {id} = useParams()
-  const [recipeData, setRecipeData] = useState([{}])
+  const [recipeData, setRecipeData] = useState([{ingredients: []}])
   const [displayData, setDisplayData] = useState(false)
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, ONE, id)
 
+    // TODO adjust backend for a more elegant way to retrieve data
     callApi(url, GET)
       .then(({data}) => {
         setRecipeData(data[0])
@@ -28,13 +31,19 @@ function Recipe() {
 
   return (
     <div>
-      {displayData && (
-        <Page title={recipeData.name}>
-          <div>instruction: {recipeData.instruction}</div>
-          <div>temps de preparation: {recipeData.preparationTime}</div>
-          <div>type: {recipeData.type}</div>
-          Ingredients:
-          {recipeData.ingredients.map(({id: key, name, description, quantity}) => {
+      <Page title={recipeData.name}>
+        <div>
+          {t('recipe.page.instruction')}: {recipeData.instruction}
+        </div>
+        <div>
+          {t('recipe.page.preparationType')}: {recipeData.preparationTime}
+        </div>
+        <div>
+          {t('recipe.page.type')}: {recipeData.type}
+        </div>
+        {t('recipe.page.ingredients')}
+        {displayData &&
+          recipeData.ingredients.map(({id: key, name, description, quantity}) => {
             return (
               <div key={key}>
                 <div>{name}</div>
@@ -44,8 +53,7 @@ function Recipe() {
               </div>
             )
           })}
-        </Page>
-      )}
+      </Page>
     </div>
   )
 }

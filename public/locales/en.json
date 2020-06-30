@@ -64,6 +64,15 @@
           }
         }
       }
+    },
+    "page": {
+      "instruction": "Instruction",
+      "preparationTime": "Preparation time",
+      "ingredients": "Ingrédients",
+      "description": "Description",
+      "type": "Recipe types",
+      "quantity": "Quantities",
+      "quantityType": "Quantity types"
     }
   },
   "searchBar": {
