@@ -13,8 +13,7 @@ import Page from 'common/components/Page'
 function Recipe() {
   const {t} = useTranslation()
   const {id} = useParams()
-  const [recipeData, setRecipeData] = useState([{ingredients: []}])
-  const [displayData, setDisplayData] = useState(false)
+  const [recipeData, setRecipeData] = useState({ingredients: []})
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, ONE, id)
@@ -23,7 +22,6 @@ function Recipe() {
     callApi(url, GET)
       .then(({data}) => {
         setRecipeData(data[0])
-        setDisplayData(true)
       })
       .catch(() => {})
     // eslint-disable-next-line
@@ -31,19 +29,19 @@ function Recipe() {
 
   return (
     <div>
-      <Page title={recipeData.name}>
-        <div>
-          {t('recipe.page.instruction')}: {recipeData.instruction}
-        </div>
-        <div>
-          {t('recipe.page.preparationType')}: {recipeData.preparationTime}
-        </div>
-        <div>
-          {t('recipe.page.type')}: {recipeData.type}
-        </div>
-        {t('recipe.page.ingredients')}
-        {displayData &&
-          recipeData.ingredients.map(({id: key, name, description, quantity}) => {
+      {recipeData.name && (
+        <Page title={recipeData.name}>
+          <div>
+            {t('recipe.page.instruction')}: {recipeData.instruction}
+          </div>
+          <div>
+            {t('recipe.page.preparationType')}: {recipeData.preparationTime}
+          </div>
+          <div>
+            {t('recipe.page.type')}: {recipeData.type}
+          </div>
+          {t('recipe.page.ingredients')}
+          {recipeData.ingredients.map(({id: key, name, description, quantity}) => {
             return (
               <div key={key}>
                 <div>{name}</div>
@@ -53,7 +51,8 @@ function Recipe() {
               </div>
             )
           })}
-      </Page>
+        </Page>
+      )}
     </div>
   )
 }
