@@ -30,7 +30,7 @@ export default (t) => {
           return (
             <div>
               <a href={getRecipeRoute(value)}>
-                <IconButton key={tableMeta} title={`${t('recipe.list.table.action.showIcon')}`}>
+                <IconButton key={tableMeta} title={`${t('recipe.list.table.showIcon')}`}>
                   <ShowIcon />
                 </IconButton>
               </a>
