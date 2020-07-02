@@ -27,13 +27,15 @@ function Recipe() {
     // eslint-disable-next-line
   }, [])
 
+  function createMarkup() {
+    return {__html: `${t('recipe.page.instruction')}:${recipeData.instruction}`}
+  }
+
   return (
     <div>
       {recipeData.name && (
         <Page title={recipeData.name}>
-          <div>
-            {t('recipe.page.instruction')}: {recipeData.instruction}
-          </div>
+          <div dangerouslySetInnerHTML={createMarkup()} />
           <div>
             {t('recipe.page.preparationType')}: {recipeData.preparationTime}
           </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import {any, arrayOf, func} from 'prop-types'
+import {any, arrayOf, objectOf} from 'prop-types'
 import MUIDataTable from 'mui-datatables'
 
 import {classes as classesProps} from 'common/props'
@@ -23,7 +23,7 @@ function ListTable({items, columns, classes, options}) {
 ListTable.propTypes = {
   columns: arrayOf(any).isRequired,
   items: arrayOf(any),
-  options: func.isRequired,
+  options: objectOf(any).isRequired,
   ...classesProps,
 }
 

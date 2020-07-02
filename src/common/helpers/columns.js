@@ -1,3 +1,10 @@
+import React from 'react'
+
+import ShowIcon from '@material-ui/icons/VisibilityOutlined'
+
+import {getRecipeRoute} from '../routing/routesResolver'
+import IconButton from '../components/IconButton'
+
 export default (t) => {
   return [
     {
@@ -11,6 +18,26 @@ export default (t) => {
     {
       name: 'preparationTime',
       label: `${t('recipe.list.table.preparationTime')}`,
+    },
+    {
+      name: 'id',
+      label: `${t('recipe.list.table.action')}`,
+      options: {
+        filter: false,
+        sort: false,
+        empty: true,
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <div>
+              <a href={getRecipeRoute(value)}>
+                <IconButton key={tableMeta} title={`${t('recipe.list.table.action.showIcon')}`}>
+                  <ShowIcon />
+                </IconButton>
+              </a>
+            </div>
+          )
+        },
+      },
     },
   ]
 }

@@ -39,7 +39,9 @@
       "table": {
         "name": "Recettes",
         "instruction": "Instruction",
-        "preparationTime": "Temps de préparation"
+        "preparationTime": "Temps de préparation",
+        "action": "Action",
+        "showIcon": "Voir la recette"
       }
     },
     "form": {
