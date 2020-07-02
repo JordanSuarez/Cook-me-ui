@@ -1,8 +1,9 @@
 import React from 'react'
 
+import {Link} from 'react-router-dom'
 import ShowIcon from '@material-ui/icons/VisibilityOutlined'
 
-import {getRecipeRoute} from '../routing/routesResolver'
+import {getShowRecipeRoute} from '../routing/routesResolver'
 import IconButton from '../components/IconButton'
 
 export default (t) => {
@@ -26,17 +27,13 @@ export default (t) => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRender: (value, tableMeta) => {
-          return (
-            <div>
-              <a href={getRecipeRoute(value)}>
-                <IconButton key={tableMeta} title={`${t('recipe.list.table.showIcon')}`}>
-                  <ShowIcon />
-                </IconButton>
-              </a>
-            </div>
-          )
-        },
+        customBodyRender: (value) => (
+          <Link to={getShowRecipeRoute(value)}>
+            <IconButton key={value} title={`${t('recipe.list.table.showIcon')}`}>
+              <ShowIcon />
+            </IconButton>
+          </Link>
+        ),
       },
     },
   ]

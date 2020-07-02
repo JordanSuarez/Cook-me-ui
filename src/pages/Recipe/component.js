@@ -27,32 +27,34 @@ function Recipe() {
     // eslint-disable-next-line
   }, [])
 
-  function createMarkup() {
-    return {__html: `${t('recipe.page.instruction')}:${recipeData.instruction}`}
-  }
-
   return (
     <div>
       {recipeData.name && (
         <Page title={recipeData.name}>
-          <div dangerouslySetInnerHTML={createMarkup()} />
           <div>
-            {t('recipe.page.preparationType')}: {recipeData.preparationTime}
+            <h3>{t('recipe.page.instruction')}</h3>
+            <p dangerouslySetInnerHTML={{__html: `${recipeData.instruction}`}} />
           </div>
           <div>
-            {t('recipe.page.type')}: {recipeData.type}
+            <h3>{t('recipe.page.preparationType')}:</h3>
+            <p>{recipeData.preparationTime}</p>
           </div>
-          {t('recipe.page.ingredients')}
-          {recipeData.ingredients.map(({id: key, name, description, quantity}) => {
-            return (
-              <div key={key}>
-                <div>{name}</div>
-                <div>{description}</div>
-                <div>{quantity.value}</div>
-                <div>{quantity.quantityType.name}</div>
-              </div>
-            )
-          })}
+          <div>
+            <h3>{t('recipe.page.type')}</h3>
+            <p>{recipeData.type}</p>
+          </div>
+          <div>
+            <h3>{t('recipe.page.ingredients')}</h3>
+            {recipeData.ingredients.map(({id: key, name, description, quantity}) => {
+              return (
+                <ul key={key}>
+                  <li>{name}</li>
+                  <li>{`${quantity.value} ${quantity.quantityType.name}`}</li>
+                  <li>{description}</li>
+                </ul>
+              )
+            })}
+          </div>
         </Page>
       )}
     </div>

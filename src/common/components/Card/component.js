@@ -1,26 +1,16 @@
 import React from 'react'
 
 import {CardActionArea, CardContent, CardHeader, CardMedia, Card as MaterialUiCard, Typography} from '@material-ui/core'
-
 import {Link} from 'react-router-dom'
 import {number, string} from 'prop-types'
 
-import {getRecipeRoute} from '../../routing/routesResolver'
-
 import {classes as classesProps} from '../../props'
+import {getShowRecipeRoute} from '../../routing/routesResolver'
 
 function Card({id, name, instruction, image, classes}) {
-  function resourceFactory() {
-    return {
-      pathname: getRecipeRoute(id),
-    }
-  }
-
-  const {pathname} = resourceFactory(id)
-
   return (
     <MaterialUiCard key={id} className={classes.shadow}>
-      <Link to={{pathname, state: {id}}} className={classes.link}>
+      <Link to={getShowRecipeRoute(id)} className={classes.link}>
         <CardActionArea>
           <CardHeader title={name} />
           <CardMedia className={classes.media} image={image} title="pie" />
