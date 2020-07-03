@@ -1,6 +1,8 @@
 import React from 'react'
 
 import {Link} from 'react-router-dom'
+import DeleteIcon from '@material-ui/icons/Delete'
+import Grid from '@material-ui/core/Grid'
 import ShowIcon from '@material-ui/icons/VisibilityOutlined'
 
 import {getShowRecipeRoute} from '../routing/routesResolver'
@@ -28,11 +30,20 @@ export default (t) => {
         sort: false,
         empty: true,
         customBodyRender: (value) => (
-          <Link to={getShowRecipeRoute(value)}>
-            <IconButton key={value} title={`${t('recipe.list.table.showIcon')}`}>
-              <ShowIcon />
-            </IconButton>
-          </Link>
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link to={getShowRecipeRoute(value)}>
+                <IconButton key={value} title={`${t('recipe.list.table.showIcon')}`}>
+                  <ShowIcon />
+                </IconButton>
+              </Link>
+            </Grid>
+            <Grid item>
+              <IconButton title={t('recipe.card.footer.iconButton.delete')}>
+                <DeleteIcon />
+              </IconButton>
+            </Grid>
+          </Grid>
         ),
       },
     },

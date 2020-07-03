@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 import {any, arrayOf} from 'prop-types'
-import {Grid} from '@material-ui/core'
+import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid} from '@material-ui/core'
 import {isEmpty} from 'lodash'
 import LinkToCreateForm from '@material-ui/icons/AddOutlined'
 import ViewListCard from '@material-ui/icons/ViewModule'
@@ -34,6 +34,7 @@ function ListWrapper({items, columns, classes}) {
   const [colorTableIcon, setColorTableIcon] = useState('inherit')
   const [colorCardIcon, setColorCardIcon] = useState('primary')
   const [inputValue, setInputValue] = useState('')
+  const [displayDeleteAction, setDisplayDeleteAction] = useState(false)
 
   if (columns.length === 0) {
     return null
@@ -71,6 +72,10 @@ function ListWrapper({items, columns, classes}) {
     return history.push(getCreationRecipeRoute())
   }
 
+  function handleDeleteClick() {
+    return setDisplayDeleteAction(true)
+  }
+
   return (
     <div>
       <Grid container direction="row-reverse" className={classes.ctaButton}>
@@ -106,22 +111,45 @@ function ListWrapper({items, columns, classes}) {
           {searchResults.length > 0 && <ListCard items={searchResults} />}
           {/*Si il n'y a pas de résulats de recherches, on affiche la pagination */}
           {searchResults.length === 0 && (
-            <Pagination items={items} maxPerPage={5} renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} />} />
+            <Pagination
+              items={items}
+              maxPerPage={5}
+              renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} onClick={handleDeleteClick} />}
+            />
           )}
         </div>
       )}
       {displayTable && (
         <div>
-          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} options={getOptions(t)} />}
+          {searchResults.length > 0 && (
+            <ListTable items={searchResults} columns={columns} options={getOptions(t)} onClick={handleDeleteClick} />
+          )}
           {searchResults.length === 0 && (
             <Pagination
               items={items}
               maxPerPage={10}
-              renderChild={(itemsPaginated) => <ListTable items={itemsPaginated} columns={columns} options={getOptions(t)} />}
+              renderChild={(itemsPaginated) => (
+                <ListTable items={itemsPaginated} columns={columns} options={getOptions(t)} onClick={handleDeleteClick} />
+              )}
             />
           )}
         </div>
       )}
+      <Dialog open={displayDeleteAction} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+        <DialogTitle id="alert-dialog-title">{t('recipe.modal.delete.title')}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">{t('recipe.modal.delete.content')}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <CTAButton color="secondary" size="small" label={t('recipe.modal.delete.button.accept')} />
+          <CTAButton
+            color="secondary"
+            size="small"
+            handleClick={() => setDisplayDeleteAction(false)}
+            label={t('recipe.modal.delete.button.refuse')}
+          />
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

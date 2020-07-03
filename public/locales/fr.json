@@ -35,6 +35,23 @@
     "title": "Desserts"
   },
   "recipe": {
+    "modal": {
+      "delete": {
+        "title": "Confirmation de la suppresion",
+        "content": "Êtes-vous sûr de vouloir supprimer cette recette?",
+        "button": {
+          "accept": "Oui",
+          "refuse": "Non"
+        }
+      }
+    },
+    "card": {
+      "footer": {
+        "iconButton": {
+          "delete": "Supprimer la recette"
+        }
+      }
+    },
     "list": {
       "table": {
         "name": "Recettes",
