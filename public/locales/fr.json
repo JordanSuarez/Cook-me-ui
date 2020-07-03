@@ -37,7 +37,7 @@
   "recipe": {
     "modal": {
       "delete": {
-        "title": "Confirmation de la suppresion",
+        "title": "Confirmation de la suppression",
         "content": "Êtes-vous sûr de vouloir supprimer cette recette?",
         "button": {
           "accept": "Oui",
