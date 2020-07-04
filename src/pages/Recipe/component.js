@@ -21,7 +21,7 @@ function Recipe() {
     // TODO adjust backend for a more elegant way to retrieve data
     callApi(url, GET)
       .then(({data}) => {
-        setRecipeData(data[0])
+        setRecipeData(data)
       })
       .catch(() => {})
     // eslint-disable-next-line

@@ -12,7 +12,7 @@ function ListCard({items, classes, onClick}) {
     <Grid container direction="row" justify="space-between" alignItems="flex-start" spacing={3} className={classes.root}>
       {items.map(({id, name}) => (
         <Grid key={id} item xs={12} sm={6} md={3}>
-          <Card key={`${id}-${name}`} id={id} name={name} onClick={onClick} />
+          <Card key={`${id}-${name}`} id={id} name={name} onClick={() => onClick(id)} />
         </Grid>
       ))}
     </Grid>

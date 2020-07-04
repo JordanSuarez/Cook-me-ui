@@ -10,6 +10,7 @@ import {callApi} from 'common/helpers/repository'
 import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
+import AlertDialog from '../../common/components/AlertDialog'
 import formatList from 'common/helpers/formatListForSearch'
 import getColumns from 'common/helpers/columns'
 import ListWrapper from 'common/components/ListWrapper'
@@ -19,6 +20,7 @@ function Dish() {
   const {t} = useTranslation()
   const {id} = useParams()
   const [recipes, setRecipes] = useState([])
+  const [displayDeleteAction, setDisplayDeleteAction] = useState(false)
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
@@ -31,7 +33,25 @@ function Dish() {
     // eslint-disable-next-line
   }, [])
 
-  return <Page title={t('dishPage.title')}>{recipes.length > 0 && <ListWrapper items={recipes} columns={getColumns(t)} />}</Page>
+  function handleDeleteClick() {
+    return setDisplayDeleteAction(true)
+  }
+
+  return (
+    <Page title={t('dishPage.title')}>
+      {recipes.length > 0 && (
+        <ListWrapper items={recipes} columns={getColumns(t, handleDeleteClick)} onClick={() => handleDeleteClick(id)} />
+      )}
+      <AlertDialog
+        open={displayDeleteAction}
+        title={t('recipe.modal.delete.title')}
+        content={t('recipe.modal.delete.content')}
+        labelButtonAccept={t('recipe.modal.delete.button.accept')}
+        labelButtonRefuse={t('recipe.modal.delete.button.refuse')}
+        cancelOnClick={() => setDisplayDeleteAction(false)}
+      />
+    </Page>
+  )
 }
 
 Dish.propTypes = {
