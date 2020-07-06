@@ -14,6 +14,7 @@ import {classes as classesProps} from 'common/props'
 
 import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
+import AlertDialog from '../AlertDialog'
 import CTAButton from 'common/components/CTAButton'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
 import IconButton from '../IconButton'
@@ -25,7 +26,7 @@ import SearchBar from 'common/components/SearchBar'
 /**
  * @return {null}
  */
-function ListWrapper({items, columns, classes, onClick}) {
+function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, cancelOnClick}) {
   const {t} = useTranslation()
   const history = useHistory()
   const [searchResults, setSearchResults] = useState([])
@@ -129,6 +130,15 @@ function ListWrapper({items, columns, classes, onClick}) {
           )}
         </div>
       )}
+      <AlertDialog
+        open={open}
+        title={t('recipe.modal.delete.title')}
+        content={t('recipe.modal.delete.content')}
+        labelButtonAccept={t('recipe.modal.delete.button.accept')}
+        labelButtonRefuse={t('recipe.modal.delete.button.refuse')}
+        cancelOnClick={cancelOnClick}
+        acceptOnClick={acceptOnClick}
+      />
     </div>
   )
 }

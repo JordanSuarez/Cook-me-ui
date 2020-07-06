@@ -42,6 +42,16 @@
         "button": {
           "accept": "Yes",
           "refuse": "No"
+        },
+        "toast": {
+          "success": {
+            "title": "This recipe has been deleted successfully",
+            "content": ""
+          },
+          "error": {
+            "title": "Deletion failed",
+            "content": "Oupsi !"
+          }
         }
       }
     },

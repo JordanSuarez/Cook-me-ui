@@ -42,6 +42,16 @@
         "button": {
           "accept": "Oui",
           "refuse": "Non"
+        },
+        "toast": {
+          "success": {
+            "title": "La recette à été supprimé",
+            "content": ""
+          },
+          "error": {
+            "title": "Echec de la suppression",
+            "content": "Oupsi !"
+          }
         }
       }
     },
