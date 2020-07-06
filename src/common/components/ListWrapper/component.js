@@ -71,6 +71,7 @@ function ListWrapper({items, columns, classes, onClick}) {
     return history.push(getCreationRecipeRoute())
   }
 
+  // TODO add key trad for creation recipe button
   return (
     <div>
       <Grid container direction="row-reverse" className={classes.ctaButton}>

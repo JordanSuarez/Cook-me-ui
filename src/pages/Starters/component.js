@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
+import {any, objectOf} from 'prop-types'
 import {useParams} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
-import {any, objectOf} from 'prop-types'
-
-import {BY_TYPE} from 'common/constants/resources_type'
+import {BY_TYPE, ONE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
-import {GET} from 'common/constants/methods'
+import {DELETE, GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
 import AlertDialog from 'common/components/AlertDialog'
@@ -22,6 +21,7 @@ function Starters() {
   const [recipes, setRecipes] = useState([])
   const [displayDeleteAction, setDisplayDeleteAction] = useState(false)
 
+  console.log(recipes)
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
 
@@ -33,15 +33,26 @@ function Starters() {
     // eslint-disable-next-line
   }, [])
 
-  function handleDeleteClick() {
+  function handleDeleteClick(value) {
+    console.log(value)
+
     return setDisplayDeleteAction(true)
+  }
+
+  function test(key) {
+    const url = getEndpoint(RECIPES, DELETE, ONE, key)
+
+    callApi(url, DELETE)
+      .then(() => {
+        console.log('test')
+        setDisplayDeleteAction(!displayDeleteAction)
+      })
+      .catch(() => {})
   }
 
   return (
     <Page title={t('startersPage.title')}>
-      {recipes.length > 0 && (
-        <ListWrapper items={recipes} columns={getColumns(t, handleDeleteClick)} onClick={() => handleDeleteClick(id)} />
-      )}
+      {recipes.length > 0 && <ListWrapper items={recipes} columns={getColumns(t, handleDeleteClick)} onClick={handleDeleteClick} />}
       <AlertDialog
         open={displayDeleteAction}
         title={t('recipe.modal.delete.title')}
@@ -49,6 +60,7 @@ function Starters() {
         labelButtonAccept={t('recipe.modal.delete.button.accept')}
         labelButtonRefuse={t('recipe.modal.delete.button.refuse')}
         cancelOnClick={() => setDisplayDeleteAction(false)}
+        acceptOnClick={test}
       />
     </Page>
   )

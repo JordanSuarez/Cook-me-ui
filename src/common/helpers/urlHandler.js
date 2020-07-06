@@ -1,5 +1,5 @@
 import {ALL, BY_TYPE, LOGIN, ONE, TYPES} from '../constants/resources_type'
-import {GET, POST} from '../constants/methods'
+import {DELETE, GET, POST} from '../constants/methods'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES, USERS} from '../constants/resources'
 
 const {REACT_APP_API_HOST, REACT_APP_API_VERSION, REACT_APP_API_PORT, REACT_APP_API_PROTOCOL} = process.env
@@ -19,6 +19,9 @@ const endpoints = {
       },
       [POST]: {
         [ONE]: `${RECIPES}`,
+      },
+      [DELETE]: {
+        [ONE]: (meta) => `${RECIPES}/${meta}`,
       },
     },
     [INGREDIENTS]: {

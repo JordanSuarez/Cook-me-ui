@@ -39,7 +39,7 @@ export default (t, callBack) => {
               </Link>
             </Grid>
             <Grid item>
-              <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={() => callBack(value)}>
+              <IconButton key={value} title={t('recipe.card.footer.iconButton.delete')} onClick={() => callBack(value)}>
                 <DeleteIcon />
               </IconButton>
             </Grid>
