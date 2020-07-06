@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 
-import {any, objectOf} from 'prop-types'
+import {any, func, objectOf} from 'prop-types'
 import {useParams} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {BY_TYPE, ONE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {DELETE, GET} from 'common/constants/methods'
+import {ERROR, SUCCESS} from '../../common/constants/severity'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
 import AlertDialog from 'common/components/AlertDialog'
@@ -15,13 +16,12 @@ import getColumns from 'common/helpers/columns'
 import ListWrapper from 'common/components/ListWrapper'
 import Page from 'common/components/Page'
 
-function Starters() {
+function Starters({showToast}) {
   const {t} = useTranslation()
   const {id} = useParams()
   const [recipes, setRecipes] = useState([])
   const [displayDeleteAction, setDisplayDeleteAction] = useState(false)
 
-  console.log(recipes)
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
 
@@ -39,16 +39,27 @@ function Starters() {
     return setDisplayDeleteAction(true)
   }
 
-  function test(key) {
-    const url = getEndpoint(RECIPES, DELETE, ONE, key)
+  function test(value) {
+    const url = getEndpoint(RECIPES, DELETE, ONE, value)
+
+    setDisplayDeleteAction(false)
 
     callApi(url, DELETE)
       .then(() => {
-        console.log('test')
-        setDisplayDeleteAction(!displayDeleteAction)
+        const urlUpdated = getEndpoint(RECIPES, GET, BY_TYPE, id)
+
+        callApi(urlUpdated, GET)
+          .then(({data}) => {
+            setRecipes(data.map((recipe) => formatList(recipe)))
+          })
+          .catch(() => {})
+
+        return showToast(true, SUCCESS, t('loginPage.toast.success.title'), t('loginPage.toast.success.content'))
       })
-      .catch(() => {})
+      .catch(() => showToast(true, ERROR, t('loginPage.toast.error.title'), t('loginPage.toast.error.content')))
   }
+
+  console.log(displayDeleteAction)
 
   return (
     <Page title={t('startersPage.title')}>
@@ -68,6 +79,7 @@ function Starters() {
 
 Starters.propTypes = {
   location: objectOf(any).isRequired,
+  showToast: func.isRequired,
 }
 
 export default Starters
