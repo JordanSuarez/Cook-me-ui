@@ -13,7 +13,7 @@ import {useTranslation} from 'react-i18next'
 import {classes as classesProps} from 'common/props'
 
 import {getCreationRecipeRoute} from 'common/routing/routesResolver'
-import {LIST_CARD, LIST_TABLE} from '../../constants/resources'
+import {LIST_CARD, LIST_TABLE} from 'common/constants/resources'
 import AlertDialog from '../AlertDialog'
 import CTAButton from 'common/components/CTAButton'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
@@ -105,7 +105,7 @@ function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, can
       {displayCard && (
         <div>
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
-          {searchResults.length > 0 && <ListCard items={searchResults} />}
+          {searchResults.length > 0 && <ListCard items={searchResults} onClick={onClick} />}
           {/*Si il n'y a pas de résulats de recherches, on affiche la pagination */}
           {searchResults.length === 0 && (
             <Pagination

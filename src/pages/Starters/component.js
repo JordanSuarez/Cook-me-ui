@@ -7,7 +7,7 @@ import {useTranslation} from 'react-i18next'
 import {BY_TYPE, ONE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {DELETE, GET} from 'common/constants/methods'
-import {ERROR, INFO} from '../../common/constants/severity'
+import {ERROR, SUCCESS} from 'common/constants/severity'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
 import formatList from 'common/helpers/formatListForSearch'
@@ -44,7 +44,7 @@ function Starters({showToast}) {
         setRecipes({})
         setRecipes(recipesUpdated)
 
-        return showToast(true, INFO, t('recipe.modal.delete.toast.success.title'), t('recipe.modal.delete.toast.success.content'))
+        return showToast(true, SUCCESS, t('recipe.modal.delete.toast.success.title'), t('recipe.modal.delete.toast.success.content'))
       })
       .catch(() => showToast(true, ERROR, t('recipe.modal.delete.toast.error.title'), t('recipe.modal.delete.toast.error.content')))
   }

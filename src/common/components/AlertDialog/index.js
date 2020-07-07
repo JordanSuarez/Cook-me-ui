@@ -1,3 +1,6 @@
-import AlertDialog from './component'
+import {withStyles} from '@material-ui/core'
 
-export default AlertDialog
+import AlertDialog from './component'
+import styles from './styles'
+
+export default withStyles(styles)(AlertDialog)
