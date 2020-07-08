@@ -105,7 +105,7 @@ function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAct
         <div>
           {/*onDelete() correspond au onClick() du button delete sur la Card*/}
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
-          {searchResults.length > 0 && <ListCard items={searchResults} onDelete={onDeleteAction} />}
+          {searchResults.length > 0 && <ListCard items={searchResults} onDeleteAction={onDeleteAction} />}
           {/*Si il n'y a pas de résulats de recherches, on affiche la pagination */}
           {searchResults.length === 0 && (
             <Pagination
