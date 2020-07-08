@@ -8,7 +8,7 @@ import ShowIcon from '@material-ui/icons/VisibilityOutlined'
 import {getShowRecipeRoute} from '../routing/routesResolver'
 import IconButton from '../components/IconButton'
 
-export default (t, callBack) => {
+export default (t, onDeleteAction) => {
   return [
     {
       name: 'name',
@@ -39,7 +39,7 @@ export default (t, callBack) => {
               </Link>
             </Grid>
             <Grid item>
-              <IconButton key={value} title={t('recipe.card.footer.iconButton.delete')} onClick={() => callBack(value)}>
+              <IconButton key={value} title={t('recipe.card.footer.iconButton.delete')} onClick={() => onDeleteAction(value)}>
                 <DeleteIcon />
               </IconButton>
             </Grid>

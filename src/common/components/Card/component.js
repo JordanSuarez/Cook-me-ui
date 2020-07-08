@@ -8,10 +8,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 
 import IconButton from '../IconButton'
 
-import {classes as classesProps} from '../../props'
-import {getShowRecipeRoute} from '../../routing/routesResolver'
+import {classes as classesProps} from 'common/props'
+import {getShowRecipeRoute} from 'common/routing/routesResolver'
 
-function Card({id, name, image, classes, onClick}) {
+function Card({id, name, image, classes, onDeleteAction}) {
   const {t} = useTranslation()
 
   return (
@@ -19,13 +19,13 @@ function Card({id, name, image, classes, onClick}) {
       <Link to={getShowRecipeRoute(id)} className={classes.link}>
         <CardActionArea>
           <CardHeader title={name} />
-          <CardMedia className={classes.media} image={image} title="pie" />
+          <CardMedia className={classes.media} image={image} title={t('recipe.card.media.title')} />
         </CardActionArea>
       </Link>
       <CardActions>
         <Grid container justify="flex-end">
           <Grid item>
-            <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={onClick}>
+            <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={onDeleteAction}>
               <DeleteIcon />
             </IconButton>
           </Grid>
@@ -40,7 +40,7 @@ Card.propTypes = {
   image: string,
   name: string,
   ...classesProps,
-  onClick: func.isRequired,
+  onDeleteAction: func.isRequired,
 }
 
 Card.defaultProps = {

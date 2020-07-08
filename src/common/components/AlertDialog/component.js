@@ -6,7 +6,7 @@ import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogT
 import {classes as classesProps} from 'common/props'
 import CTAButton from '../CTAButton'
 
-function AlertDialog({open, title, content, labelButtonAccept, labelButtonRefuse, cancelOnClick, acceptOnClick, classes}) {
+function AlertDialog({open, title, content, agreeLabelButton, disagreeLabelButton, onCancel, onAgree, classes}) {
   return (
     <Dialog open={open}>
       <DialogTitle>{title}</DialogTitle>
@@ -14,9 +14,9 @@ function AlertDialog({open, title, content, labelButtonAccept, labelButtonRefuse
         <DialogContentText>{content}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <CTAButton handleClick={acceptOnClick} label={labelButtonAccept} />
-        <Button variant="contained" onClick={cancelOnClick} className={classes.acceptButton}>
-          {labelButtonRefuse}
+        <CTAButton handleClick={onAgree} label={agreeLabelButton} />
+        <Button variant="contained" onClick={onCancel} className={classes.acceptButton}>
+          {disagreeLabelButton}
         </Button>
       </DialogActions>
     </Dialog>
@@ -24,11 +24,11 @@ function AlertDialog({open, title, content, labelButtonAccept, labelButtonRefuse
 }
 
 AlertDialog.propTypes = {
-  acceptOnClick: func.isRequired,
-  cancelOnClick: func.isRequired,
+  agreeLabelButton: string.isRequired,
   content: string.isRequired,
-  labelButtonAccept: string.isRequired,
-  labelButtonRefuse: string.isRequired,
+  disagreeLabelButton: string.isRequired,
+  onAgree: func.isRequired,
+  onCancel: func.isRequired,
   open: bool.isRequired,
   title: string.isRequired,
   ...classesProps,

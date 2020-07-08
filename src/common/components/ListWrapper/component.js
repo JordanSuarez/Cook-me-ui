@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {any, arrayOf} from 'prop-types'
+import {any, arrayOf, bool, func} from 'prop-types'
 import {Grid} from '@material-ui/core'
 import {isEmpty} from 'lodash'
 import LinkToCreateForm from '@material-ui/icons/AddOutlined'
@@ -26,7 +26,7 @@ import SearchBar from 'common/components/SearchBar'
 /**
  * @return {null}
  */
-function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, cancelOnClick}) {
+function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAction, onAgreeAction}) {
   const {t} = useTranslation()
   const history = useHistory()
   const [searchResults, setSearchResults] = useState([])
@@ -72,22 +72,21 @@ function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, can
     return history.push(getCreationRecipeRoute())
   }
 
-  // TODO add key trad for creation recipe button
   return (
     <div>
       <Grid container direction="row-reverse" className={classes.ctaButton}>
-        <CTAButton handleClick={handleCreateFormDisplay} label="Create recipe">
+        <CTAButton handleClick={handleCreateFormDisplay} label={t('listWrapper.header.button.label.creation')}>
           <LinkToCreateForm fontSize="default" className={classes.icon} />
         </CTAButton>
       </Grid>
       <Grid container direction="row-reverse" justify="flex-start" spacing={2} className={classes.container}>
         <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
-          <IconButton title="Table view" onClick={() => handleListDisplay(LIST_TABLE)}>
+          <IconButton title={t('listWrapper.header.button.title.tableView')} onClick={() => handleListDisplay(LIST_TABLE)}>
             <ViewListTable color={colorTableIcon} fontSize="large" className={classes.iconButton} />
           </IconButton>
         </Grid>
         <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
-          <IconButton title="Card view" onClick={() => handleListDisplay(LIST_CARD)}>
+          <IconButton title={t('listWrapper.header.button.title.cardView')} onClick={() => handleListDisplay(LIST_CARD)}>
             <ViewListCard color={colorCardIcon} fontSize="large" className={classes.iconButton} />
           </IconButton>
         </Grid>
@@ -104,28 +103,27 @@ function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, can
       </Grid>
       {displayCard && (
         <div>
+          {/*onDelete() correspond au onClick() du button delete sur la Card*/}
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
-          {searchResults.length > 0 && <ListCard items={searchResults} onClick={onClick} />}
+          {searchResults.length > 0 && <ListCard items={searchResults} onDelete={onDeleteAction} />}
           {/*Si il n'y a pas de résulats de recherches, on affiche la pagination */}
           {searchResults.length === 0 && (
             <Pagination
               items={items}
               maxPerPage={5}
-              renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} onClick={onClick} />}
+              renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} onDeleteAction={onDeleteAction} />}
             />
           )}
         </div>
       )}
       {displayTable && (
         <div>
-          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} options={getOptions(t)} onClick={onClick} />}
+          {searchResults.length > 0 && <ListTable items={searchResults} columns={columns} options={getOptions(t)} />}
           {searchResults.length === 0 && (
             <Pagination
               items={items}
               maxPerPage={10}
-              renderChild={(itemsPaginated) => (
-                <ListTable items={itemsPaginated} columns={columns} options={getOptions(t)} onClick={onClick} />
-              )}
+              renderChild={(itemsPaginated) => <ListTable items={itemsPaginated} columns={columns} options={getOptions(t)} />}
             />
           )}
         </div>
@@ -134,10 +132,10 @@ function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, can
         open={open}
         title={t('recipe.modal.delete.title')}
         content={t('recipe.modal.delete.content')}
-        labelButtonAccept={t('recipe.modal.delete.button.accept')}
-        labelButtonRefuse={t('recipe.modal.delete.button.refuse')}
-        cancelOnClick={cancelOnClick}
-        acceptOnClick={acceptOnClick}
+        agreeLabelButton={t('recipe.modal.delete.button.agree')}
+        disagreeLabelButton={t('recipe.modal.delete.button.disagree')}
+        onCancel={onCancelAction}
+        onAgree={onAgreeAction}
       />
     </div>
   )
@@ -146,6 +144,10 @@ function ListWrapper({items, columns, classes, onClick, open, acceptOnClick, can
 ListWrapper.propTypes = {
   columns: arrayOf(any).isRequired,
   items: arrayOf(any),
+  onAgreeAction: func.isRequired,
+  onCancelAction: func.isRequired,
+  onDeleteAction: func.isRequired,
+  open: bool.isRequired,
   ...classesProps,
 }
 

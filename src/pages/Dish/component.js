@@ -19,7 +19,7 @@ function Dish({showToast}) {
   const {t} = useTranslation()
   const {id} = useParams()
   const [recipes, setRecipes] = useState([])
-  const [showDeleteAction, setShowDeleteAction] = useState(false)
+  const [showDialogConfirm, setShowDialogConfirm] = useState(false)
   const [valueOfRecipe, setValueOfRecipe] = useState('')
 
   useEffect(() => {
@@ -33,10 +33,10 @@ function Dish({showToast}) {
     // eslint-disable-next-line
   }, [])
 
-  function test() {
+  function deleteItem() {
     const url = getEndpoint(RECIPES, DELETE, ONE, valueOfRecipe)
 
-    setShowDeleteAction(false)
+    setShowDialogConfirm(false)
     callApi(url, DELETE)
       .then(() => {
         const recipesUpdated = recipes.filter((recipe) => recipe.id !== valueOfRecipe)
@@ -49,16 +49,16 @@ function Dish({showToast}) {
       .catch(() => showToast(true, ERROR, t('recipe.modal.delete.toast.error.title'), t('recipe.modal.delete.toast.error.content')))
   }
 
-  function handleDeleteClick(value) {
+  function handleDeleteAction(value) {
     setValueOfRecipe(value)
 
-    return setShowDeleteAction(true)
+    return setShowDialogConfirm(true)
   }
 
-  function handleAcceptOnClick() {
-    test()
+  function handleAgreeAction() {
+    deleteItem()
 
-    return setShowDeleteAction(false)
+    return setShowDialogConfirm(false)
   }
 
   return (
@@ -66,11 +66,11 @@ function Dish({showToast}) {
       {recipes.length > 0 && (
         <ListWrapper
           items={recipes}
-          columns={getColumns(t, handleDeleteClick)}
-          onClick={handleDeleteClick}
-          open={showDeleteAction}
-          acceptOnClick={handleAcceptOnClick}
-          cancelOnClick={() => setShowDeleteAction(false)}
+          columns={getColumns(t, handleDeleteAction)}
+          onDeleteAction={handleDeleteAction}
+          open={showDialogConfirm}
+          onAgreeAction={handleAgreeAction}
+          onCancelAction={() => setShowDialogConfirm(false)}
         />
       )}
     </Page>
