@@ -13,7 +13,7 @@ import {getDishRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
 import {classes as classesProps} from 'common/props'
-import {ERROR, SUCCESS} from '../../common/constants/severity'
+import {ERROR, SUCCESS} from 'common/constants/severity'
 
 function Login({classes, showToast}) {
   const history = useHistory()

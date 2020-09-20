@@ -7,7 +7,7 @@ i18n
   .use(HttpApi)
   .init({
     backend: {
-      loadPath: 'locales/{{lng}}.json',
+      loadPath: `${process.env.PUBLIC_URL}/locales/{{lng}}.json`,
     },
     lng: process.env.REACT_APP_LOCALE,
     interpolation: {

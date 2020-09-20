@@ -44,7 +44,7 @@ Card.propTypes = {
 }
 
 Card.defaultProps = {
-  image: 'images/pie.jpg',
+  image: `${process.env.PUBLIC_URL}/images/pie.jpg`,
   name: null,
 }
 

@@ -7,7 +7,7 @@ export default ({palette, spacing}) => ({
     color: palette.primary.main,
   },
   image: {
-    backgroundImage: 'url(images/login.jpg)',
+    backgroundImage: `url(${process.env.PUBLIC_URL}/images/login.jpg)`,
     backgroundRepeat: 'no-repeat',
     backgroundColor: palette.secondary.medium,
     backgroundSize: 'cover',
