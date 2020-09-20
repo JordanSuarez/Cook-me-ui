@@ -7,7 +7,7 @@ import {Divider, Typography} from '@material-ui/core'
 
 import {classes as classesProps} from '../../props'
 import Layout from '../Layout'
-import NavBar from '../NavBar/component'
+import NavBar from '../NavBar'
 
 function Page({children, classes, title}) {
   return (

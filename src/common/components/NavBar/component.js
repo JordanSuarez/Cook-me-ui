@@ -9,7 +9,7 @@ import {classes as classesProps} from '../../props'
 import {DESERTS, DISH, STARTERS} from 'common/constants/recipe_types'
 import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/routesResolver'
 
-function NavBar() {
+function NavBar({classes}) {
   const {t} = useTranslation()
   const history = useHistory()
 
@@ -26,7 +26,7 @@ function NavBar() {
   return (
     <div>
       <Grid container justify="center">
-        <Button key={STARTERS} variant="contained" onClick={handleStartersPageDisplay}>
+        <Button key={STARTERS} variant="contained" onClick={handleStartersPageDisplay} className={classes.button}>
           {t('navBar.starters')}
         </Button>
         <Button key={DISH} variant="contained" onClick={handleDishPageDisplay}>
