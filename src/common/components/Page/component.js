@@ -7,6 +7,7 @@ import {Divider, Typography} from '@material-ui/core'
 
 import {classes as classesProps} from '../../props'
 import Layout from '../Layout'
+import NavBar from '../NavBar/component'
 
 function Page({children, classes, title}) {
   return (
@@ -17,6 +18,7 @@ function Page({children, classes, title}) {
         </Typography>
         <Divider variant="middle" />
       </Grid>
+      <NavBar />
       {children}
     </Layout>
   )

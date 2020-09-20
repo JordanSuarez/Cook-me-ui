@@ -25,6 +25,11 @@
     "dish": "Dish",
     "deserts": "Deserts"
   },
+  "navBar": {
+    "starters": "Starters",
+    "dish": "Dish",
+    "deserts": "Deserts"
+  },
   "startersPage": {
     "title": "Starters"
   },

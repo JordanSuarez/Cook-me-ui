@@ -25,6 +25,11 @@
     "dish": "Plats",
     "deserts": "Desserts"
   },
+  "navBar": {
+    "starters": "Entrées",
+    "dish": "Plats",
+    "deserts": "Desserts"
+  },
   "startersPage": {
     "title": "Entrées"
   },
