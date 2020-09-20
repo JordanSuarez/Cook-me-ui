@@ -1,8 +1,8 @@
 import {generatePath} from 'react-router-dom'
 
-export const STARTERS = '/starters/:id'
-export const DISH = '/dish/:id'
-export const DESERTS = '/deserts/:id'
+export const STARTERS = '/starters'
+export const DISH = '/dish'
+export const DESERTS = '/deserts'
 export const RECIPE_NEW = '/recipes/new'
 export const RECIPE_SHOW = '/recipes/:id'
 

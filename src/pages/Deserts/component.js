@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 
 import {any, func, objectOf} from 'prop-types'
-import {useParams} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {BY_TYPE, ONE} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {DELETE, GET} from 'common/constants/methods'
+import {DESERTS} from 'common/constants/recipe_types'
 import {ERROR, SUCCESS} from 'common/constants/severity'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
@@ -17,13 +17,12 @@ import Page from 'common/components/Page'
 
 function Deserts({showToast}) {
   const {t} = useTranslation()
-  const {id} = useParams()
   const [recipes, setRecipes] = useState([])
   const [showDialogConfirm, setShowDialogConfirm] = useState(false)
   const [valueOfRecipe, setValueOfRecipe] = useState('')
 
   useEffect(() => {
-    const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
+    const url = getEndpoint(RECIPES, GET, BY_TYPE, DESERTS)
 
     callApi(url, GET)
       .then(({data}) => {

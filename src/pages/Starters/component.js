@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
 import {any, func, objectOf} from 'prop-types'
-import {useParams} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {BY_TYPE, ONE} from 'common/constants/resources_type'
@@ -10,6 +9,7 @@ import {DELETE, GET} from 'common/constants/methods'
 import {ERROR, SUCCESS} from 'common/constants/severity'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {RECIPES} from 'common/constants/resources'
+import {STARTERS} from 'common/constants/recipe_types'
 import formatList from 'common/helpers/formatListForSearch'
 import getColumns from 'common/helpers/columns'
 import ListWrapper from 'common/components/ListWrapper'
@@ -17,13 +17,12 @@ import Page from 'common/components/Page'
 
 function Starters({showToast}) {
   const {t} = useTranslation()
-  const {id} = useParams()
   const [recipes, setRecipes] = useState([])
   const [showDialogConfirm, setShowDialogConfirm] = useState(false)
-  const [valueOfRecipe, setValueOfRecipe] = useState('')
+  const [recipeId, setRecipeId] = useState('')
 
   useEffect(() => {
-    const url = getEndpoint(RECIPES, GET, BY_TYPE, id)
+    const url = getEndpoint(RECIPES, GET, BY_TYPE, STARTERS)
 
     callApi(url, GET)
       .then(({data}) => {
@@ -34,13 +33,14 @@ function Starters({showToast}) {
   }, [])
 
   function deleteItem() {
-    const url = getEndpoint(RECIPES, DELETE, ONE, valueOfRecipe)
+    const url = getEndpoint(RECIPES, DELETE, ONE, recipeId)
 
     setShowDialogConfirm(false)
     callApi(url, DELETE)
       .then(() => {
-        const recipesUpdated = recipes.filter((recipe) => recipe.id !== valueOfRecipe)
+        const recipesUpdated = recipes.filter((recipe) => recipe.id !== recipeId)
 
+        // TODO improve
         setRecipes({})
         setRecipes(recipesUpdated)
 
@@ -50,7 +50,7 @@ function Starters({showToast}) {
   }
 
   function handleDeleteAction(value) {
-    setValueOfRecipe(value)
+    setRecipeId(value)
 
     return setShowDialogConfirm(true)
   }
