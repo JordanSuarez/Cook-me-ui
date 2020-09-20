@@ -9,7 +9,7 @@ import {TextField} from 'mui-rff'
 import {useTranslation} from 'react-i18next'
 import LoginIcon from '@material-ui/icons/LockOutlined'
 
-import {getHomeRoute} from 'common/routing/routesResolver'
+import {getDishRoute} from 'common/routing/routesResolver'
 import {handleLogin} from 'common/helpers/repository'
 
 import {classes as classesProps} from 'common/props'
@@ -32,7 +32,7 @@ function Login({classes, showToast}) {
     handleLogin(values)
       .then((logged) => {
         if (logged) {
-          history.push(getHomeRoute())
+          history.push(getDishRoute())
         }
 
         return showToast(true, SUCCESS, t('loginPage.toast.success.title'), t('loginPage.toast.success.content'))
