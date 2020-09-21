@@ -1,7 +1,6 @@
 import React from 'react'
 
 import {Button, Grid} from '@material-ui/core'
-import {string} from 'prop-types'
 import {useHistory, useLocation} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
@@ -62,12 +61,7 @@ function NavBar({classes}) {
 }
 
 NavBar.propTypes = {
-  desertsColor: string.isRequired,
-  dishColor: string.isRequired,
-  startersColor: string.isRequired,
   ...classesProps,
 }
-
-NavBar.defaultProps = {}
 
 export default NavBar

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 
-import {any, func, number, objectOf} from 'prop-types'
+import {func, number} from 'prop-types'
 import {useTranslation} from 'react-i18next'
 
 import {BY_TYPE, ONE} from 'common/constants/resources_type'
@@ -76,7 +76,6 @@ function ResourceWrapper({showToast, recipeTypeId}) {
 }
 
 ResourceWrapper.propTypes = {
-  location: objectOf(any).isRequired,
   recipeTypeId: number.isRequired,
   showToast: func.isRequired,
 }
