@@ -1,7 +1,7 @@
 import React from 'react'
 
 import {Button, Grid} from '@material-ui/core'
-import {useHistory, useLocation} from 'react-router-dom'
+import {useHistory, useRouteMatch} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 
 import {classes as classesProps} from 'common/props'
@@ -12,8 +12,8 @@ import {getDesertsRoute, getDishRoute, getStartersRoute} from 'common/routing/ro
 function NavBar({classes}) {
   const {t} = useTranslation()
   const history = useHistory()
-  const location = useLocation()
-  const currentLocationName = location.pathname.replace('/', '')
+  const match = useRouteMatch()
+  const currentLocationName = match.url.replace('/', '')
 
   function handleDishPageDisplay() {
     return history.push(getDishRoute())
@@ -35,7 +35,7 @@ function NavBar({classes}) {
           color="primary"
           className={currentLocationName === STARTERS ? classes.currentButton : classes.button}
         >
-          {t('navBar.starters')}
+          {t('navBar.items.starters')}
         </Button>
         <Button
           key={dishId}
@@ -44,7 +44,7 @@ function NavBar({classes}) {
           color="primary"
           className={currentLocationName === DISH ? classes.currentButton : classes.button}
         >
-          {t('navBar.dish')}
+          {t('navBar.items.dish')}
         </Button>
         <Button
           key={desertsId}
@@ -53,7 +53,7 @@ function NavBar({classes}) {
           color="primary"
           className={currentLocationName === DESERTS ? classes.currentButton : classes.button}
         >
-          {t('navBar.deserts')}
+          {t('navBar.items.deserts')}
         </Button>
       </Grid>
     </div>

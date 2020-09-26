@@ -16,7 +16,6 @@ export const routes = [
   //recipesRouting,
   recipeRouting,
   loginRouting,
-  // homeRouting,
   logoutRouting,
   creationRecipeRouting,
   startersRouting,

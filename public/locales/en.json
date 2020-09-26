@@ -19,16 +19,12 @@
       }
     }
   },
-  "homePage": {
-    "title": "The recipe garden",
-    "starters": "Starters",
-    "dish": "Dish",
-    "deserts": "Deserts"
-  },
   "navBar": {
+    "items": {
     "starters": "Starters",
     "dish": "Dish",
     "deserts": "Deserts"
+    }
   },
   "startersPage": {
     "title": "Starters"

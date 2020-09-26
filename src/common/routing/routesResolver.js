@@ -3,10 +3,10 @@ import {generatePath} from 'react-router-dom'
 export const STARTERS = '/starters'
 export const DISH = '/dish'
 export const DESERTS = '/deserts'
+// TODO can't acces to recipe creation page without remove /new after /recipes
 export const RECIPE_NEW = '/recipes/new'
 export const RECIPE_SHOW = '/recipes/:id'
 
-// export const getHomeRoute = () => '/home'
 export const getLoginRoute = () => '/login'
 export const getLogoutRoute = () => '/logout'
 export const getRecipesRoute = () => '/recipes'

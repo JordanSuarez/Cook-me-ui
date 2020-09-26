@@ -19,16 +19,12 @@
       }
     }
   },
-  "homePage": {
-    "title": "Le jardin des recettes",
-    "starters": "Entrées",
-    "dish": "Plats",
-    "deserts": "Desserts"
-  },
   "navBar": {
+    "items": {
     "starters": "Entrées",
     "dish": "Plats",
     "deserts": "Desserts"
+    }
   },
   "startersPage": {
     "title": "Entrées"
