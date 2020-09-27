@@ -25,36 +25,28 @@ function NavBar({classes}) {
     return history.push(getStartersRoute())
   }
 
+  const types = [
+    {id: startersId, name: STARTERS, method: handleStartersPageDisplay, keyTrad: 'navBar.items.starters'},
+    {id: dishId, name: DISH, method: handleDishPageDisplay, keyTrad: 'navBar.items.dish'},
+    {id: desertsId, name: DESERTS, method: handleDesertsPageDisplay, keyTrad: 'navBar.items.deserts'},
+  ]
+
   return (
     <div>
       <Grid container justify="center">
-        <Button
-          key={startersId}
-          variant="contained"
-          onClick={handleStartersPageDisplay}
-          color="primary"
-          className={currentLocationName === STARTERS ? classes.currentButton : classes.button}
-        >
-          {t('navBar.items.starters')}
-        </Button>
-        <Button
-          key={dishId}
-          variant="contained"
-          onClick={handleDishPageDisplay}
-          color="primary"
-          className={currentLocationName === DISH ? classes.currentButton : classes.button}
-        >
-          {t('navBar.items.dish')}
-        </Button>
-        <Button
-          key={desertsId}
-          variant="contained"
-          onClick={handleDesertsPageDisplay}
-          color="primary"
-          className={currentLocationName === DESERTS ? classes.currentButton : classes.button}
-        >
-          {t('navBar.items.deserts')}
-        </Button>
+        {types.map(({id, name, method, keyTrad}) => {
+          return (
+            <Button
+              key={id}
+              variant="contained"
+              onClick={method}
+              color="primary"
+              className={currentLocationName === name ? classes.currentButton : classes.button}
+            >
+              {t(keyTrad)}
+            </Button>
+          )
+        })}
       </Grid>
     </div>
   )
