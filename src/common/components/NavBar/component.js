@@ -14,32 +14,25 @@ function NavBar({classes}) {
   const history = useHistory()
   const match = useRouteMatch()
   const currentLocationName = match.url.replace('/', '')
-
-  function handleDishPageDisplay() {
-    return history.push(getDishRoute())
-  }
-  function handleDesertsPageDisplay() {
-    return history.push(getDesertsRoute())
-  }
-  function handleStartersPageDisplay() {
-    return history.push(getStartersRoute())
-  }
-
   const types = [
-    {id: startersId, name: STARTERS, method: handleStartersPageDisplay, keyTrad: 'navBar.items.starters'},
-    {id: dishId, name: DISH, method: handleDishPageDisplay, keyTrad: 'navBar.items.dish'},
-    {id: desertsId, name: DESERTS, method: handleDesertsPageDisplay, keyTrad: 'navBar.items.deserts'},
+    {id: startersId, name: STARTERS, route: getStartersRoute(), keyTrad: 'navBar.items.starters'},
+    {id: dishId, name: DISH, route: getDishRoute(), keyTrad: 'navBar.items.dish'},
+    {id: desertsId, name: DESERTS, route: getDesertsRoute(), keyTrad: 'navBar.items.deserts'},
   ]
+
+  function handlePageDisplay(route) {
+    return history.push(route)
+  }
 
   return (
     <div>
       <Grid container justify="center">
-        {types.map(({id, name, method, keyTrad}) => {
+        {types.map(({id, name, route, keyTrad}) => {
           return (
             <Button
               key={id}
               variant="contained"
-              onClick={method}
+              onClick={() => handlePageDisplay(route)}
               color="primary"
               className={currentLocationName === name ? classes.currentButton : classes.button}
             >
