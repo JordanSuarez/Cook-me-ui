@@ -1,9 +1,9 @@
 import {RECIPE_NEW} from 'common/routing/routesResolver'
-import CreateForm from '../index'
+import CreationForm from '../index'
 
 export default {
   id: 'creationRecipePage',
   path: RECIPE_NEW,
-  component: CreateForm,
+  component: CreationForm,
   requireAuthentication: true,
 }
