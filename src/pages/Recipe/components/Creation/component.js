@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
+import {find, get} from 'lodash'
 import {Form} from 'react-final-form'
-import {get} from 'lodash'
 import {Radios, TextField} from 'mui-rff'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
@@ -13,7 +13,7 @@ import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
 import {GET, POST} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
-import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
+import {INGREDIENTS, QUANTITY_TYPE, RECIPES, RECIPES_TYPE} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import getFormValuesFormated from './helper/dataHandler'
 import IngredientFieldArray from './components/IngredientFieldArray'
@@ -24,6 +24,12 @@ import WysiwygEditor from 'common/components/WysiwygEditor'
 function CreationForm({classes, validateFields}) {
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
+  function findByResource(values, resource) {
+    return find(values, function (value) {
+      return value.config.url === `/${resource}`
+    })
+  }
+
   useEffect(() => {
     const promises = [
       callApi(getEndpoint(INGREDIENTS, GET, ALL), GET),
@@ -33,11 +39,10 @@ function CreationForm({classes, validateFields}) {
 
     Promise.all(promises)
       .then((values) => {
-        // TODO adjust backend to retrieve data with a more elegant way
         setList({
-          ingredients: values[0].data,
-          quantityTypes: values[1].data,
-          recipeTypes: values[2].data,
+          ingredients: findByResource(values, INGREDIENTS).data,
+          quantityTypes: findByResource(values, QUANTITY_TYPE).data,
+          recipeTypes: findByResource(values, RECIPES_TYPE).data,
         })
       })
       .catch(() => {})
