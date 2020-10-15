@@ -3,19 +3,13 @@ import React, {useState} from 'react'
 import {any, arrayOf, bool, func} from 'prop-types'
 import {Grid} from '@material-ui/core'
 import {isEmpty} from 'lodash'
-import LinkToCreateForm from '@material-ui/icons/AddOutlined'
+import {useTranslation} from 'react-i18next'
 import ViewListCard from '@material-ui/icons/ViewModule'
 import ViewListTable from '@material-ui/icons/ViewHeadline'
 
-import {useHistory} from 'react-router-dom'
-import {useTranslation} from 'react-i18next'
-
 import {classes as classesProps} from 'common/props'
-
-import {getCreationRecipeRoute} from 'common/routing/routesResolver'
 import {LIST_CARD, LIST_TABLE} from 'common/constants/resources'
 import AlertDialog from '../AlertDialog'
-import CTAButton from 'common/components/CTAButton'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
 import IconButton from '../IconButton'
 import ListCard from 'common/components/ListCard'
@@ -28,7 +22,6 @@ import SearchBar from 'common/components/SearchBar'
  */
 function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAction, onAgreeAction}) {
   const {t} = useTranslation()
-  const history = useHistory()
   const [searchResults, setSearchResults] = useState([])
   const [displayCard, setDisplayCard] = useState(true)
   const [displayTable, setDisplayTable] = useState(false)
@@ -68,17 +61,8 @@ function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAct
     return setDisplayTable(false)
   }
 
-  function handleCreateFormDisplay() {
-    return history.push(getCreationRecipeRoute())
-  }
-
   return (
     <div>
-      <Grid container direction="row-reverse" className={classes.ctaButton}>
-        <CTAButton handleClick={handleCreateFormDisplay} label={t('listWrapper.header.button.label.creation')}>
-          <LinkToCreateForm fontSize="default" className={classes.icon} />
-        </CTAButton>
-      </Grid>
       <Grid container direction="row-reverse" justify="flex-start" spacing={2} className={classes.container}>
         <Grid item xs={2} sm={1} md={1} lg={1} xl={1}>
           <IconButton title={t('listWrapper.header.button.title.tableView')} onClick={() => handleListDisplay(LIST_TABLE)}>
