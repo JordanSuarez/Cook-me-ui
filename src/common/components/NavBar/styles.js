@@ -4,7 +4,7 @@ export default ({palette}) => {
       flexGrow: 1,
     },
     navBar: {
-      backgroundColor: palette.primary.medium,
+      backgroundColor: palette.common.grey.light,
       padding: 0,
     },
     toolBar: {
@@ -16,10 +16,19 @@ export default ({palette}) => {
     },
     menuButton: {
       textAlign: 'left',
-      color: palette.primary.main,
+      color: palette.common.grey.dark,
+    },
+    containerCreateRecipeButton: {
+      '& .MuiButton-label': {
+        flexDirection: 'row-reverse',
+        marginRight: '0.5rem',
+      },
+    },
+    createRecipeIcon: {
+      marginRight: '1rem',
     },
     userIcon: {
-      color: palette.primary.main,
+      color: palette.common.grey.dark,
     },
     logoutIcon: {
       marginLeft: '0.8rem',
@@ -32,16 +41,21 @@ export default ({palette}) => {
     },
     linkContainer: {
       display: 'flex',
+      marginLeft: '1rem',
     },
     button: {
-      margin: '0.5rem 0.2rem',
-      fontSize: '1.1rem',
+      fontSize: '1rem',
+      textTransform: 'none',
+      color: palette.common.grey.dark,
     },
     currentButton: {
       '&:disabled': {
-        color: palette.primary.main,
-        margin: '0.5rem 0.2rem',
-        fontSize: '1.5rem',
+        textTransform: 'none',
+        color: palette.common.dark,
+        fontSize: '1.4rem',
+        backgroundColor: '#FAFAFA',
+        marginBottom: '-2rem',
+        paddingBottom: '2.5rem',
       },
     },
   }

@@ -95,9 +95,9 @@ function NavBar({classes}) {
                       )
                     }
                   })}
-                  <MenuItem>
+                  <MenuItem className={classes.containerCreateRecipeButton}>
                     <CTAButton handleClick={handleCreateFormDisplay} label={t('listWrapper.header.button.label.creation')}>
-                      <LinkToCreateForm fontSize="default" className={classes.icon} />
+                      <LinkToCreateForm fontSize="default" className={classes.createRecipeIcon} />
                     </CTAButton>
                   </MenuItem>
                 </Menu>
@@ -121,10 +121,10 @@ function NavBar({classes}) {
               })}
             </div>
             <Grid container alignItems="center" justify="flex-end">
-              <Grid item>
+              <Grid item className={classes.containerCreateRecipeButton}>
                 <Hidden xsDown>
                   <CTAButton handleClick={handleCreateFormDisplay} label={t('listWrapper.header.button.label.creation')}>
-                    <LinkToCreateForm fontSize="default" className={classes.icon} />
+                    <LinkToCreateForm fontSize="default" className={classes.createRecipeIcon} />
                   </CTAButton>
                 </Hidden>
               </Grid>

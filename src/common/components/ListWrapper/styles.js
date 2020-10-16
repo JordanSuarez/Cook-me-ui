@@ -8,9 +8,6 @@ export default ({palette}) => ({
   container: {
     marginTop: '10px',
   },
-  icon: {
-    marginLeft: '10px',
-  },
   searchBar: {
     paddingTop: '5px',
   },
