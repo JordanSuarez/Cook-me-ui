@@ -2,13 +2,14 @@ import React from 'react'
 
 import {Link} from 'react-router-dom'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 import Grid from '@material-ui/core/Grid'
 import ShowIcon from '@material-ui/icons/VisibilityOutlined'
 
 import {getShowRecipeRoute} from '../routing/routesResolver'
 import IconButton from '../components/IconButton'
 
-export default (t, onDeleteAction) => {
+export default (t, onDeleteAction, onEditAction) => {
   return [
     {
       name: 'name',
@@ -37,6 +38,11 @@ export default (t, onDeleteAction) => {
                   <ShowIcon />
                 </IconButton>
               </Link>
+            </Grid>
+            <Grid item>
+              <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={() => onEditAction(value)}>
+                <EditIcon />
+              </IconButton>
             </Grid>
             <Grid item>
               <IconButton key={value} title={t('recipe.card.footer.iconButton.delete')} onClick={() => onDeleteAction(value)}>

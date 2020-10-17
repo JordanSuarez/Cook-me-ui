@@ -37,13 +37,13 @@
   },
   "recipe": {
     "modal": {
+      "button": {
+        "agree": "Oui",
+        "disagree": "Non"
+      },
       "delete": {
         "title": "Confirmation de la suppression",
         "content": "Êtes-vous sûr de vouloir supprimer cette recette?",
-        "button": {
-          "agree": "Oui",
-          "disagree": "Non"
-        },
         "toast": {
           "success": {
             "title": "La recette à été supprimé",
@@ -54,12 +54,17 @@
             "content": "Oupsi !"
           }
         }
+      },
+      "edit": {
+        "title": "Confirmation de la modification",
+        "content": "Êtes-vous sûr de vouloir modifier cette recette?"
       }
     },
     "card": {
       "footer": {
         "iconButton": {
-          "delete": "Supprimer la recette"
+          "delete": "Supprimer la recette",
+          "edit": "Modifier la recette"
         },
         "media": {
           "title": "test"

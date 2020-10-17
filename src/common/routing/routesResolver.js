@@ -5,6 +5,7 @@ export const DISH = '/dish'
 export const DESERTS = '/deserts'
 export const RECIPE_NEW = '/recipes/new'
 export const RECIPE_SHOW = '/recipes/:id/show'
+export const RECIPE_EDIT = '/recipes/:id/edit'
 
 export const getLoginRoute = () => '/login'
 export const getLogoutRoute = () => '/logout'
@@ -14,3 +15,4 @@ export const getDesertsRoute = () => generatePath(DESERTS)
 export const getDishRoute = () => generatePath(DISH)
 export const getCreationRecipeRoute = () => generatePath(RECIPE_NEW)
 export const getShowRecipeRoute = (id) => generatePath(RECIPE_SHOW, {id})
+export const getEditRecipeRoute = (id) => generatePath(RECIPE_EDIT, {id})

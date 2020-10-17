@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import {any, arrayOf, bool, func} from 'prop-types'
+import {any, arrayOf, func, node} from 'prop-types'
 import {Grid} from '@material-ui/core'
 import {isEmpty} from 'lodash'
 import {useTranslation} from 'react-i18next'
@@ -9,7 +9,6 @@ import ViewListTable from '@material-ui/icons/ViewHeadline'
 
 import {classes as classesProps} from 'common/props'
 import {LIST_CARD, LIST_TABLE} from 'common/constants/resources'
-import AlertDialog from '../AlertDialog'
 import getOptions from 'common/helpers/muiDataTableOptionsListWrapper'
 import IconButton from '../IconButton'
 import ListCard from 'common/components/ListCard'
@@ -20,7 +19,7 @@ import SearchBar from 'common/components/SearchBar'
 /**
  * @return {null}
  */
-function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAction, onAgreeAction}) {
+function ListWrapper({items, columns, classes, onDeleteAction, onEditAction, children}) {
   const {t} = useTranslation()
   const [searchResults, setSearchResults] = useState([])
   const [displayCard, setDisplayCard] = useState(true)
@@ -95,7 +94,9 @@ function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAct
             <Pagination
               items={items}
               maxPerPage={5}
-              renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} onDeleteAction={onDeleteAction} />}
+              renderChild={(itemsPaginated) => (
+                <ListCard items={itemsPaginated} onDeleteAction={onDeleteAction} onEditAction={onEditAction} />
+              )}
             />
           )}
         </div>
@@ -112,26 +113,17 @@ function ListWrapper({items, columns, classes, onDeleteAction, open, onCancelAct
           )}
         </div>
       )}
-      <AlertDialog
-        open={open}
-        title={t('recipe.modal.delete.title')}
-        content={t('recipe.modal.delete.content')}
-        agreeLabelButton={t('recipe.modal.delete.button.agree')}
-        disagreeLabelButton={t('recipe.modal.delete.button.disagree')}
-        onCancel={onCancelAction}
-        onAgree={onAgreeAction}
-      />
+      {children}
     </div>
   )
 }
 
 ListWrapper.propTypes = {
+  children: node.isRequired,
   columns: arrayOf(any).isRequired,
   items: arrayOf(any),
-  onAgreeAction: func.isRequired,
-  onCancelAction: func.isRequired,
   onDeleteAction: func.isRequired,
-  open: bool.isRequired,
+  onEditAction: func.isRequired,
   ...classesProps,
 }
 

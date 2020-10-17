@@ -5,13 +5,14 @@ import {func, number, string} from 'prop-types'
 import {Link} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
 import DeleteIcon from '@material-ui/icons/Delete'
+import EditIcon from '@material-ui/icons/Edit'
 
 import IconButton from '../IconButton'
 
 import {classes as classesProps} from 'common/props'
 import {getShowRecipeRoute} from 'common/routing/routesResolver'
 
-function Card({id, name, image, classes, onDeleteAction}) {
+function Card({id, name, image, classes, onDeleteAction, onEditAction}) {
   const {t} = useTranslation()
 
   return (
@@ -24,6 +25,11 @@ function Card({id, name, image, classes, onDeleteAction}) {
       </Link>
       <CardActions>
         <Grid container justify="flex-end">
+          <Grid item>
+            <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={onEditAction}>
+              <EditIcon />
+            </IconButton>
+          </Grid>
           <Grid item>
             <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={onDeleteAction}>
               <DeleteIcon />
@@ -41,6 +47,7 @@ Card.propTypes = {
   name: string,
   ...classesProps,
   onDeleteAction: func.isRequired,
+  onEditAction: func.isRequired,
 }
 
 Card.defaultProps = {
