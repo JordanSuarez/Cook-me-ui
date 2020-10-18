@@ -4,6 +4,7 @@ import dishRouting from 'pages/Dish/config/routing'
 import loginRouting from 'pages/Login/config/routing'
 import logoutRouting from 'pages/Logout/config/routing'
 //import recipesRouting from 'pages/Recipes/config/routing'
+import editionRecipeRouting from 'pages/Recipe/components/Edition/config/routing'
 import recipeRouting from 'pages/Recipe/config/routing'
 import startersRouting from 'pages/Starters/config/routing'
 
@@ -17,6 +18,7 @@ export const routes = [
   recipeRouting,
   loginRouting,
   logoutRouting,
+  editionRecipeRouting,
   creationRecipeRouting,
   startersRouting,
   dishRouting,
