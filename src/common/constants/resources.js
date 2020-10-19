@@ -1,5 +1,4 @@
 export const RECIPES = 'recipes'
-export const RECIPES_TYPE = 'recipes/types'
 export const INGREDIENTS = 'ingredients'
 export const USERS = 'users'
 export const LIST_TABLE = 'list_table'
