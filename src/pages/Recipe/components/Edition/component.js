@@ -12,7 +12,7 @@ import arrayMutators from 'final-form-arrays'
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
-import {GET, POST} from 'common/constants/methods'
+import {GET, PATCH} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
@@ -27,9 +27,7 @@ function EditForm({classes, validateFields}) {
   const [recipeData, setRecipeData] = useState({ingredients: []})
   const [loadData, setLoadData] = useState(false)
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
-  const [recipeName, setRecipeName] = useState('')
-  const [preparationTime, setPreparationTime] = useState('')
-  const [instruction, setInstruction] = useState('')
+  const [recipeTypeSelected, setRecipeTypeSelected] = useState(null)
 
   useEffect(() => {
     const url = getEndpoint(RECIPES, GET, ONE, id)
@@ -43,9 +41,7 @@ function EditForm({classes, validateFields}) {
     callApi(url, GET)
       .then(({data}) => {
         setRecipeData(data)
-        setRecipeName(data.name)
-        setPreparationTime(data.preparationTime)
-        setInstruction(data.instruction)
+        setRecipeTypeSelected(data.type)
         setLoadData(true)
       })
       .then(
@@ -62,42 +58,34 @@ function EditForm({classes, validateFields}) {
     // eslint-disable-next-line
   }, [])
 
-  function onSubmit(values) {
-    console.log(values)
+  function onSubmit(values, initialValues) {
+    console.log(values, initialValues)
     if (!get(values, 'requiredIngredients')) {
       return false
     }
 
-    return callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValuesFormated(values))
+    return callApi(getEndpoint(RECIPES, PATCH, ONE, id), PATCH, getFormValuesFormated(values))
   }
 
-  // const handleChangeIngredient = (event) => {
-  //   return this.setState(event.target.value)
-  // }
-
-  function handleChangeRecipeName(event) {
-    return setRecipeName(event.target.value)
-  }
-
-  function handleChangePreparationTime(event) {
-    return setPreparationTime(event.target.value)
-  }
-
-  function handleChangeInstruction(content) {
-    // content is props of react-quill
-    setInstruction(content)
+  const initialValues = {
+    name: recipeData.name,
+    type: recipeData.type,
+    preparationTime: recipeData.preparationTime,
+    instruction: recipeData.instruction,
+    requiredIngredients: recipeData.ingredients,
   }
 
   // TODO add key trad
   return (
     <div>
       {loadData && (
-        <Page title={recipeName}>
+        <Page title={recipeData.name}>
           <Grid container className={classes.root}>
             <Paper className={classes.paper}>
               <Form
                 onSubmit={onSubmit}
                 validate={validateFields}
+                initialValues={initialValues}
                 autoComplete="off"
                 mutators={{
                   ...arrayMutators,
@@ -111,14 +99,7 @@ function EditForm({classes, validateFields}) {
                   return (
                     <form onSubmit={handleSubmit}>
                       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <TextField
-                          name="name"
-                          margin="normal"
-                          label="name"
-                          autoFocus
-                          value={recipeName}
-                          onChange={handleChangeRecipeName}
-                        />
+                        <TextField name="name" margin="normal" label="name" autoFocus />
                       </Grid>
                       <Grid container spacing={1} className={classes.radioField}>
                         {/* eslint-disable-next-line no-shadow */}
@@ -129,8 +110,12 @@ function EditForm({classes, validateFields}) {
                                 key={id}
                                 color="primary"
                                 name="type"
-                                checked={recipeData.type === id}
-                                value={recipeData.type === id}
+                                type="radio"
+                                value={id}
+                                checked={recipeTypeSelected === id}
+                                onClick={(event) => {
+                                  setRecipeTypeSelected(parseInt(event.target.value, 10))
+                                }}
                                 required
                                 data={[{label: `${name}`, value: `${id}`}]}
                               />
@@ -148,8 +133,6 @@ function EditForm({classes, validateFields}) {
                               endAdornment: <InputAdornment position="end">Minutes</InputAdornment>,
                             }}
                             className={classes.selectField}
-                            value={preparationTime}
-                            onChange={handleChangePreparationTime}
                           />
                         </Grid>
                         <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.timerIcon}>
@@ -158,7 +141,7 @@ function EditForm({classes, validateFields}) {
                       </Grid>
 
                       <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.instructionField}>
-                        <WysiwygEditor theme="snow" name="instruction" value={instruction} onChange={handleChangeInstruction} />
+                        <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
                         {/*{recipeData.ingredients.map((ingredient) => {*/}
