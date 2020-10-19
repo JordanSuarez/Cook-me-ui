@@ -33,14 +33,6 @@ function NavBar({classes}) {
     return history.push(route)
   }
 
-  function handleUserMenu(event) {
-    return setUserAnchorEl(event.currentTarget)
-  }
-
-  function handleMainMenu(event) {
-    return setMainAnchorEl(event.currentTarget)
-  }
-
   function handleClose(state) {
     return state(null)
   }
@@ -66,7 +58,7 @@ function NavBar({classes}) {
                   aria-label="menu"
                   aria-controls="menu-appbar-types"
                   aria-haspopup="true"
-                  onClick={handleMainMenu}
+                  onClick={(event) => setMainAnchorEl(event.currentTarget)}
                 >
                   <MenuIcon fontSize="large" />
                 </IconButton>
@@ -86,7 +78,7 @@ function NavBar({classes}) {
                   onClose={() => handleClose(setMainAnchorEl)}
                 >
                   {/* eslint-disable-next-line array-callback-return,consistent-return */}
-                  {types.map(function ({id, name, route, keyTrad}) {
+                  {types.map(({id, name, route, keyTrad}) => {
                     if (currentLocationName !== name) {
                       return (
                         <MenuItem key={id} onClick={() => handlePageDisplay(route)}>
@@ -133,7 +125,7 @@ function NavBar({classes}) {
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
-                  onClick={handleUserMenu}
+                  onClick={(event) => setUserAnchorEl(event.currentTarget)}
                   className={classes.userIcon}
                 >
                   <AccountCircle fontSize="large" />
