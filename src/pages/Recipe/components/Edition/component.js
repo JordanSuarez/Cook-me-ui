@@ -12,7 +12,7 @@ import arrayMutators from 'final-form-arrays'
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
-import {GET, PATCH} from 'common/constants/methods'
+import {GET, PUT} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
@@ -37,7 +37,6 @@ function EditForm({classes, validateFields}) {
       callApi(getEndpoint(RECIPES, GET, TYPES), GET),
     ]
 
-    // TODO adjust backend for a more elegant way to retrieve data
     callApi(url, GET)
       .then(({data}) => {
         setRecipeData(data)
@@ -64,7 +63,7 @@ function EditForm({classes, validateFields}) {
       return false
     }
 
-    return callApi(getEndpoint(RECIPES, PATCH, ONE, id), PATCH, getFormValuesFormated(values))
+    return callApi(getEndpoint(RECIPES, PUT, ONE, id), PUT, getFormValuesFormated(values))
   }
 
   const initialValues = {
@@ -72,7 +71,6 @@ function EditForm({classes, validateFields}) {
     type: recipeData.type,
     preparationTime: recipeData.preparationTime,
     instruction: recipeData.instruction,
-    requiredIngredients: recipeData.ingredients,
   }
 
   // TODO add key trad
@@ -144,20 +142,7 @@ function EditForm({classes, validateFields}) {
                         <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
-                        {/*{recipeData.ingredients.map((ingredient) => {*/}
-                        {/*  console.log(ingredient.name)*/}
-                        {/*  console.log(recipeData)*/}
-
-                        {/*return (*/}
-                        <IngredientFields
-                          // key={ingredient.id}
-                          name="requiredIngredients"
-                          items={list}
-                          displayButton
-                        />
-                        {/*  )*/}
-                        {/*})}*/}
-                        {/*<IngredientFields name="requiredIngredients" items={list} displayButton={true} />*/}
+                        <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
                         <IngredientFieldArray items={list} />
                       </Grid>
                       <Grid item className={classes.submitButton}>
