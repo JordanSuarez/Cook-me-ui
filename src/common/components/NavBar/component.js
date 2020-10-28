@@ -77,16 +77,14 @@ function NavBar({classes}) {
                   open={openMainMenu}
                   onClose={() => handleClose(setMainAnchorEl)}
                 >
-                  {/* eslint-disable-next-line array-callback-return,consistent-return */}
-                  {types.map(({id, name, route, keyTrad}) => {
-                    if (currentLocationName !== name) {
-                      return (
+                  {types.map(
+                    ({id, name, route, keyTrad}) =>
+                      currentLocationName !== name && (
                         <MenuItem key={id} onClick={() => handlePageDisplay(route)}>
                           {t(keyTrad)}
                         </MenuItem>
-                      )
-                    }
-                  })}
+                      ),
+                  )}
                   <MenuItem className={classes.containerCreateRecipeButton}>
                     <CTAButton handleClick={handleCreateFormDisplay} label={t('listWrapper.header.button.label.creation')}>
                       <LinkToCreateForm fontSize="default" className={classes.createRecipeIcon} />
