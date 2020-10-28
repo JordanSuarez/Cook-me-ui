@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
+import {find, get} from 'lodash'
 import {Form} from 'react-final-form'
-import {get} from 'lodash'
 import {Radios, TextField} from 'mui-rff'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
@@ -13,7 +13,7 @@ import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
 import {GET, POST} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
-import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
+import {INGREDIENTS, QUANTITY_TYPE, RECIPES, RECIPES_TYPE} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import getFormValuesFormated from './helper/dataHandler'
 import IngredientFieldArray from './components/IngredientFieldArray'
@@ -23,6 +23,8 @@ import WysiwygEditor from 'common/components/WysiwygEditor'
 
 function CreationForm({classes, validateFields}) {
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
+
+  const findByResource = (values, resource) => find(values, (value) => value.config.url === `/${resource}`)
 
   useEffect(() => {
     const promises = [
@@ -34,10 +36,9 @@ function CreationForm({classes, validateFields}) {
     Promise.all(promises)
       .then((values) => {
         setList({
-          // ingredients: findByResource(values, INGREDIENTS).data,
-          ingredients: get(values[0], 'data', []),
-          quantityTypes: get(values[1], 'data', []),
-          recipeTypes: get(values[2], 'data', []),
+          ingredients: get(findByResource(values, INGREDIENTS), 'data'),
+          quantityTypes: get(findByResource(values, QUANTITY_TYPE), 'data'),
+          recipeTypes: get(findByResource(values, RECIPES_TYPE), 'data'),
         })
       })
       .catch(() => {})
@@ -75,15 +76,11 @@ function CreationForm({classes, validateFields}) {
                     <TextField name="name" margin="normal" label="name" autoFocus />
                   </Grid>
                   <Grid container spacing={1} className={classes.radioField}>
-                    {list.recipeTypes.map(({name, id}) => {
-                      console.log(list)
-
-                      return (
-                        <Grid item key={id} xs={12} sm={2} md={2} lg={2} xl={2}>
-                          <Radios key={id} color="primary" name="recipeType" required data={[{label: `${name}`, value: `${id}`}]} />
-                        </Grid>
-                      )
-                    })}
+                    {list.recipeTypes.map(({name, id}) => (
+                      <Grid item key={id} xs={12} sm={2} md={2} lg={2} xl={2}>
+                        <Radios key={id} color="primary" name="recipeType" required data={[{label: `${name}`, value: `${id}`}]} />
+                      </Grid>
+                    ))}
                   </Grid>
                   <Grid container spacing={1}>
                     <Grid item xs={10} sm={6} md={4} lg={3} xl={4}>
