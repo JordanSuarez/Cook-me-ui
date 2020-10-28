@@ -8,15 +8,19 @@ export default ({requiredIngredients, recipeType, ...values}) => {
       {
         id: requiredIngredients.ingredient,
         quantity: {
-          type_id: requiredIngredients.quantityType,
-          value: requiredIngredients.quantityValue,
+          value: parseInt(requiredIngredients.quantityValue, 10),
+          quantityType: {
+            id: requiredIngredients.quantityType,
+          },
         },
       },
       ...ingredientFields.map((ingredientField) => ({
         id: ingredientField.ingredient,
         quantity: {
-          type_id: ingredientField.quantityType,
-          value: ingredientField.quantityValue,
+          value: parseInt(ingredientField.quantityValue, 10),
+          quantityType: {
+            id: ingredientField.quantityType,
+          },
         },
       })),
     ],

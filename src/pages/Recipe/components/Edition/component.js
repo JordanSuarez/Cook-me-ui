@@ -57,8 +57,7 @@ function EditForm({classes, validateFields}) {
     // eslint-disable-next-line
   }, [])
 
-  function onSubmit(values, initialValues) {
-    console.log(values, initialValues)
+  function onSubmit(values) {
     if (!get(values, 'requiredIngredients')) {
       return false
     }
@@ -68,7 +67,7 @@ function EditForm({classes, validateFields}) {
 
   const initialValues = {
     name: recipeData.name,
-    type: recipeData.type,
+    recipeType: recipeData.type,
     preparationTime: recipeData.preparationTime,
     instruction: recipeData.instruction,
   }
@@ -107,7 +106,7 @@ function EditForm({classes, validateFields}) {
                               <Radios
                                 key={id}
                                 color="primary"
-                                name="type"
+                                name="recipeType"
                                 type="radio"
                                 value={id}
                                 checked={recipeTypeSelected === id}
@@ -142,7 +141,7 @@ function EditForm({classes, validateFields}) {
                         <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
-                        <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
+                        <IngredientFields name="requiredIngredients" items={list} displayButton={false} recipe={recipeData} />
                         <IngredientFieldArray items={list} />
                       </Grid>
                       <Grid item className={classes.submitButton}>
