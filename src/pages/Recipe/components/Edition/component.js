@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
 import {Form} from 'react-final-form'
-import {get} from 'lodash'
+// import {get} from 'lodash'
 import {Radios, TextField} from 'mui-rff'
 import {useParams} from 'react-router-dom'
 import AddIcon from '@material-ui/icons/AddOutlined'
@@ -18,7 +18,7 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import getFormValuesFormated from './helper/dataHandler'
 import IngredientFieldArray from './components/IngredientFieldArray'
-import IngredientFields from './components/IngredientFields'
+// import IngredientFields from './components/IngredientFields'
 import Page from 'common/components/Page'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
@@ -58,9 +58,11 @@ function EditForm({classes, validateFields}) {
   }, [])
 
   function onSubmit(values) {
-    if (!get(values, 'requiredIngredients')) {
-      return false
-    }
+    console.log(values)
+    // if (!get(values, 'requiredIngredients')) {
+    //   return false
+    // }
+    console.log(getFormValuesFormated(values))
 
     return callApi(getEndpoint(RECIPES, PUT, ONE, id), PUT, getFormValuesFormated(values))
   }
@@ -70,6 +72,7 @@ function EditForm({classes, validateFields}) {
     recipeType: recipeData.type,
     preparationTime: recipeData.preparationTime,
     instruction: recipeData.instruction,
+    ingredientFields: recipeData.ingredients,
   }
 
   // TODO add key trad
@@ -141,7 +144,16 @@ function EditForm({classes, validateFields}) {
                         <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
-                        <IngredientFields name="requiredIngredients" items={list} displayButton={false} recipe={recipeData} />
+                        {/*afficher le field de l'ingredient si on supprime tout les field pre-filled*/}
+                        {/*{length === 1 && (*/}
+                        {/*  <IngredientFields*/}
+                        {/*    name="requiredIngredients"*/}
+                        {/*    items={list}*/}
+                        {/*    displayButton={false}*/}
+                        {/*    ingredient={recipeData.ingredients[0]}*/}
+                        {/*  />*/}
+                        {/*)}*/}
+
                         <IngredientFieldArray items={list} />
                       </Grid>
                       <Grid item className={classes.submitButton}>
