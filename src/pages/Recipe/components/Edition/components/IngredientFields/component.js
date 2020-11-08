@@ -11,19 +11,50 @@ import SelectField from 'common/components/SelectField'
 
 import {classes as classesProps} from 'common/props'
 
-function IngredientFields({classes, items, name, displayButton, onClick}) {
+function IngredientFields({
+  classes,
+  items,
+  name,
+  displayButton,
+  onClick,
+  ingredient,
+  quantity,
+  quantityType,
+  handleChangeIngredient,
+  handleChangeQuantity,
+  handleChangeQuantityType,
+}) {
   return (
     <div key={name}>
       <Divider variant="middle" className={classes.divider} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4} md={5} lg={5} xl={5}>
-          <SelectField name={`${name}.ingredient`} label="ingredients" items={get(items, 'ingredients', [])} />
+          <SelectField
+            name={`${name}.ingredient`}
+            label="ingredients"
+            items={get(items, 'ingredients', [])}
+            value={ingredient}
+            onChange={handleChangeIngredient}
+          />
         </Grid>
         <Grid item xs={12} sm={4} md={4} lg={4} xl={4}>
-          <SelectField name={`${name}.quantityType`} label="quantity types" items={get(items, 'quantityTypes', [])} />
+          <SelectField
+            name={`${name}.quantityType`}
+            label="quantity types"
+            items={get(items, 'quantityTypes', [])}
+            value={quantityType}
+            onChange={handleChangeQuantityType}
+          />
         </Grid>
         <Grid item xs={10} sm={3} md={2} lg={2} xl={2} className={classes.quantity}>
-          <TextField name={`${name}.quantityValue`} type="number" margin="normal" label="quantity" />
+          <TextField
+            name={`${name}.quantityValue`}
+            type="number"
+            margin="normal"
+            label="quantity"
+            value={quantity}
+            onChange={handleChangeQuantity}
+          />
         </Grid>
         <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.iconButton}>
           {displayButton && (

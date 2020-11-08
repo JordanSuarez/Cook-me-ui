@@ -1,18 +1,44 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {any, objectOf} from 'prop-types'
 import {FieldArray} from 'react-final-form-arrays'
 
 import IngredientFields from '../IngredientFields'
 
-function IngredientFieldArray({items}) {
+// eslint-disable-next-line react/prop-types
+function IngredientFieldArray({items, values}) {
+  // eslint-disable-next-line no-unused-vars
+  const [ingredient, setIngredient] = useState([{}])
+  // eslint-disable-next-line no-unused-vars
+  const [quantity, setQuantity] = useState()
+  // eslint-disable-next-line no-unused-vars
+  const [quantityTypeId, setQuantityType] = useState()
+
+  console.log(values)
+
   return (
     <FieldArray name="ingredientFields">
-      {({fields}) =>
-        fields.map((name, index) => (
-          <IngredientFields key={name} name={name} items={items} onClick={() => fields.remove(index)} displayButton />
-        ))
-      }
+      {({fields}) => {
+        return fields.value.map((item, index) => {
+          console.log(item, index)
+
+          return (
+            <IngredientFields
+              key={item.id}
+              name={item.name}
+              items={items}
+              onClick={() => fields.remove(index)}
+              displayButton
+              ingredient={item.id}
+              quantity={item.quantity.id}
+              quantityType={item.quantity.quantityType.id}
+              handleChangeIngredient={(event) => setIngredient(event.currentTarget.value)}
+              handleChangeQuantity={(event) => setQuantity(event.currentTarget.value)}
+              handleChangeQuantityType={(event) => setQuantityType(event.currentTarget.value)}
+            />
+          )
+        })
+      }}
     </FieldArray>
   )
 }

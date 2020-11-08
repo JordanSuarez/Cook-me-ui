@@ -144,17 +144,7 @@ function EditForm({classes, validateFields}) {
                         <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
-                        {/*afficher le field de l'ingredient si on supprime tout les field pre-filled*/}
-                        {/*{length === 1 && (*/}
-                        {/*  <IngredientFields*/}
-                        {/*    name="requiredIngredients"*/}
-                        {/*    items={list}*/}
-                        {/*    displayButton={false}*/}
-                        {/*    ingredient={recipeData.ingredients[0]}*/}
-                        {/*  />*/}
-                        {/*)}*/}
-
-                        <IngredientFieldArray items={list} />
+                        <IngredientFieldArray items={list} values={initialValues.ingredientFields} />
                       </Grid>
                       <Grid item className={classes.submitButton}>
                         <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
