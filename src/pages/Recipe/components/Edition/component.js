@@ -58,12 +58,6 @@ function EditForm({classes, validateFields}) {
   }, [])
 
   function onSubmit(values) {
-    console.log(values)
-    // if (!get(values, 'requiredIngredients')) {
-    //   return false
-    // }
-    console.log(getFormValuesFormated(values))
-
     return callApi(getEndpoint(RECIPES, PUT, ONE, id), PUT, getFormValuesFormated(values))
   }
 
@@ -72,7 +66,7 @@ function EditForm({classes, validateFields}) {
     recipeType: recipeData.type,
     preparationTime: recipeData.preparationTime,
     instruction: recipeData.instruction,
-    ingredientFields: recipeData.ingredients,
+    ingredientFields: recipeData.ingredients, // merge with list
   }
 
   // TODO add key trad
@@ -144,16 +138,6 @@ function EditForm({classes, validateFields}) {
                         <WysiwygEditor theme="snow" name="instruction" />
                       </Grid>
                       <Grid className={classes.ingredientContainer}>
-                        {/*afficher le field de l'ingredient si on supprime tout les field pre-filled*/}
-                        {/*{length === 1 && (*/}
-                        {/*  <IngredientFields*/}
-                        {/*    name="requiredIngredients"*/}
-                        {/*    items={list}*/}
-                        {/*    displayButton={false}*/}
-                        {/*    ingredient={recipeData.ingredients[0]}*/}
-                        {/*  />*/}
-                        {/*)}*/}
-
                         <IngredientFieldArray items={list} />
                       </Grid>
                       <Grid item className={classes.submitButton}>
