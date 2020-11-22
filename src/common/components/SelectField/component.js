@@ -5,10 +5,9 @@ import {any, arrayOf, string} from 'prop-types'
 import {MenuItem} from '@material-ui/core'
 import {Select} from 'mui-rff'
 
-// eslint-disable-next-line react/prop-types
-function SelectField({name, label, items, value}) {
+function SelectField({name, label, items}) {
   return (
-    <Select name={name} label={label} value={value}>
+    <Select name={name} label={label}>
       {items.map(({id, name: itemName}) => (
         <MenuItem key={id} value={id}>
           {itemName}

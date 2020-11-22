@@ -2,12 +2,13 @@ import React, {useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
 import {Form} from 'react-final-form'
-// import {get} from 'lodash'
 import {Radios, TextField} from 'mui-rff'
 import {useParams} from 'react-router-dom'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
 import arrayMutators from 'final-form-arrays'
+
+import {get} from 'lodash'
 
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -18,7 +19,6 @@ import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
 import getFormValuesFormated from './helper/dataHandler'
 import IngredientFieldArray from './components/IngredientFieldArray'
-// import IngredientFields from './components/IngredientFields'
 import Page from 'common/components/Page'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
@@ -61,12 +61,21 @@ function EditForm({classes, validateFields}) {
     return callApi(getEndpoint(RECIPES, PUT, ONE, id), PUT, getFormValuesFormated(values))
   }
 
+  const ingredients = recipeData.ingredients.map((ingredient) => {
+    return {
+      id: ingredient.id,
+      ingredient: ingredient.id,
+      quantityType: get(ingredient, 'quantity.quantityType.id'),
+      quantityValue: get(ingredient, 'quantity.value'),
+    }
+  })
+
   const initialValues = {
     name: recipeData.name,
     recipeType: recipeData.type,
     preparationTime: recipeData.preparationTime,
     instruction: recipeData.instruction,
-    ingredientFields: recipeData.ingredients, // merge with list
+    ingredientFields: ingredients,
   }
 
   // TODO add key trad
