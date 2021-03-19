@@ -8,12 +8,12 @@ import ReactQuill from 'react-quill'
 
 import {classes as classesProps} from '../../props'
 
-function WysiwygEditor({name, theme, classes}) {
+function WysiwygEditor({name, theme, classes, placeholder}) {
   return (
     <div className={classes.text}>
       <Field name={name}>
         {({input: {value, onChange}}) => (
-          <ReactQuill theme={theme} value={value} onChange={onChange} placeholder="Compose your recipe..." className={classes.textEditor} />
+          <ReactQuill theme={theme} value={value} onChange={onChange} placeholder={placeholder} className={classes.textEditor} />
         )}
       </Field>
     </div>
@@ -22,6 +22,7 @@ function WysiwygEditor({name, theme, classes}) {
 
 WysiwygEditor.propTypes = {
   name: string.isRequired,
+  placeholder: string.isRequired,
   theme: string.isRequired,
   ...classesProps,
 }

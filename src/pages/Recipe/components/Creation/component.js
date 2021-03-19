@@ -4,6 +4,7 @@ import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
 import {find, get} from 'lodash'
 import {Form} from 'react-final-form'
 import {Radios, TextField} from 'mui-rff'
+import {useTranslation} from 'react-i18next'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
 import arrayMutators from 'final-form-arrays'
@@ -15,13 +16,14 @@ import {GET, POST} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES, RECIPES_TYPE} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
-import getFormValuesFormated from './helper/dataHandler'
-import IngredientFieldArray from './components/IngredientFieldArray'
-import IngredientFields from './components/IngredientFields'
+import getFormValuesFormated from '../helper/dataHandler'
+import IngredientFieldArray from 'common/components/Ingredient/IngredientFieldArray'
+import IngredientFields from 'common/components/Ingredient/IngredientFields'
 import Page from 'common/components/Page'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
 function CreationForm({classes, validateFields}) {
+  const {t} = useTranslation()
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
   const findByResource = (values, resource) => find(values, (value) => value.config.url === `/${resource}`)
@@ -54,7 +56,7 @@ function CreationForm({classes, validateFields}) {
 
   // TODO add key trad
   return (
-    <Page title="test">
+    <Page title={t('recipe.page.create.title')}>
       <Grid container className={classes.root}>
         <Paper className={classes.paper}>
           <Form
@@ -73,7 +75,7 @@ function CreationForm({classes, validateFields}) {
               return (
                 <form onSubmit={handleSubmit}>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                    <TextField name="name" margin="normal" label="name" autoFocus />
+                    <TextField name="name" margin="normal" label={t('recipe.page.create.label.name')} autoFocus />
                   </Grid>
                   <Grid container spacing={1} className={classes.radioField}>
                     {list.recipeTypes.map(({name, id}) => (
@@ -87,9 +89,9 @@ function CreationForm({classes, validateFields}) {
                       <TextField
                         name="preparationTime"
                         type="number"
-                        label="Preparation time"
+                        label={t('recipe.page.create.label.preparationTime')}
                         InputProps={{
-                          endAdornment: <InputAdornment position="end">Minutes</InputAdornment>,
+                          endAdornment: <InputAdornment position="end">{t('recipe.page.create.preparationTime')}</InputAdornment>,
                         }}
                         className={classes.selectField}
                       />
@@ -100,7 +102,7 @@ function CreationForm({classes, validateFields}) {
                   </Grid>
 
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.instructionField}>
-                    <WysiwygEditor theme="snow" name="instruction" />
+                    <WysiwygEditor theme="snow" name="instruction" placeholder={t('recipe.page.create.label.instruction')} />
                   </Grid>
                   <Grid className={classes.ingredientContainer}>
                     <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
@@ -108,12 +110,12 @@ function CreationForm({classes, validateFields}) {
                   </Grid>
                   <Grid item className={classes.submitButton}>
                     <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
-                      <span className={classes.buttonLabel}>Add ingredient</span>
+                      <span className={classes.buttonLabel}>{t('recipe.page.create.addIngredient')}</span>
                       <AddIcon fontSize="large" className={classes.buttonBorder} />
                     </Button>
                   </Grid>
                   <Grid item className={classes.ctaButton}>
-                    <CTAButton label="Recipe creation" type="submit" />
+                    <CTAButton label={t('recipe.page.update.submitButton')} type="submit" />
                   </Grid>
                 </form>
               )

@@ -2,13 +2,13 @@ import React from 'react'
 
 import {Button} from '@material-ui/core'
 
-import {func, node, string} from 'prop-types'
+import {bool, func, node, string} from 'prop-types'
 
 import {classes as classesProps} from '../../props'
 
-function CTAButton({label, handleClick, type, classes, children}) {
+function CTAButton({label, handleClick, type, classes, children, disabled}) {
   return (
-    <Button variant="contained" type={type} color="primary" onClick={handleClick} className={classes.button}>
+    <Button variant="contained" type={type} color="primary" onClick={handleClick} className={classes.button} disabled={disabled}>
       {label}
       {children}
     </Button>
@@ -17,6 +17,7 @@ function CTAButton({label, handleClick, type, classes, children}) {
 
 CTAButton.propTypes = {
   children: node,
+  disabled: bool,
   handleClick: func,
   label: string.isRequired,
   type: string,
@@ -25,6 +26,7 @@ CTAButton.propTypes = {
 
 CTAButton.defaultProps = {
   children: null,
+  disabled: false,
   handleClick: Function.prototype,
   type: 'button',
 }

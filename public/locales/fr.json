@@ -104,13 +104,43 @@
       }
     },
     "page": {
-      "instruction": "Instruction",
-      "preparationTime": "Temps de préparation",
-      "ingredients": "Ingrédients",
-      "description": "Description",
-      "type": "Type de recettes",
-      "quantity": "Quantitées",
-      "quantityType": "Type de quantitées"
+      "show": {
+        "instruction": "Instruction",
+        "preparationTime": "Temps de préparation",
+        "ingredients": "Ingrédients",
+        "description": "Description",
+        "type": "Type de recettes",
+        "quantity": "Quantitées",
+        "quantityType": "Type de quantitées"
+      },
+      "update": {
+        "title": "Modifier une recette",
+        "addIngredient": "Ajouter un ingrédient",
+        "preparationTime": "Minutes",
+        "submitButton": "Envoyer",
+        "label": {
+          "name": "Nom de la recette",
+          "preparationTime": "Temps de préparation",
+          "instruction": "Composez votre recette...",
+          "ingredient": "Ingrédient",
+          "quantityType": "Type de quantité",
+          "quantity": "Quantité"
+        }
+      },
+      "create": {
+        "title": "Créer une recette",
+        "addIngredient": "Ajouter un ingrédient",
+        "preparationTime": "Minutes",
+        "submitButton": "Envoyer",
+        "label": {
+          "name": "Nom de la recette",
+          "preparationTime": "Temps de préparation",
+          "instruction": "Composez votre recette...",
+          "ingredient": "ingrédient",
+          "quantityType": "Type de quantité",
+          "quantity": "Quantité"
+        }
+      }
     }
   },
   "listWrapper": {
