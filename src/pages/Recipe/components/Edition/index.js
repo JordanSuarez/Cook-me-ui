@@ -9,5 +9,5 @@ import styles from './styles'
 
 export default compose(
   withStyles(styles),
-  mapProps(({...props}) => ({...props, validateFields: makeValidate(schema)})),
+  mapProps(({...props}) => ({...props, validateFields: (errorMessages) => makeValidate(schema(errorMessages))})),
 )(EditForm)

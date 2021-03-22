@@ -124,6 +124,15 @@
           "ingredient": "Ingredient",
           "quantityType": "Quantity type",
           "quantity": "Quantity"
+        },
+        "error": {
+          "name": {
+            "required": "Recipe name is required"
+          },
+          "preparationTime": {
+            "required": "Preparation time is required",
+            "typeError": "Preparation time must be of type number"
+          }
         }
       },
       "create": {
@@ -138,6 +147,15 @@
           "ingredient": "Ingredient",
           "quantityType": "Quantity type",
           "quantity": "Quantity"
+        },
+        "error": {
+          "name": {
+            "required": "Recipe name is required"
+          },
+          "preparationTime": {
+            "required": "Preparation time is required",
+            "typeError": "Preparation time must be of type number"
+          }
         }
       }
     }

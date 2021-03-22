@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
+import {find, get} from 'lodash'
 import {Form} from 'react-final-form'
 import {Radios, TextField} from 'mui-rff'
 import {useHistory, useParams} from 'react-router-dom'
@@ -8,8 +9,6 @@ import {useTranslation} from 'react-i18next'
 import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
 import arrayMutators from 'final-form-arrays'
-
-import {find, get} from 'lodash'
 
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
@@ -70,12 +69,10 @@ function EditForm({classes, validateFields}) {
       .catch(() => {})
   }
 
-  // eslint-disable-next-line no-shadow
-  const ingredients = recipeData.ingredients.map(({id, ...ingredient}) => {
-    // eslint-disable-next-line no-shadow
+  const ingredients = recipeData.ingredients.map((ingredient) => {
     return {
-      id,
-      ingredient: id,
+      id: ingredient.id,
+      ingredient: ingredient.id,
       quantityType: get(ingredient, 'quantity.quantityType.id'),
       quantityValue: get(ingredient, 'quantity.value'),
     }
@@ -90,7 +87,17 @@ function EditForm({classes, validateFields}) {
     requiredIngredients: ingredients[0],
   }
 
-  // TODO add key trad
+  // Field error messages
+  const errorFields = {
+    name: {
+      required: t('recipe.page.update.error.name.required'),
+    },
+    preparationTime: {
+      required: t('recipe.page.update.error.preparationTime.required'),
+      typeError: t('recipe.page.update.error.preparationTime.typeError'),
+    },
+  }
+
   return (
     <div>
       {loadData && (
@@ -99,7 +106,7 @@ function EditForm({classes, validateFields}) {
             <Paper className={classes.paper}>
               <Form
                 onSubmit={onSubmit}
-                validate={validateFields}
+                validate={validateFields(errorFields)}
                 initialValues={initialValues}
                 autoComplete="off"
                 mutators={{
@@ -112,6 +119,7 @@ function EditForm({classes, validateFields}) {
                   },
                   submitting,
                   pristine,
+                  valid,
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -170,7 +178,7 @@ function EditForm({classes, validateFields}) {
                       </Button>
                     </Grid>
                     <Grid item className={classes.ctaButton}>
-                      <CTAButton label={t('recipe.page.update.submitButton')} type="submit" disabled={submitting || pristine} />
+                      <CTAButton label={t('recipe.page.update.submitButton')} type="submit" disabled={submitting || pristine || !valid} />
                     </Grid>
                   </form>
                 )}
