@@ -54,9 +54,8 @@ function CreationForm({classes, validateFields}) {
     return callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormValuesFormated(values))
   }
 
-  // TODO add key trad
   return (
-    <Page title={t('recipe.page.create.title')}>
+    <Page title={t('recipe.page.form.title.create')}>
       <Grid container className={classes.root}>
         <Paper className={classes.paper}>
           <Form
@@ -75,7 +74,7 @@ function CreationForm({classes, validateFields}) {
               return (
                 <form onSubmit={handleSubmit}>
                   <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                    <TextField name="name" margin="normal" label={t('recipe.page.create.label.name')} autoFocus />
+                    <TextField name="name" margin="normal" label={t('recipe.page.form.label.field.name')} autoFocus />
                   </Grid>
                   <Grid container spacing={1} className={classes.radioField}>
                     {list.recipeTypes.map(({name, id}) => (
@@ -89,9 +88,9 @@ function CreationForm({classes, validateFields}) {
                       <TextField
                         name="preparationTime"
                         type="number"
-                        label={t('recipe.page.create.label.preparationTime')}
+                        label={t('recipe.page.form.label.field.preparationTime')}
                         InputProps={{
-                          endAdornment: <InputAdornment position="end">{t('recipe.page.create.preparationTime')}</InputAdornment>,
+                          endAdornment: <InputAdornment position="end">{t('recipe.page.form.label.icon.preparationTime')}</InputAdornment>,
                         }}
                         className={classes.selectField}
                       />
@@ -102,7 +101,7 @@ function CreationForm({classes, validateFields}) {
                   </Grid>
 
                   <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.instructionField}>
-                    <WysiwygEditor theme="snow" name="instruction" placeholder={t('recipe.page.create.label.instruction')} />
+                    <WysiwygEditor theme="snow" name="instruction" placeholder={t('recipe.page.form.label.field.instruction')} />
                   </Grid>
                   <Grid className={classes.ingredientContainer}>
                     <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
@@ -110,12 +109,12 @@ function CreationForm({classes, validateFields}) {
                   </Grid>
                   <Grid item className={classes.submitButton}>
                     <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
-                      <span className={classes.buttonLabel}>{t('recipe.page.create.addIngredient')}</span>
+                      <span className={classes.buttonLabel}>{t('recipe.page.form.label.button.addIngredient')}</span>
                       <AddIcon fontSize="large" className={classes.buttonBorder} />
                     </Button>
                   </Grid>
                   <Grid item className={classes.ctaButton}>
-                    <CTAButton label={t('recipe.page.update.submitButton')} type="submit" />
+                    <CTAButton label={t('recipe.page.form.label.button.submitButton')} type="submit" />
                   </Grid>
                 </form>
               )

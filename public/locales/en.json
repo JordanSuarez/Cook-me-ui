@@ -79,29 +79,6 @@
         "showIcon": "Recipe display"
       }
     },
-    "form": {
-      "creation":{
-        "label": {
-          "field": {
-            "title": "Create your recipe",
-            "name": "Recipe name",
-            "instruction": "Instruction",
-            "preparationTime": "Preparation time",
-            "ingredients": "Ingredient",
-            "recipeType": "Recipe type"
-          }
-        },
-        "values": {
-          "field": {
-            "recipeType": {
-              "starters": "Starters",
-              "dish": "Dish",
-              "deserts": "Deserts"
-            }
-          }
-        }
-      }
-    },
     "page": {
       "show": {
         "instruction": "Instruction",
@@ -112,49 +89,43 @@
         "quantity": "Quantities",
         "quantityType": "Quantity types"
       },
-      "update": {
-        "title": "Modify a recipe",
-        "addIngredient": "Add ingredient",
-        "preparationTime": "Minutes",
-        "submitButton": "Submit",
-        "label": {
-          "name": "Recipe name",
-          "preparationTTime": "Preparation time",
-          "instruction": "Compose your recipe...",
-          "ingredient": "Ingredient",
-          "quantityType": "Quantity type",
-          "quantity": "Quantity"
+      "form": {
+        "title": {
+          "create": "Create a recipe",
+          "update": "Modify a recipe"
         },
-        "error": {
-          "name": {
-            "required": "Recipe name is required"
+        "label": {
+          "field": {
+            "name": "Recipe name",
+            "preparationTTime": "Preparation time",
+            "instruction": "Compose your recipe...",
+            "ingredient": "Ingredient",
+            "quantityType": "Quantity type",
+            "quantity": "Quantity",
+            "recipeType": {
+              "starters": "Starter",
+              "dish": "Dish",
+              "deserts": "Desert"
+            }
           },
-          "preparationTime": {
-            "required": "Preparation time is required",
-            "typeError": "Preparation time must be of type number"
+          "button": {
+            "submitButton": "Submit",
+            "addIngredient": "Add ingredient",
+            "removeIngredient": "Remove ingredient"
+          },
+          "icon": {
+            "preparationTime": "Minutes"
           }
-        }
-      },
-      "create": {
-        "title": "Create a recipe",
-        "addIngredient": "Add ingredient",
-        "preparationTime": "Minutes",
-        "submitButton": "Submit",
-        "label": {
-          "name": "Recipe name",
-          "preparationTime": "Preparation time",
-          "instruction": "Compose your recipe...",
-          "ingredient": "Ingredient",
-          "quantityType": "Quantity type",
-          "quantity": "Quantity"
         },
         "error": {
-          "name": {
-            "required": "Recipe name is required"
-          },
-          "preparationTime": {
-            "required": "Preparation time is required",
-            "typeError": "Preparation time must be of type number"
+          "field": {
+            "name": {
+              "required": "Recipe name is required"
+            },
+            "preparationTime": {
+              "required": "Preparation time is required",
+              "typeError": "Preparation time must be of type number"
+            }
           }
         }
       }

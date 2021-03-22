@@ -90,18 +90,25 @@ function EditForm({classes, validateFields}) {
   // Field error messages
   const errorFields = {
     name: {
-      required: t('recipe.page.update.error.name.required'),
+      required: t('recipe.page.form.error.field.name.required'),
     },
     preparationTime: {
-      required: t('recipe.page.update.error.preparationTime.required'),
-      typeError: t('recipe.page.update.error.preparationTime.typeError'),
+      required: t('recipe.page.form.error.field.preparationTime.required'),
+      typeError: t('recipe.page.form.error.field.preparationTime.typeError'),
     },
+  }
+
+  // Key trad for recipe type radio label
+  const recipeType = {
+    starters: t('recipe.page.form.label.field.recipeType.starters'),
+    dish: t('recipe.page.form.label.field.recipeType.dish'),
+    deserts: t('recipe.page.form.label.field.recipeType.deserts'),
   }
 
   return (
     <div>
       {loadData && (
-        <Page title={t('recipe.page.update.title')}>
+        <Page title={t('recipe.page.form.title.update')}>
           <Grid container className={classes.root}>
             <Paper className={classes.paper}>
               <Form
@@ -123,7 +130,7 @@ function EditForm({classes, validateFields}) {
                 }) => (
                   <form onSubmit={handleSubmit}>
                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                      <TextField name="name" margin="normal" label={t('recipe.page.create.label.name')} autoFocus />
+                      <TextField name="name" margin="normal" label={t('recipe.page.form.label.field.name')} autoFocus />
                     </Grid>
                     <Grid container spacing={1} className={classes.radioField}>
                       {/* eslint-disable-next-line no-shadow */}
@@ -141,7 +148,12 @@ function EditForm({classes, validateFields}) {
                                 setRecipeData({...recipeData, type: parseInt(event.target.value, 10)})
                               }}
                               required
-                              data={[{label: `${name}`, value: `${id}`}]}
+                              data={[
+                                {
+                                  label: recipeType[name],
+                                  value: `${id}`,
+                                },
+                              ]}
                             />
                           </Grid>
                         )
@@ -152,9 +164,11 @@ function EditForm({classes, validateFields}) {
                         <TextField
                           name="preparationTime"
                           type="number"
-                          label={t('recipe.page.update.label.preparationTime')}
+                          label={t('recipe.page.form.label.field.preparationTime')}
                           InputProps={{
-                            endAdornment: <InputAdornment position="end">{t('recipe.page.update.preparationTime')}</InputAdornment>,
+                            endAdornment: (
+                              <InputAdornment position="end">{t('recipe.page.form.label.icon.preparationTime')}</InputAdornment>
+                            ),
                           }}
                           className={classes.selectField}
                         />
@@ -165,7 +179,7 @@ function EditForm({classes, validateFields}) {
                     </Grid>
 
                     <Grid item xs={12} sm={12} md={12} lg={12} xl={12} className={classes.instructionField}>
-                      <WysiwygEditor theme="snow" name="instruction" placeholder={t('recipe.page.update.label.instruction')} />
+                      <WysiwygEditor theme="snow" name="instruction" placeholder={t('recipe.page.form.label.field.instruction')} />
                     </Grid>
                     <Grid className={classes.ingredientContainer}>
                       <IngredientFields name="requiredIngredients" items={list} displayButton={false} />
@@ -173,12 +187,16 @@ function EditForm({classes, validateFields}) {
                     </Grid>
                     <Grid item className={classes.submitButton}>
                       <Button onClick={() => push('ingredientFields', {id: list.length + 1})} className={classes.buttonLabel}>
-                        <span className={classes.buttonLabel}>{t('recipe.page.update.addIngredient')}</span>
+                        <span className={classes.buttonLabel}>{t('recipe.page.form.label.button.addIngredient')}</span>
                         <AddIcon fontSize="large" className={classes.buttonBorder} />
                       </Button>
                     </Grid>
                     <Grid item className={classes.ctaButton}>
-                      <CTAButton label={t('recipe.page.update.submitButton')} type="submit" disabled={submitting || pristine || !valid} />
+                      <CTAButton
+                        label={t('recipe.page.form.label.button.submitButton')}
+                        type="submit"
+                        disabled={submitting || pristine || !valid}
+                      />
                     </Grid>
                   </form>
                 )}
