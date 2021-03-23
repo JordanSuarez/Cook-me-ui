@@ -1,6 +1,18 @@
-import {get} from 'lodash'
+import {find, get} from 'lodash'
 
-export default ({requiredIngredients, recipeType, ...values}) => {
+import {INGREDIENTS, QUANTITY_TYPE, RECIPES_TYPE} from 'common/constants/resources'
+
+export const recipeElements = (values) => {
+  const findDataByResource = (data, resource) => find(data, (value) => value.config.url === `/${resource}`)
+
+  return {
+    ingredients: get(findDataByResource(values, INGREDIENTS), 'data'),
+    quantityTypes: get(findDataByResource(values, QUANTITY_TYPE), 'data'),
+    recipeTypes: get(findDataByResource(values, RECIPES_TYPE), 'data'),
+  }
+}
+
+export const getFormattedFormValues = ({requiredIngredients, recipeType, ...values}) => {
   const ingredientFields = get(values, 'ingredientFields', []) || []
 
   return {
