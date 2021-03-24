@@ -31,32 +31,18 @@ function ResourceWrapper({showToast, recipeTypeId}) {
         setRecipes(data.map((recipe) => formatList(recipe)))
       })
       .catch(() => {})
-  }, [])
+  }, [recipeTypeId])
 
   // When delete icon was clicked, display dialog for confirm action
   const handleAction = (id, action) => {
-    if (action === EDIT) {
-      return setAlertDialog({
-        ...alertDialog,
-        title: t('recipe.modal.edit.title'),
-        content: t('recipe.modal.edit.content'),
-        open: true,
-        recipeId: id,
-        action,
-      })
-    }
-    if (action === DELETE) {
-      return setAlertDialog({
-        ...alertDialog,
-        title: t('recipe.modal.delete.title'),
-        content: t('recipe.modal.delete.content'),
-        open: true,
-        recipeId: id,
-        action,
-      })
-    }
-
-    return setAlertDialog({})
+    return setAlertDialog({
+      ...alertDialog,
+      title: t(`recipe.modal.${action}.title`),
+      content: t(`recipe.modal.${action}.content`),
+      open: true,
+      recipeId: id,
+      action,
+    })
   }
 
   const handleAgreeAction = () => {

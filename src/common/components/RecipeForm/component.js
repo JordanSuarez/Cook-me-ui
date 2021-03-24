@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
 import {Form} from 'react-final-form'
 import {get} from 'lodash'
-import {number, string} from 'prop-types'
+import {number} from 'prop-types'
 import {Radios, TextField} from 'mui-rff'
 import {useHistory} from 'react-router-dom'
 import {useTranslation} from 'react-i18next'
@@ -14,70 +14,49 @@ import arrayMutators from 'final-form-arrays'
 import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
+import {CREATE, UPDATE} from 'common/constants/context'
 import {GET, POST, PUT} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
 import {getFormattedFormValues, recipeElements} from './helper/dataHandler'
 import {getShowRecipeRoute} from 'common/routing/routesResolver'
 import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
+import {RecipeFormContext} from 'common/context/RecipeFormContext'
 import CTAButton from 'common/components/CTAButton'
 import IngredientFieldArray from 'common/components/Ingredient/IngredientFieldArray'
 import IngredientFields from 'common/components/Ingredient/IngredientFields'
+import initialValues from './helper/initialValues'
 import Page from 'common/components/Page'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
-function RecipeForm({classes, validateFields, context, recipeId}) {
+function RecipeForm({classes, validateFields, recipeId}) {
+  const context = useContext(RecipeFormContext)
   const {t} = useTranslation()
   const history = useHistory()
-  const [loaded, setLoaded] = useState(context === POST)
+  const [loaded, setLoaded] = useState(context === CREATE)
   const [recipeData, setRecipeData] = useState({})
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
   useEffect(() => {
-    const promises = [
-      callApi(getEndpoint(INGREDIENTS, GET, ALL), GET),
-      callApi(getEndpoint(QUANTITY_TYPE, GET, ALL), GET),
-      callApi(getEndpoint(RECIPES, GET, TYPES), GET),
-    ]
+    const taskUrls = [getEndpoint(INGREDIENTS, GET, ALL), getEndpoint(QUANTITY_TYPE, GET, ALL), getEndpoint(RECIPES, GET, TYPES)]
 
-    if (context === PUT) {
+    const executeTasks = async () => {
+      // eslint-disable-next-line no-return-await
+      return await Promise.all(taskUrls.map((url) => callApi(url, GET))).then((values) => {
+        setList(recipeElements(values))
+      })
+    }
+
+    if (context === UPDATE) {
       const url = getEndpoint(RECIPES, GET, ONE, recipeId)
 
       callApi(url, GET)
         .then(({data}) => {
-          const ingredients = data.ingredients.map((ingredient) => {
-            return {
-              id: ingredient.id,
-              ingredient: ingredient.id,
-              quantityType: get(ingredient, 'quantity.quantityType.id'),
-              quantityValue: get(ingredient, 'quantity.value'),
-            }
-          })
-
-          const initialValues = {
-            id: data.id,
-            name: data.name,
-            recipeType: data.type,
-            preparationTime: data.preparationTime,
-            instruction: data.instruction,
-            ingredientFields: ingredients.slice(1, ingredients.length),
-            requiredIngredients: ingredients[0],
-          }
-
-          setRecipeData(initialValues)
+          setRecipeData(initialValues(data))
         })
-        .then(
-          Promise.all(promises).then((values) => {
-            setList(recipeElements(values))
-            setLoaded(true)
-          }),
-        )
+        .then(executeTasks().then(setLoaded(true)))
         .catch(() => {})
     } else {
-      Promise.all(promises)
-        .then((values) => {
-          setList(recipeElements(values))
-        })
-        .catch(() => {})
+      executeTasks().catch(() => {})
     }
   }, [context, recipeId])
 
@@ -86,13 +65,15 @@ function RecipeForm({classes, validateFields, context, recipeId}) {
       return false
     }
 
-    return context === PUT
-      ? callApi(getEndpoint(RECIPES, PUT, ONE, recipeId), PUT, getFormattedFormValues(values))
-          .then(({data}) => history.push(getShowRecipeRoute(data.id)))
-          .catch(() => {})
-      : callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormattedFormValues(values))
-          .then(({data}) => history.push(getShowRecipeRoute(data.id)))
-          .catch(() => {})
+    if (context === UPDATE) {
+      return callApi(getEndpoint(RECIPES, PUT, ONE, recipeId), PUT, getFormattedFormValues(values))
+        .then(({data}) => history.push(getShowRecipeRoute(data.id)))
+        .catch(() => {})
+    }
+
+    return callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormattedFormValues(values))
+      .then(({data}) => history.push(getShowRecipeRoute(data.id)))
+      .catch(() => {})
   }
 
   // Field error messages
@@ -116,13 +97,13 @@ function RecipeForm({classes, validateFields, context, recipeId}) {
   return (
     <div>
       {loaded && (
-        <Page title={context === PUT ? t('recipe.page.form.title.update') : t('recipe.page.form.title.create')}>
+        <Page title={context === UPDATE ? t('recipe.page.form.title.update') : t('recipe.page.form.title.create')}>
           <Grid container className={classes.root}>
             <Paper className={classes.paper}>
               <Form
                 onSubmit={onSubmit}
                 validate={validateFields(errorFields)}
-                initialValues={context === PUT ? recipeData : {}}
+                initialValues={context === UPDATE ? recipeData : {}}
                 autoComplete="off"
                 mutators={{
                   ...arrayMutators,
@@ -145,7 +126,7 @@ function RecipeForm({classes, validateFields, context, recipeId}) {
                       {list.recipeTypes.map(({name, id}) => {
                         return (
                           <Grid item key={id} xs={12} sm={2} md={2} lg={2} xl={2}>
-                            {context === PUT ? (
+                            {context === UPDATE ? (
                               <Radios
                                 key={id}
                                 color="primary"
@@ -237,7 +218,6 @@ function RecipeForm({classes, validateFields, context, recipeId}) {
 }
 
 RecipeForm.propTypes = {
-  context: string.isRequired,
   recipeId: number,
   ...classesProps,
 }

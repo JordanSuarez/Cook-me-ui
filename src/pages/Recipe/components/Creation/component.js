@@ -1,8 +1,13 @@
 import React from 'react'
 
-import {POST} from 'common/constants/methods'
+import {CREATE} from 'common/constants/context'
+import {RecipeFormContext} from 'common/context/RecipeFormContext'
 import RecipeForm from 'common/components/RecipeForm'
 
-const CreationForm = () => <RecipeForm context={POST} />
+const CreationForm = () => (
+  <RecipeFormContext.Provider value={CREATE}>
+    <RecipeForm />
+  </RecipeFormContext.Provider>
+)
 
 export default CreationForm
