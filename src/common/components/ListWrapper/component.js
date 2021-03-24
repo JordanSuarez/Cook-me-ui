@@ -16,10 +16,7 @@ import ListTable from 'common/components/ListTable'
 import Pagination from 'common/components/Pagination'
 import SearchBar from 'common/components/SearchBar'
 
-/**
- * @return {null}
- */
-function ListWrapper({items, columns, classes, onDeleteAction, onEditAction, children}) {
+function ListWrapper({items, columns, classes, handleAction, children}) {
   const {t} = useTranslation()
   const [searchResults, setSearchResults] = useState([])
   const [displayCard, setDisplayCard] = useState(true)
@@ -88,15 +85,13 @@ function ListWrapper({items, columns, classes, onDeleteAction, onEditAction, chi
         <div>
           {/*onDelete() correspond au onClick() du button delete sur la Card*/}
           {/*Si il y a des résultats de recherches, on affiche uniquement le résultat correspondant, sans afficher la Pagination*/}
-          {searchResults.length > 0 && <ListCard items={searchResults} onDeleteAction={onDeleteAction} onEditAction={onEditAction} />}
-          {/*Si il n'y a pas de résulats de recherches, on affiche la pagination */}
+          {searchResults.length > 0 && <ListCard items={searchResults} handleAction={handleAction} />}
+          {/*Si il n'y a pas de résultats de recherches, on affiche la pagination */}
           {searchResults.length === 0 && (
             <Pagination
               items={items}
               maxPerPage={5}
-              renderChild={(itemsPaginated) => (
-                <ListCard items={itemsPaginated} onDeleteAction={onDeleteAction} onEditAction={onEditAction} />
-              )}
+              renderChild={(itemsPaginated) => <ListCard items={itemsPaginated} handleAction={handleAction} />}
             />
           )}
         </div>
@@ -121,9 +116,8 @@ function ListWrapper({items, columns, classes, onDeleteAction, onEditAction, chi
 ListWrapper.propTypes = {
   children: node.isRequired,
   columns: arrayOf(any).isRequired,
+  handleAction: func.isRequired,
   items: arrayOf(any),
-  onDeleteAction: func.isRequired,
-  onEditAction: func.isRequired,
   ...classesProps,
 }
 

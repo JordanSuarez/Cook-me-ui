@@ -7,12 +7,12 @@ import {useTranslation} from 'react-i18next'
 import DeleteIcon from '@material-ui/icons/Delete'
 import EditIcon from '@material-ui/icons/Edit'
 
+import {classes as classesProps} from 'common/props'
+import {DELETE, EDIT} from 'common/constants/context'
+import {getShowRecipeRoute} from 'common/routing/routesResolver'
 import IconButton from '../IconButton'
 
-import {classes as classesProps} from 'common/props'
-import {getShowRecipeRoute} from 'common/routing/routesResolver'
-
-function Card({id, name, image, classes, onDeleteAction, onEditAction}) {
+function Card({id, name, image, classes, handleClick}) {
   const {t} = useTranslation()
 
   return (
@@ -26,12 +26,12 @@ function Card({id, name, image, classes, onDeleteAction, onEditAction}) {
       <CardActions>
         <Grid container justify="flex-end">
           <Grid item>
-            <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={onEditAction}>
+            <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={() => handleClick(EDIT)}>
               <EditIcon />
             </IconButton>
           </Grid>
           <Grid item>
-            <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={onDeleteAction}>
+            <IconButton title={t('recipe.card.footer.iconButton.delete')} onClick={() => handleClick(DELETE)}>
               <DeleteIcon />
             </IconButton>
           </Grid>
@@ -42,12 +42,11 @@ function Card({id, name, image, classes, onDeleteAction, onEditAction}) {
 }
 
 Card.propTypes = {
+  handleClick: func.isRequired,
   id: number.isRequired,
   image: string,
   name: string,
   ...classesProps,
-  onDeleteAction: func.isRequired,
-  onEditAction: func.isRequired,
 }
 
 Card.defaultProps = {

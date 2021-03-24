@@ -6,10 +6,11 @@ import EditIcon from '@material-ui/icons/Edit'
 import Grid from '@material-ui/core/Grid'
 import ShowIcon from '@material-ui/icons/VisibilityOutlined'
 
-import {getShowRecipeRoute} from '../routing/routesResolver'
-import IconButton from '../components/IconButton'
+import {DELETE, EDIT} from 'common/constants/context'
+import {getShowRecipeRoute} from 'common/routing/routesResolver'
+import IconButton from 'common/components/IconButton'
 
-export default (t, onDeleteAction, onEditAction) => {
+export default (t, handleAction) => {
   return [
     {
       name: 'name',
@@ -30,22 +31,22 @@ export default (t, onDeleteAction, onEditAction) => {
         filter: false,
         sort: false,
         empty: true,
-        customBodyRender: (value) => (
+        customBodyRender: (id) => (
           <Grid container justify="flex-end">
             <Grid item>
-              <Link to={getShowRecipeRoute(value)}>
-                <IconButton key={value} title={`${t('recipe.list.table.showIcon')}`}>
+              <Link to={getShowRecipeRoute(id)}>
+                <IconButton key={id} title={`${t('recipe.list.table.showIcon')}`}>
                   <ShowIcon />
                 </IconButton>
               </Link>
             </Grid>
             <Grid item>
-              <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={() => onEditAction(value)}>
+              <IconButton title={t('recipe.card.footer.iconButton.edit')} onClick={() => handleAction(id, EDIT)}>
                 <EditIcon />
               </IconButton>
             </Grid>
             <Grid item>
-              <IconButton key={value} title={t('recipe.card.footer.iconButton.delete')} onClick={() => onDeleteAction(value)}>
+              <IconButton key={id} title={t('recipe.card.footer.iconButton.delete')} onClick={() => handleAction(id, DELETE)}>
                 <DeleteIcon />
               </IconButton>
             </Grid>
