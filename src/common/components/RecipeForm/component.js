@@ -93,8 +93,6 @@ function RecipeForm({classes, validateFields, recipeId}) {
     deserts: t('recipe.page.form.label.field.recipeType.deserts'),
   }
 
-  console.log(loaded, list)
-
   return (
     <div>
       {loaded && (
