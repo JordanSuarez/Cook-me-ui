@@ -43,18 +43,17 @@ function RecipeForm({classes, validateFields, recipeId}) {
       // eslint-disable-next-line no-return-await
       return await Promise.all(taskUrls.map((url) => callApi(url, GET))).then((values) => {
         setList(recipeElements(values))
+        setLoaded(true)
       })
     }
 
     if (context === UPDATE) {
       const url = getEndpoint(RECIPES, GET, ONE, recipeId)
 
-      callApi(url, GET)
-        .then(({data}) => {
-          setRecipeData(initialValues(data))
-        })
-        .then(executeTasks().then(setLoaded(true)))
-        .catch(() => {})
+      callApi(url, GET).then(({data}) => {
+        setRecipeData(initialValues(data))
+        executeTasks().catch(() => {})
+      })
     } else {
       executeTasks().catch(() => {})
     }
@@ -93,6 +92,8 @@ function RecipeForm({classes, validateFields, recipeId}) {
     dish: t('recipe.page.form.label.field.recipeType.dish'),
     deserts: t('recipe.page.form.label.field.recipeType.deserts'),
   }
+
+  console.log(loaded, list)
 
   return (
     <div>
