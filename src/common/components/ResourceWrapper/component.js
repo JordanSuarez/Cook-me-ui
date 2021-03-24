@@ -33,28 +33,6 @@ function ResourceWrapper({showToast, recipeTypeId}) {
       .catch(() => {})
   }, [])
 
-  const deleteItem = (recipeId) => {
-    const url = getEndpoint(RECIPES, DELETE, ONE, recipeId)
-
-    setAlertDialog({...alertDialog, open: false})
-    callApi(url, DELETE)
-      .then(() => {
-        const recipesUpdated = recipes.filter((recipe) => recipe.id !== recipeId)
-
-        setRecipes({})
-        setRecipes(recipesUpdated)
-
-        return showToast(true, SUCCESS, t('recipe.modal.delete.toast.success.title'), t('recipe.modal.delete.toast.success.content'))
-      })
-      .catch(() => showToast(true, ERROR, t('recipe.modal.delete.toast.error.title'), t('recipe.modal.delete.toast.error.content')))
-  }
-
-  const editItem = (recipeId) => {
-    setAlertDialog({...alertDialog, open: false})
-
-    return history.push(getEditRecipeRoute(recipeId))
-  }
-
   // When delete icon was clicked, display dialog for confirm action
   const handleAction = (id, action) => {
     if (action === EDIT) {
@@ -62,8 +40,9 @@ function ResourceWrapper({showToast, recipeTypeId}) {
         ...alertDialog,
         title: t('recipe.modal.edit.title'),
         content: t('recipe.modal.edit.content'),
-        method: () => editItem(id),
         open: true,
+        recipeId: id,
+        action,
       })
     }
     if (action === DELETE) {
@@ -71,8 +50,9 @@ function ResourceWrapper({showToast, recipeTypeId}) {
         ...alertDialog,
         title: t('recipe.modal.delete.title'),
         content: t('recipe.modal.delete.content'),
-        method: () => deleteItem(id),
         open: true,
+        recipeId: id,
+        action,
       })
     }
 
@@ -80,7 +60,22 @@ function ResourceWrapper({showToast, recipeTypeId}) {
   }
 
   const handleAgreeAction = () => {
-    alertDialog.method()
+    if (alertDialog.action === EDIT) {
+      return history.push(getEditRecipeRoute(alertDialog.recipeId))
+    }
+
+    const url = getEndpoint(RECIPES, DELETE, ONE, alertDialog.recipeId)
+
+    callApi(url, DELETE)
+      .then(() => {
+        const recipesUpdated = recipes.filter((recipe) => recipe.id !== alertDialog.recipeId)
+
+        setRecipes({})
+        setRecipes(recipesUpdated)
+
+        return showToast(true, SUCCESS, t('recipe.modal.delete.toast.success.title'), t('recipe.modal.delete.toast.success.content'))
+      })
+      .catch(() => showToast(true, ERROR, t('recipe.modal.delete.toast.error.title'), t('recipe.modal.delete.toast.error.content')))
 
     return setAlertDialog({...alertDialog, open: false})
   }
