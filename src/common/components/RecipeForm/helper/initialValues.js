@@ -1,7 +1,7 @@
-import {get} from 'lodash'
+import {get, isEmpty} from 'lodash'
 
 export default (values) => {
-  if (Object.keys(values).length === 0) {
+  if (isEmpty(values)) {
     return values
   }
 
