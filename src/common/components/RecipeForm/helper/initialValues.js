@@ -1,6 +1,10 @@
 import {get} from 'lodash'
 
 export default (values) => {
+  if (Object.keys(values).length === 0) {
+    return values
+  }
+
   const ingredients = values.ingredients.map((ingredient) => {
     return {
       id: ingredient.id,

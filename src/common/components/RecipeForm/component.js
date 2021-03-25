@@ -2,7 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 
 import {Button, Grid, InputAdornment, Paper} from '@material-ui/core'
 import {Form} from 'react-final-form'
-import {get} from 'lodash'
+import {get, merge} from 'lodash'
 import {number} from 'prop-types'
 import {Radios, TextField} from 'mui-rff'
 import {useHistory} from 'react-router-dom'
@@ -11,21 +11,24 @@ import AddIcon from '@material-ui/icons/AddOutlined'
 import AlarmIcon from '@material-ui/icons/Alarm'
 import arrayMutators from 'final-form-arrays'
 
-import {ALL, ONE, TYPES} from 'common/constants/resources_type'
 import {callApi} from 'common/helpers/repository'
 import {classes as classesProps} from 'common/props'
 import {CREATE, UPDATE} from 'common/constants/context'
-import {GET, POST, PUT} from 'common/constants/methods'
+import {GET} from 'common/constants/methods'
 import {getEndpoint} from 'common/helpers/urlHandler'
-import {getFormattedFormValues, recipeElements} from './helper/dataHandler'
 import {getShowRecipeRoute} from 'common/routing/routesResolver'
-import {INGREDIENTS, QUANTITY_TYPE, RECIPES} from 'common/constants/resources'
+import {handleFetchRequest, handleSubmitRequest} from './helper/apiHandler'
+import {ONE} from 'common/constants/resources_type'
+import {recipeElements} from './helper/dataHandler'
 import {RecipeFormContext} from 'common/context/RecipeFormContext'
+import {RECIPES} from 'common/constants/resources'
 import CTAButton from 'common/components/CTAButton'
+import fieldErrorMessages from './helper/fieldErrorMessages'
 import IngredientFieldArray from 'common/components/Ingredient/IngredientFieldArray'
 import IngredientFields from 'common/components/Ingredient/IngredientFields'
 import initialValues from './helper/initialValues'
 import Page from 'common/components/Page'
+import recipeType from 'common/helpers/recipeType'
 import WysiwygEditor from 'common/components/WysiwygEditor'
 
 function RecipeForm({classes, validateFields, recipeId}) {
@@ -37,26 +40,18 @@ function RecipeForm({classes, validateFields, recipeId}) {
   const [list, setList] = useState({ingredients: [], recipeTypes: []})
 
   useEffect(() => {
-    const taskUrls = [getEndpoint(INGREDIENTS, GET, ALL), getEndpoint(QUANTITY_TYPE, GET, ALL), getEndpoint(RECIPES, GET, TYPES)]
-
-    const executeTasks = async () => {
-      // eslint-disable-next-line no-return-await
-      return await Promise.all(taskUrls.map((url) => callApi(url, GET))).then((values) => {
-        setList(recipeElements(values))
-        setLoaded(true)
-      })
-    }
-
     if (context === UPDATE) {
       const url = getEndpoint(RECIPES, GET, ONE, recipeId)
 
       callApi(url, GET).then(({data}) => {
         setRecipeData(initialValues(data))
-        executeTasks().catch(() => {})
       })
-    } else {
-      executeTasks().catch(() => {})
     }
+
+    handleFetchRequest().then((values) => {
+      setList(recipeElements(values))
+      setLoaded(true)
+    })
   }, [context, recipeId])
 
   const onSubmit = (values) => {
@@ -64,33 +59,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
       return false
     }
 
-    if (context === UPDATE) {
-      return callApi(getEndpoint(RECIPES, PUT, ONE, recipeId), PUT, getFormattedFormValues(values))
-        .then(({data}) => history.push(getShowRecipeRoute(data.id)))
-        .catch(() => {})
-    }
-
-    return callApi(getEndpoint(RECIPES, POST, ONE), POST, getFormattedFormValues(values))
-      .then(({data}) => history.push(getShowRecipeRoute(data.id)))
-      .catch(() => {})
-  }
-
-  // Field error messages
-  const errorFields = {
-    name: {
-      required: t('recipe.page.form.error.field.name.required'),
-    },
-    preparationTime: {
-      required: t('recipe.page.form.error.field.preparationTime.required'),
-      typeError: t('recipe.page.form.error.field.preparationTime.typeError'),
-    },
-  }
-
-  // Key trad for recipe type radio label
-  const recipeType = {
-    starters: t('recipe.page.form.label.field.recipeType.starters'),
-    dish: t('recipe.page.form.label.field.recipeType.dish'),
-    deserts: t('recipe.page.form.label.field.recipeType.deserts'),
+    return handleSubmitRequest(context, recipeId, values).then(({data}) => history.push(getShowRecipeRoute(data.id)))
   }
 
   return (
@@ -101,8 +70,8 @@ function RecipeForm({classes, validateFields, recipeId}) {
             <Paper className={classes.paper}>
               <Form
                 onSubmit={onSubmit}
-                validate={validateFields(errorFields)}
-                initialValues={context === UPDATE ? recipeData : {}}
+                validate={validateFields(fieldErrorMessages(t))}
+                initialValues={merge(recipeData, initialValues({}))}
                 autoComplete="off"
                 mutators={{
                   ...arrayMutators,
@@ -113,7 +82,6 @@ function RecipeForm({classes, validateFields, recipeId}) {
                     mutators: {push},
                   },
                   submitting,
-                  pristine,
                   valid,
                   values,
                 }) => (
@@ -133,7 +101,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
                                 required
                                 data={[
                                   {
-                                    label: recipeType[name],
+                                    label: recipeType(t)[name],
                                     value: `${id}`,
                                   },
                                 ]}
@@ -156,7 +124,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
                                 required
                                 data={[
                                   {
-                                    label: recipeType[name],
+                                    label: recipeType(t)[name],
                                     value: `${id}`,
                                   },
                                 ]}
@@ -199,11 +167,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
                       </Button>
                     </Grid>
                     <Grid item className={classes.ctaButton}>
-                      <CTAButton
-                        label={t('recipe.page.form.label.button.submitButton')}
-                        type="submit"
-                        disabled={submitting || pristine || !valid}
-                      />
+                      <CTAButton label={t('recipe.page.form.label.button.submitButton')} type="submit" disabled={submitting || !valid} />
                     </Grid>
                   </form>
                 )}
