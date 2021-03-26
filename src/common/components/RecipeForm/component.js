@@ -136,7 +136,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
                       })}
                     </Grid>
                     <Grid container spacing={1}>
-                      <Grid item xs={10} sm={6} md={4} lg={3} xl={4}>
+                      <Grid item xs={11} sm={6} md={4} lg={4} xl={4}>
                         <TextField
                           name="preparationTime"
                           type="number"
@@ -149,7 +149,7 @@ function RecipeForm({classes, validateFields, recipeId}) {
                           className={classes.selectField}
                         />
                       </Grid>
-                      <Grid item xs={2} sm={1} md={1} lg={1} xl={1} className={classes.timerIcon}>
+                      <Grid item xs={1} sm={1} md={1} lg={1} xl={1} className={classes.timerIcon}>
                         <AlarmIcon />
                       </Grid>
                     </Grid>
